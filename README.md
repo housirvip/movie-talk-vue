@@ -2,11 +2,13 @@
 
 ### Team Work Assignment
 
-#### Version 1.0 Todo List: Sept. 8th 2019
+#### Todo List: 
 
-1. Chengcheng Hou: HomePage, UserCenter, Login, SignUp
-2. Xinyuan Huang: MoviePage, ReviewPage, ReplyToReview
-3. Peng Kong: DiscoverPage, SearchPage
+![avatar](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNi41MyAxMS4wNkwxNS40NyAxMGwtNC44OCA0Ljg4LTIuMTItMi4xMi0xLjA2IDEuMDZMMTAuNTkgMTdsNS45NC01Ljk0ek0xOSAzaC0xVjFoLTJ2Mkg4VjFINnYySDVjLTEuMTEgMC0xLjk5LjktMS45OSAyTDMgMTljMCAxLjEuODkgMiAyIDJoMTRjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptMCAxNkg1VjhoMTR2MTF6Ii8+Cjwvc3ZnPgo=) From Sept. 8th 2019, Version: 1.0
+
+1. [Chengcheng Hou](https://github.com/housirvip): HomePage, UserCenter, Login, SignUp
+2. [Xinyuan Huang](https://github.com/hxy112292): MoviePage, ReviewPage, ReplyToReview
+3. [Peng Kong](https://github.com/kong-p): DiscoverPage, SearchPage
 
 ## Project setup
 ```
@@ -21,16 +23,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
