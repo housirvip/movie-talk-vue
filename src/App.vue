@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+<!--    <div id="nav">-->
+<!--      <router-link to="/">Home</router-link> |-->
+<!--      <router-link to="/about">About</router-link>-->
+<!--    </div>-->
+    <el-menu class="el-menu-demo" mode="horizontal" router>
+      <el-menu-item index="/">Movie Talk</el-menu-item>
+      <el-menu-item index="/user-center">User Center</el-menu-item>
+    </el-menu>
     <router-view/>
   </div>
 </template>
