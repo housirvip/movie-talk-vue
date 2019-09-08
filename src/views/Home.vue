@@ -12,41 +12,21 @@
         <el-row>
           <el-col :span="9" offset="2">
             <el-table
-              :data="tableData"
+              :data="tableData_movie"
               style="width: 100%">
               <el-table-column
-                prop="date"
-                label="日期"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="姓名"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="地址">
+                prop="movie"
+                label="New Movies List">
               </el-table-column>
             </el-table>
           </el-col>
           <el-col :span="9" offset="2">
             <el-table
-              :data="tableData"
+              :data="tableData_review"
               style="width: 100%">
               <el-table-column
-                prop="date"
-                label="日期"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="姓名"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="地址">
+                prop="review"
+                label="Hot Reviews List">
               </el-table-column>
             </el-table>
           </el-col>
@@ -83,22 +63,51 @@ export default {
       checked: true,
       input3: '',
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+      tableData_movie: [{
+        movie: 'The avenger'
       }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
+        movie: 'The avenger'
       }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
+        movie: 'The avenger'
       }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
+        movie: 'The avenger'
+      }, {
+        movie: 'The avenger'
+      }, {
+        movie: 'The avenger'
+      }, {
+        movie: 'The avenger'
+      }, {
+        movie: 'The avenger'
+      }, {
+        movie: 'The avenger'
+      }, {
+        movie: 'The avenger'
+      }, {
+        movie: 'The avenger'
+      }],
+      tableData_review: [{
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
+      }, {
+        review: 'I love you three thousand'
       }]
     }
   },
