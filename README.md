@@ -1,5 +1,13 @@
 # movie-talk-vue
 
+### Team Work Assignment
+
+#### Version 1.0 Todo List: Sept. 8th 2019
+
+1. Chengcheng Hou: HomePage, UserCenter, Login, SignUp
+2. Xinyuan Huang: MoviePage, ReviewPage, ReplyToReview
+3. Peng Kong: DiscoverPage, SearchPage
+
 ## Project setup
 ```
 npm install
