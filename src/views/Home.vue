@@ -68,7 +68,7 @@ export default {
       }, {
         movie: 'The avenger'
       }, {
-        movie: 'The avenger 1111'
+        movie: 'The avenger'
       }, {
         movie: 'The avenger'
       }, {
