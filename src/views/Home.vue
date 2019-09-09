@@ -66,7 +66,7 @@ export default {
       tableData_movie: [{
         movie: 'The avenger test to push'
       }, {
-        movie: 'The avenger'
+        movie: 'The avenger test'
       }, {
         movie: 'The avenger'
       }, {
