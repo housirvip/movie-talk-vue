@@ -31,13 +31,14 @@ export default new Router({
         },
         {
           path: 'reviews',
-          name: 'reviews',
+          name: 'Reviews',
           component: () => import('./views/user-center/Reviews.vue')
         }
       ]
     },
     {
-      path: '/Discover',
+      // TODO 请明确，path格式 snake-case
+      path: '/discover',
       name: 'Discover',
       component: () => import('./views/Discover.vue')
     }

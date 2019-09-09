@@ -11,7 +11,7 @@
       router>
       <el-menu-item index="/">Movie Talk</el-menu-item>
       <el-menu-item index="/user-center">User Center</el-menu-item>
-      <el-menu-item index="/Discover">Discover</el-menu-item>
+      <el-menu-item index="/discover">Discover</el-menu-item>
     </el-menu>
     <router-view/>
   </div>
