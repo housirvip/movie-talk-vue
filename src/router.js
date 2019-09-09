@@ -14,10 +14,30 @@ export default new Router({
       component: Home
     },
     {
-      path: '/user-center',
+      path: '/authorization',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
+      component: () => import('./views/Authorization.vue'),
+      children: [
+        {
+          path: '/',
+          redirect: 'login'
+        },
+        {
+          path: 'login',
+          name: 'Login',
+          component: () => import('./views/authorization/Login.vue')
+        },
+        {
+          path: 'signup',
+          name: 'SignUp',
+          component: () => import('./views/authorization/SignUp.vue')
+        }
+      ]
+    },
+    {
+      path: '/user-center',
       component: () => import('./views/UserCenter.vue'),
       children: [
         {
