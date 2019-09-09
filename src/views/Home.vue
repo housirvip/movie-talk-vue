@@ -64,7 +64,7 @@ export default {
       input3: '',
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       tableData_movie: [{
-        movie: 'The avenger test to push'
+        movie: 'The avenger'
       }, {
         movie: 'The avenger'
       }, {
