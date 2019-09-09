@@ -4,13 +4,42 @@
 <!--      <router-link to="/">Home</router-link> |-->
 <!--      <router-link to="/about">About</router-link>-->
 <!--    </div>-->
-    <el-menu class="el-menu-demo" mode="horizontal" router>
+    <el-menu
+      class="el-menu-demo"
+      mode="horizontal"
+      :default-active="defaultActive"
+      router>
       <el-menu-item index="/">Movie Talk</el-menu-item>
       <el-menu-item index="/user-center">User Center</el-menu-item>
     </el-menu>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      defaultActive: '/'
+    }
+  },
+  methods: {
+    menuIndex () {
+      // correct the menu index
+      // console.log(this.$route.path)
+      if (this.$route.path.startsWith('/user-center')) {
+        this.defaultActive = '/user-center'
+      } else {
+        this.defaultActive = '/'
+      }
+    }
+  },
+  updated () {
+    this.menuIndex()
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
