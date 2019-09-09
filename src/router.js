@@ -35,6 +35,11 @@ export default new Router({
           component: () => import('./views/user-center/Reviews.vue')
         }
       ]
+    },
+    {
+      path: '/Discover',
+      name: 'Discover',
+      component: () => import('./views/Discover.vue')
     }
   ]
 })
