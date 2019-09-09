@@ -53,6 +53,8 @@
 // @ is an alias to /src
 // import Header from '@/components/Header.vue'
 
+import { AccountService } from '../services/api'
+
 export default {
   name: 'home',
   components: {
@@ -113,6 +115,8 @@ export default {
   },
   methods: {
     search () {
+      console.log('search')
+      AccountService.test().then(res => console.log(res))
     }
   }
 }

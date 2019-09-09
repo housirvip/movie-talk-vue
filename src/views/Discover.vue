@@ -2,7 +2,7 @@
   <div class="Discover">
     <el-main>
       <el-row>
-        <el-col :span="6" offset="12">
+        <el-col :span="6" :offset="12">
           <el-input placeholder="Movie Search" v-model="movieSearchInput" class="input-with-select">
             <el-button slot="append" icon="el-icon-search" @click="MovieSearch"></el-button>
 
