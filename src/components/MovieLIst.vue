@@ -47,7 +47,7 @@ export default {
   methods: {
     toMovie (row, column, event) {
       console.log(row, column)
-      this.$router.push({ path: 'movie' })
+      this.$router.push({ path: '/movie' })
     }
   }
 }
