@@ -70,6 +70,11 @@ export default new Router({
       path: '/writereview',
       name: 'WriteReview',
       component: () => import('./views/WriteReview.vue')
+    },
+    {
+      path: '/writereply',
+      name: 'WriteReply',
+      component: () => import('./views/WriteReply.vue')
     }
   ]
 })

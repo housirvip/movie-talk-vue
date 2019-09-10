@@ -90,7 +90,7 @@
                 <el-button type="danger" size="medium" >Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
-                <el-button type="primary" size="medium" >Reply</el-button>
+                <el-button type="primary" size="medium" @click="writeReply">Reply</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -121,7 +121,7 @@
                 <el-button type="danger" size="medium" >Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
-                <el-button type="primary" size="medium" >Reply</el-button>
+                <el-button type="primary" size="medium" @click="writeReply">Reply</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -152,7 +152,7 @@
                 <el-button type="danger" size="medium" >Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
-                <el-button type="primary" size="medium" >Reply</el-button>
+                <el-button type="primary" size="medium" @click="writeReply">Reply</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -185,6 +185,9 @@ export default {
   methods: {
     writeReview () {
       this.$router.push({ path: '/writereview' })
+    },
+    writeReply () {
+      this.$router.push({ path: '/writereply' })
     }
   }
 }
