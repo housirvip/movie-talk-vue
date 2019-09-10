@@ -61,12 +61,10 @@
         </el-row>
         <el-row>
           <el-col :span="12" :offset="11">
-            <el-button type="danger" size="medium" >Write a review</el-button>
+            <el-button type="danger" size="medium" @click="writeReview">Write a review</el-button>
           </el-col>
         </el-row>
-        <el-row style="margin-bottom: 20px">
-          <el-col :span="24"><div class="grid-content bg-purple-white" style="color: aliceblue"></div></el-col>
-        </el-row>
+        <div style="margin: 20px 0;"></div>
         <el-row>
           <el-col :span="3">
             <el-row>
@@ -97,9 +95,7 @@
             </el-row>
           </el-col>
         </el-row>
-        <el-row style="margin-bottom: 20px">
-          <el-col :span="24"><div class="grid-content bg-purple-white" style="color: aliceblue"></div></el-col>
-        </el-row>
+        <div style="margin: 20px 0;"></div>
         <el-row>
           <el-col :span="3">
             <el-row>
@@ -130,9 +126,7 @@
             </el-row>
           </el-col>
         </el-row>
-        <el-row style="margin-bottom: 20px">
-          <el-col :span="24"><div class="grid-content bg-purple-white" style="color: aliceblue"></div></el-col>
-        </el-row>
+        <div style="margin: 20px 0;"></div>
         <el-row>
           <el-col :span="3">
             <el-row>
@@ -186,6 +180,11 @@ export default {
       scoreSubmit: null,
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       scoreTotal: 8.5
+    }
+  },
+  methods: {
+    writeReview () {
+      this.$router.push({ path: '/writereview' })
     }
   }
 }

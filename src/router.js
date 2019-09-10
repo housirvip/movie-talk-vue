@@ -65,6 +65,11 @@ export default new Router({
       path: '/movie',
       name: 'Movie',
       component: () => import('./views/Movie.vue')
+    },
+    {
+      path: '/writereview',
+      name: 'WriteReview',
+      component: () => import('./views/WriteReview.vue')
     }
   ]
 })
