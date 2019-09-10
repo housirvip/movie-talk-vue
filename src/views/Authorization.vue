@@ -1,12 +1,16 @@
 <template>
   <div class="authorization">
-    <router-view/>
+    <el-container>
+      <el-main>
+        <router-view/>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'authorization'
+  name: 'Authorization'
 }
 </script>
 

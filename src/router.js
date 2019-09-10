@@ -57,10 +57,14 @@ export default new Router({
       ]
     },
     {
-      // TODO 请明确，path格式 snake-case
       path: '/discover',
       name: 'Discover',
       component: () => import('./views/Discover.vue')
+    },
+    {
+      path: '/movie',
+      name: 'Movie',
+      component: () => import('./views/Movie.vue')
     }
   ]
 })

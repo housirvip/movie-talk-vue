@@ -11,14 +11,7 @@
         </el-row>
         <el-row>
           <el-col :span="9" :offset="2">
-            <el-table
-              :data="tableData_movie"
-              style="width: 100%">
-              <el-table-column
-                prop="movie"
-                label="New Movies List">
-              </el-table-column>
-            </el-table>
+            <MovieLIst></MovieLIst>
           </el-col>
           <el-col :span="9" :offset="2">
             <el-table
@@ -31,63 +24,38 @@
             </el-table>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="4" :offset="2">
-            <el-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"></el-image>
-          </el-col>
-          <el-col :span="18">
-            <el-row>
-              <el-col :span="4" :offset="2">
-                <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>
-              </el-col>
-            </el-row>
-            <el-row>asdasdasdasdasdasdasdasdasd</el-row>
-          </el-col>
-        </el-row>
+<!--        <el-row>-->
+<!--          <el-col :span="4" :offset="2">-->
+<!--            <el-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"></el-image>-->
+<!--          </el-col>-->
+<!--          <el-col :span="18">-->
+<!--            <el-row>-->
+<!--              <el-col :span="4" :offset="2">-->
+<!--                <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
+<!--            <el-row>asdasdasdasdasdasdasdasdasd</el-row>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
       </el-main>
     </el-container>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import Header from '@/components/Header.vue'
-
+import MovieLIst from '../components/MovieLIst'
 import { AccountService } from '../services/api'
 
 export default {
   name: 'home',
   components: {
-    // Header
+    MovieLIst
   },
   data () {
     return {
       checked: true,
       searchCriteria: '',
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      tableData_movie: [{
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
-      }],
       tableData_review: [{
         review: 'I love you three thousand'
       }, {
