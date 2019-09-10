@@ -96,6 +96,11 @@
             </el-row>
           </el-col>
         </el-row>
+        <div style="margin: 20px 0;"></div>
+        <el-pagination style="text-align: right"
+          layout="prev, pager, next"
+          :total="50">
+        </el-pagination>
       </el-main>
     </el-container>
 </template>
