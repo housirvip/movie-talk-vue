@@ -60,7 +60,7 @@
         <el-row>
           <el-col :span="4" :offset="0.5">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -68,7 +68,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -76,7 +76,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -84,7 +84,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -92,7 +92,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -105,7 +105,7 @@
         <el-row>
           <el-col :span="4" :offset="0.5">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -113,7 +113,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -121,7 +121,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -129,7 +129,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -137,7 +137,7 @@
           </el-col>
           <el-col :span="4" :offset="1">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg" @click="toMovie"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -227,6 +227,10 @@ export default {
       return {
         moviePng: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
       }
+    },
+    toMovie () {
+      console.log('tomovie')
+      this.$router.push({ path: '/movie' })
     }
   }
 }
