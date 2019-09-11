@@ -75,6 +75,11 @@ export default new Router({
       path: '/writereply',
       name: 'WriteReply',
       component: () => import('./views/WriteReply.vue')
+    },
+    {
+      path: '/searchmovie',
+      name: 'SearchMovie',
+      component: () => import('./views/SearchMovie.vue')
     }
   ]
 })
