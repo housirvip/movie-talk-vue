@@ -46,38 +46,34 @@
         <div style="margin: 20px 0;"></div>
         <el-row>
           <el-col :span="4">
-            <el-dropdown split-button @click="handleClick">
-              Year
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>2019</el-dropdown-item>
-                <el-dropdown-item>2018</el-dropdown-item>
-                <el-dropdown-item>2017</el-dropdown-item>
-                <el-dropdown-item>2016</el-dropdown-item>
-                <el-dropdown-item>2015</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <el-select v-model="year" placeholder="year" @change="movieDiscover1">
+              <el-option
+                v-for="item in years"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-col>
           <el-col :span="4">
-            <el-dropdown split-button @click="handleClick">
-              Sort by
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>Popularity</el-dropdown-item>
-                <el-dropdown-item>Rating</el-dropdown-item>
-                <el-dropdown-item>Release Date</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <el-select v-model="genre" placeholder="genre" @change="movieDiscover1">
+              <el-option
+                v-for="item in genres"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-col>
           <el-col :span="4">
-            <el-dropdown split-button @click="handleClick">
-              Genres
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>Roman</el-dropdown-item>
-                <el-dropdown-item>History</el-dropdown-item>
-                <el-dropdown-item>Adventure</el-dropdown-item>
-                <el-dropdown-item>Crime</el-dropdown-item>
-                <el-dropdown-item>Anime</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <el-select v-model="sort" placeholder="sort" @change="movieDiscover1">
+              <el-option
+                v-for="item in sorts"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-col>
         </el-row>
 
@@ -85,7 +81,7 @@
         <el-row>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -93,7 +89,7 @@
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -101,7 +97,7 @@
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -109,7 +105,7 @@
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -132,7 +128,7 @@
         <el-row>
           <el-col :span="6">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -166,7 +162,7 @@
         <el-row>
           <el-col :span="6">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -206,7 +202,7 @@
         <el-row>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -214,7 +210,7 @@
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -222,7 +218,7 @@
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -230,7 +226,7 @@
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+              <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
               The Avenger
@@ -256,6 +252,7 @@ export default {
       checked: true,
       searchCriteria: '',
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+      moviePng: 'https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg',
       tableData_review: [{
         review: 'I love you three thousand'
       }, {
@@ -278,7 +275,52 @@ export default {
         review: 'I love you three thousand'
       }, {
         review: 'I love you three thousand'
-      }]
+      }],
+      years: [{
+        value: '2019',
+        label: '2019'
+      }, {
+        value: '2018',
+        label: '2018'
+      }, {
+        value: '2017',
+        label: '2017'
+      }, {
+        value: '2016',
+        label: '2016'
+      }, {
+        value: '2015',
+        label: '2015'
+      }],
+      year: '',
+      genres: [{
+        value: 'Roman',
+        label: 'Roman'
+      }, {
+        value: 'History',
+        label: 'History'
+      }, {
+        value: 'Crime',
+        label: 'Crime'
+      }, {
+        value: 'Anime',
+        label: 'Anime'
+      }, {
+        value: 'Adventure',
+        label: 'Adventure'
+      }],
+      genre: '',
+      sorts: [{
+        value: 'popularity',
+        label: 'popularity'
+      }, {
+        value: 'rating',
+        label: 'rating'
+      }, {
+        value: 'release day',
+        label: 'release day'
+      }],
+      sort: ''
     }
   },
   methods: {
@@ -291,6 +333,11 @@ export default {
     },
     toMovie () {
       this.$router.push({ path: '/movie' })
+    },
+    movieDiscover1 () {
+      return {
+        moviePng: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+      }
     }
   }
 }
