@@ -12,6 +12,9 @@
       <el-menu-item index="/">Movie Talk</el-menu-item>
       <el-menu-item index="/user-center">User Center</el-menu-item>
       <el-menu-item index="/discover">Discover</el-menu-item>
+      <el-menu-item index="/movie">Movie</el-menu-item>
+      <el-menu-item index="/authorization/login">Login</el-menu-item>
+      <el-menu-item index="/authorization/signup">SignUp</el-menu-item>
     </el-menu>
     <router-view/>
   </div>
