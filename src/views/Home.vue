@@ -84,7 +84,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="4">
@@ -92,7 +92,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="4">
@@ -100,7 +100,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="4">
@@ -108,7 +108,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="4">
@@ -131,7 +131,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="12" :offset="0">
@@ -165,7 +165,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="12" :offset="0">
@@ -205,7 +205,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{ movieName }}
             </el-row>
           </el-col>
           <el-col :span="4">
@@ -213,7 +213,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="4">
@@ -221,7 +221,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
           <el-col :span="4">
@@ -229,7 +229,7 @@
               <el-image :src="moviePng"></el-image>
             </el-row>
             <el-row>
-              The Avenger
+              {{movieName}}
             </el-row>
           </el-col>
         </el-row>
@@ -253,6 +253,7 @@ export default {
       searchCriteria: '',
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       moviePng: 'https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg',
+      movieName: 'The Avenger',
       tableData_review: [{
         review: 'I love you three thousand'
       }, {
@@ -335,9 +336,8 @@ export default {
       this.$router.push({ path: '/movie' })
     },
     movieDiscover1 () {
-      return {
-        moviePng: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-      }
+      this.moviePng = 'https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg'
+      this.movieName = 'The Avenger 4'
     }
   }
 }
