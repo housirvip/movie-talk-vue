@@ -291,6 +291,9 @@ export default {
     },
     toMovie () {
       this.$router.push({ path: '/movie' })
+    },
+    handleClick () {
+
     }
   }
 }

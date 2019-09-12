@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="6" :offset="18">
           <el-input placeholder="Movie Search" v-model="movieSearchInput" class="input-with-select">
-            <el-button slot="append" icon="el-icon-search" @click="MovieSearch"></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="movieSearch"></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -167,14 +167,16 @@ export default {
   name: 'Discover',
   data () {
     return {
-      // TODO 请明确，变量名格式 lowerCamelCase
       movieSearchInput: '',
       value: ''
     }
   },
   methods: {
-    MovieSearch () {
+    movieSearch () {
       // Todo Search Movies according input
+    },
+    handleClick () {
+
     }
   }
 }
