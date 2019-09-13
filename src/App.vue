@@ -30,8 +30,6 @@ export default {
   },
   methods: {
     menuIndex () {
-      // correct the menu index
-      // console.log(this.$route.path)
       if (this.$route.path.startsWith('/user-center')) {
         this.defaultActive = '/user-center'
       } else {

@@ -86,7 +86,7 @@
               in there since he’s supposed to be uncontrol.
             </el-row>
             <el-row>
-              <el-col :span="6" offset="16" style="text-align: right">
+              <el-col :span="6" :offset="16" style="text-align: right">
                 <el-button type="danger" size="medium" >Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
@@ -117,7 +117,7 @@
               in there since he’s supposed to be uncontrol.
             </el-row>
             <el-row>
-              <el-col :span="6" offset="16" style="text-align: right">
+              <el-col :span="6" :offset="16" style="text-align: right">
                 <el-button type="danger" size="medium" >Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
@@ -148,7 +148,7 @@
               in there since he’s supposed to be uncontrol.
             </el-row>
             <el-row>
-              <el-col :span="6" offset="16" style="text-align: right">
+              <el-col :span="6" :offset="16" style="text-align: right">
                 <el-button type="danger" size="medium" >Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
