@@ -56,11 +56,17 @@ _axios.interceptors.response.use(
   },
   function (error) {
     // Do something with response error
-    Message({
-      message: `Error: ${error.message}`,
-      type: 'error',
-      duration: 2 * 1000
-    })
+    if (error.response) {
+      if (error.response.status === 401) {
+        store.commit(types.STORE_LOGOUT)
+      }
+      let message = error.response.message || error.response.data.message
+      Message({
+        message: `Error: ${message}`,
+        type: 'error',
+        duration: 2 * 1000
+      })
+    }
     return Promise.reject(error)
   }
 )

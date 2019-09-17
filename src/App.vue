@@ -14,7 +14,6 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-if="user.uid"><span @click="toUserCenter()">MyCenter</span></el-dropdown-item>
           <el-dropdown-item v-if="user.uid"><span @click="refreshMe()">RefreshMe</span></el-dropdown-item>
-<!--          <el-dropdown-item><span @click="onModifyPassword()">修改密码</span></el-dropdown-item>-->
           <el-dropdown-item v-if="user.uid"><span @click="logout()">LogOut</span></el-dropdown-item>
           <el-dropdown-item v-if="!user.uid"><span @click="toLogin()">Login</span></el-dropdown-item>
           <el-dropdown-item v-if="!user.uid"><span @click="toSignUp()">SignUp</span></el-dropdown-item>
@@ -52,6 +51,7 @@ export default {
     },
     logout () {
       AccountService.logout()
+      this.$message.success('Logged out, redirecting...')
       this.$router.push({ path: '/' })
     },
     refreshMe () {

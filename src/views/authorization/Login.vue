@@ -59,7 +59,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           AccountService.login(this.ruleForm).then(() => {
-            this.$message.success('Login success, redirecting...')
+            this.$message.success('Logged in, redirecting...')
             // if logged in, get detail from server
             UserService.detail()
             // redirect to user center
