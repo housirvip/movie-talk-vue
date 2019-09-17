@@ -26,7 +26,7 @@
 
 <script>
 import MovieLIst from '../../components/MovieLIst'
-import { AccountService } from '../../services/api'
+import { AccountService, UserService } from '../../services/api'
 
 export default {
   name: 'Login',
@@ -60,6 +60,10 @@ export default {
         if (valid) {
           AccountService.login(this.ruleForm).then(() => {
             this.$message.success('Login success, redirecting...')
+            // if logged in, get detail from server
+            UserService.detail()
+            // redirect to user center
+            this.$router.push({ path: '/user-center' })
           }).catch(() => {})
         } else {
           this.$message.error('Form error, please correct it')

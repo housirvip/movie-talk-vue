@@ -1,26 +1,23 @@
 <template>
   <div id="app">
-<!--    <div id="nav">-->
-<!--      <router-link to="/">Home</router-link> |-->
-<!--      <router-link to="/about">About</router-link>-->
-<!--    </div>-->
     <el-menu
       class="el-menu-demo"
       mode="horizontal"
       :default-active="defaultActive"
       router>
       <el-menu-item index="/">Movie Talk</el-menu-item>
-      <el-menu-item index="/user-center">User Center</el-menu-item>
       <el-menu-item index="/discover">Discover</el-menu-item>
-      <el-menu-item index="/movie">Movie</el-menu-item>
       <el-menu-item index="/auth/login">Login</el-menu-item>
       <el-menu-item index="/auth/signup">SignUp</el-menu-item>
+      <el-menu-item index="/user-center">{{user.uid>0?user.username:'User Center'}}</el-menu-item>
     </el-menu>
     <router-view/>
   </div>
 </template>
 
 <script>
+import { UserService } from './services/api'
+
 export default {
   name: 'App',
   data () {
@@ -28,16 +25,30 @@ export default {
       defaultActive: '/'
     }
   },
+  computed: {
+    user: function () {
+      return this.$store.state.global.user
+    }
+  },
   methods: {
     menuIndex () {
       if (this.$route.path.startsWith('/user-center')) {
         this.defaultActive = '/user-center'
+      } else if (this.$route.path.startsWith('/discover')) {
+        this.defaultActive = '/discover'
       } else {
         this.defaultActive = '/'
       }
     }
   },
+  mounted: function () {
+    // get user detail from backend
+    if (this.user.uid > 0) {
+      UserService.detail()
+    }
+  },
   updated () {
+    // refresh the active index
     this.menuIndex()
   }
 }

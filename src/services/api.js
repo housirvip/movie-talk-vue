@@ -12,14 +12,6 @@ export class Urls {
 let axios = Vue.axios
 
 export class AccountService {
-  static test () {
-    return axios.get('http://www.baidu.com')
-      .then(res => {
-        return Promise.resolve(res.result)
-      }).catch(() => {
-      })
-  }
-
   static login (form) {
     return axios.post('auth/login', form)
       .then(res => {
@@ -44,13 +36,12 @@ export class AccountService {
 
   static logout () {
     store.commit(types.STORE_LOGOUT)
-    return axios.get('auth/logout')
-      .then(res => {
-        store.commit(types.STORE_LOGOUT)
-        return Promise.resolve(res.result)
-      }).catch(error => {
-        return Promise.reject(error)
-      })
+    // return axios.get('user/logout')
+    //   .then(res => {
+    //     return Promise.resolve(res.result)
+    //   }).catch(error => {
+    //     return Promise.reject(error)
+    //   })
   }
 
   static changePass (form) {
@@ -85,24 +76,17 @@ function loginCommit (jwt) {
 }
 
 export class UserService {
-  static me () {
+  static detail () {
     return axios.get('user/detail')
       .then(res => {
         if (res.result) {
           let u = res.result
-          let i = res.result.userInfo
           let user = {
             uid: u.id,
             username: u.username,
             email: u.email,
             phone: u.phone,
-            nickname: i.nickname,
-            address: i.address,
-            avatar: i.avatar === 'unknown' ? null : i.avatar,
-            gender: i.gender,
-            state: i.state,
-            birthday: i.birthday > 0 ? i.birthday : null,
-            level: u.level ? u.level : 0
+            level: u.level || 0
           }
           store.commit(types.STORE_USER, user)
         }
