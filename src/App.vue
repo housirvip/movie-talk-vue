@@ -55,6 +55,7 @@ export default {
       this.$router.push({ path: '/' })
     },
     refreshMe () {
+      UserService.detail()
     },
     toUserCenter () {
       this.$router.push({ path: '/user-center' })
@@ -68,8 +69,8 @@ export default {
   },
   mounted: function () {
     // get user detail from backend
-    if (this.user.uid > 0) {
-      UserService.detail()
+    if (this.user.uid) {
+      this.refreshMe()
     }
   },
   updated () {
