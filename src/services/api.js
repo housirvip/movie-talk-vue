@@ -25,7 +25,8 @@ export class AccountService {
       .then(res => {
         loginCommit(res.result)
         return Promise.resolve(res.result)
-      }).catch(() => {
+      }).catch(error => {
+        return Promise.reject(error)
       })
   }
 
@@ -36,7 +37,8 @@ export class AccountService {
           loginCommit(res.result)
         }
         return Promise.resolve(res.result)
-      }).catch(() => {
+      }).catch(error => {
+        return Promise.reject(error)
       })
   }
 
@@ -46,7 +48,8 @@ export class AccountService {
       .then(res => {
         store.commit(types.STORE_LOGOUT)
         return Promise.resolve(res.result)
-      }).catch(() => {
+      }).catch(error => {
+        return Promise.reject(error)
       })
   }
 
@@ -56,7 +59,8 @@ export class AccountService {
         console.log(res)
         res.result === 'success' && store.commit(types.STORE_LOGOUT)
         return Promise.resolve(res.result)
-      }).catch(() => {
+      }).catch(error => {
+        return Promise.reject(error)
       })
   }
 
@@ -68,7 +72,8 @@ export class AccountService {
       if (res.result) {
         loginCommit(res.result)
       }
-    }).catch(() => {
+    }).catch(error => {
+      return Promise.reject(error)
     })
   }
 }
@@ -102,7 +107,8 @@ export class UserService {
           }
           store.commit(types.STORE_USER, user)
         }
-      }).catch(() => {
+      }).catch(error => {
+        return Promise.reject(error)
       })
   }
 
@@ -110,7 +116,8 @@ export class UserService {
     return axios.put('user/info', info)
       .then(res => {
         return Promise.resolve(res.result)
-      }).catch(() => {
+      }).catch(error => {
+        return Promise.reject(error)
       })
   }
 }
@@ -119,7 +126,8 @@ export class SecurityService {
   static sms (phone) {
     return axios.get(`noauth/user/sms/${phone}`).then(res => {
       return Promise.resolve(true)
-    }).catch(() => {
+    }).catch(error => {
+      return Promise.reject(error)
     })
   }
 
@@ -127,7 +135,8 @@ export class SecurityService {
     return axios.get('token/qiniu')
       .then(res => {
         return Promise.resolve(res.result)
-      }).catch(() => {
+      }).catch(error => {
+        return Promise.reject(error)
       })
   }
 }

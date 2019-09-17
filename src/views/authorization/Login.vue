@@ -5,8 +5,8 @@
         <el-page-header @back="goBack" content="Login Page"></el-page-header>
         <el-divider></el-divider>
         <el-form label-position="right" label-width="80px" :model="ruleForm" :rules="rules" ref="ruleForm">
-          <el-form-item label="username" required prop="username">
-            <el-input v-model="ruleForm.username"></el-input>
+          <el-form-item label="account" required prop="account">
+            <el-input v-model="ruleForm.account"></el-input>
           </el-form-item>
           <el-form-item label="password" required prop="password" >
             <el-input v-model="ruleForm.password" type="password"></el-input>
@@ -26,6 +26,7 @@
 
 <script>
 import MovieLIst from '../../components/MovieLIst'
+import { AccountService } from '../../services/api'
 
 export default {
   name: 'Login',
@@ -35,12 +36,12 @@ export default {
   data () {
     return {
       ruleForm: {
-        username: '',
+        account: '',
         password: ''
       },
       rules: {
-        username: [
-          { required: true, message: 'Enter your username', trigger: 'blur' },
+        account: [
+          { required: true, message: 'Enter your account', trigger: 'blur' },
           { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
         ],
         password: [
@@ -58,8 +59,11 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log(this.ruleForm)
+          AccountService.login(this.ruleForm).then(() => {
+            this.$message.success('Login success, redirecting...')
+          }).catch(() => {})
         } else {
-          console.log('error submit!!')
+          this.$message.error('Form error, please correct it')
           return false
         }
       })
