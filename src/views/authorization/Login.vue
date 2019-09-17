@@ -58,7 +58,6 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm)
           AccountService.login(this.ruleForm).then(() => {
             this.$message.success('Login success, redirecting...')
           }).catch(() => {})

@@ -20,8 +20,8 @@ export class AccountService {
       })
   }
 
-  static login (auth) {
-    return axios.post('auth/login', auth)
+  static login (form) {
+    return axios.post('auth/login', form)
       .then(res => {
         loginCommit(res.result)
         return Promise.resolve(res.result)
@@ -30,8 +30,8 @@ export class AccountService {
       })
   }
 
-  static register (auth) {
-    return axios.post('auth/register', auth)
+  static register (form) {
+    return axios.post('auth/signup', form)
       .then(res => {
         if (res.result) {
           loginCommit(res.result)
@@ -53,10 +53,9 @@ export class AccountService {
       })
   }
 
-  static changePass (auth) {
-    return axios.post('auth/change_pass', auth)
+  static changePass (form) {
+    return axios.post('auth/change_pass', form)
       .then(res => {
-        console.log(res)
         res.result === 'success' && store.commit(types.STORE_LOGOUT)
         return Promise.resolve(res.result)
       }).catch(error => {
