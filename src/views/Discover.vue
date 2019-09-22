@@ -185,33 +185,121 @@ export default {
       }, {
         value: '2015',
         label: '2015'
-      }],
+      }, {
+        value: '2014',
+        label: '2014'
+      }, {
+        value: '2013',
+        label: '2013'
+      }, {
+        value: '2012',
+        label: '2012'
+      }, {
+        value: '2011',
+        label: '2011'
+      }, {
+        value: '2010',
+        label: '2010'
+      }, {
+        value: '2009',
+        label: '2009'
+      }, {
+        value: '2008',
+        label: '2008'
+      }, {
+        value: '2007',
+        label: '2007'
+      }, {
+        value: '2006',
+        label: '2006'
+      }, {
+        value: '2005',
+        label: '2005'
+      }, {
+        value: '2004',
+        label: '2004'
+      }, {
+        value: '2003',
+        label: '2003'
+      }, {
+        value: '2002',
+        label: '2002'
+      }, {
+        value: '2001',
+        label: '2001'
+      }, {
+        value: '2000',
+        label: '2000'
+      }, {
+        value: '1999',
+        label: '1999'
+      }
+      ],
       year: '',
       genres: [{
-        value: 'Roman',
-        label: 'Roman'
+        value: '10749',
+        label: 'Romance'
       }, {
-        value: 'History',
+        value: '36',
         label: 'History'
       }, {
-        value: 'Crime',
+        value: '80',
         label: 'Crime'
       }, {
-        value: 'Anime',
-        label: 'Anime'
-      }, {
-        value: 'Adventure',
+        value: '12',
         label: 'Adventure'
+      }, {
+        value: '28',
+        label: 'Action'
+      }, {
+        value: '16',
+        label: 'Animation'
+      }, {
+        value: '35',
+        label: 'Comedy'
+      }, {
+        value: '99',
+        label: 'Documentary'
+      }, {
+        value: '18',
+        label: 'Drama'
+      }, {
+        value: '10751',
+        label: 'Family'
+      }, {
+        value: '14',
+        label: 'Fantasy'
+      }, {
+        value: '27',
+        label: 'Horror'
+      }, {
+        value: '10402',
+        label: 'Music'
+      }, {
+        value: '9648',
+        label: 'Mystery'
+      }, {
+        value: '878',
+        label: 'Science Fiction'
+      }, {
+        value: '10770',
+        label: 'TV Movie'
+      }, {
+        value: '53',
+        label: 'Thriller'
+      }, {
+        value: '10752',
+        label: 'War'
+      }, {
+        value: '37',
+        label: 'Western'
       }],
       genre: '',
       sorts: [{
-        value: 'popularity',
+        value: 'popularity.desc',
         label: 'popularity'
       }, {
-        value: 'rating',
-        label: 'rating'
-      }, {
-        value: 'release day',
+        value: 'release_day.desc',
         label: 'release day'
       }],
       sort: ''

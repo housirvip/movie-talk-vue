@@ -81,38 +81,38 @@
         <el-row>
           <el-col :span="4">
             <el-row>
-              <el-image :src="moviePng1"></el-image>
+              <el-image :src="movieDiscoverPng1" @click="toMovie(movieDiscoverIds[0])"></el-image>
             </el-row>
             <el-row>
-              {{movieName1}}
+              <el-link :underline="false" v-model="movieDiscoverName1" @click="toMovie(movieDiscoverIds[0])">{{movieDiscoverName1}}</el-link>
             </el-row>
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image :src="moviePng2"></el-image>
+              <el-image :src="movieDiscoverPng2" @click="toMovie(movieDiscoverIds[1])"></el-image>
             </el-row>
             <el-row>
-              {{movieName2}}
+              <el-link :underline="false" v-model="movieDiscoverName2" @click="toMovie(movieDiscoverIds[1])">{{movieDiscoverName2}}</el-link>
             </el-row>
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image :src="moviePng3"></el-image>
+              <el-image :src="movieDiscoverPng3" @click="toMovie(movieDiscoverIds[2])"></el-image>
             </el-row>
             <el-row>
-              {{movieName3}}
+              <el-link :underline="false" v-model="movieDiscoverName3" @click="toMovie(movieDiscoverIds[2])">{{movieDiscoverName3}}</el-link>
             </el-row>
           </el-col>
           <el-col :span="4">
             <el-row>
-              <el-image :src="moviePng4"></el-image>
+              <el-image :src="movieDiscoverPng4" @click="toMovie(movieDiscoverIds[3])"></el-image>
             </el-row>
             <el-row>
-              {{movieName4}}
+              <el-link :underline="false" v-model="movieDiscoverName4" @click="toMovie(movieDiscoverIds[3])">{{movieDiscoverName4}}</el-link>
             </el-row>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary" @click="discover">See more</el-button>
+            <el-button type="primary" @click="movieDiscover2">See more</el-button>
           </el-col>
         </el-row>
         <div style="margin: 20px 0;"></div>
@@ -254,14 +254,15 @@ export default {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       moviePng: 'https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg',
       movieName: 'The Avenger',
-      moviePng1: '',
-      movieName1: '',
-      moviePng2: '',
-      movieName2: '',
-      moviePng3: '',
-      movieName3: '',
-      moviePng4: '',
-      movieName4: '',
+      movieDiscoverPng1: '',
+      movieDiscoverName1: '',
+      movieDiscoverPng2: '',
+      movieDiscoverName2: '',
+      movieDiscoverPng3: '',
+      movieDiscoverName3: '',
+      movieDiscoverPng4: '',
+      movieDiscoverName4: '',
+      movieDiscoverIds: [],
       tableData_review: [{
         review: 'I love you three thousand'
       }, {
@@ -421,14 +422,18 @@ export default {
   created () {
     MovieService.discoverMovie(2019, 10749, 'popularity.desc', 1).then(
       result => {
-        this.moviePng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
-        this.moviePng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
-        this.moviePng3 = 'https://image.tmdb.org/t/p/w200/' + result.results[2].poster_path
-        this.moviePng4 = 'https://image.tmdb.org/t/p/w200/' + result.results[3].poster_path
-        this.movieName1 = result.results[0].title
-        this.movieName2 = result.results[1].title
-        this.movieName3 = result.results[2].title
-        this.movieName4 = result.results[3].title
+        this.movieDiscoverPng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
+        this.movieDiscoverPng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
+        this.movieDiscoverPng3 = 'https://image.tmdb.org/t/p/w200/' + result.results[2].poster_path
+        this.movieDiscoverPng4 = 'https://image.tmdb.org/t/p/w200/' + result.results[3].poster_path
+        this.movieDiscoverName1 = result.results[0].title
+        this.movieDiscoverName2 = result.results[1].title
+        this.movieDiscoverName3 = result.results[2].title
+        this.movieDiscoverName4 = result.results[3].title
+        for (var i = 0; i < 4; i++) {
+          // eslint-disable-next-line no-undef
+          this.movieDiscoverIds[i] = result.results[i].id
+        }
       }
     )
   },
@@ -437,28 +442,44 @@ export default {
       console.log('search')
       AccountService.test().then(res => console.log(res))
     },
-    discover () {
-      this.$router.push({ path: '/discover' })
-    },
-    toMovie () {
-      this.$router.push({ path: '/movie' })
+    toMovie (id) {
+      this.$router.push({ path: '/movie', query: { id: id } })
     },
     movieDiscover1 () {
       // eslint-disable-next-line eqeqeq
       if (this.year != '' && this.genre != '') {
         MovieService.discoverMovie(this.year, this.genre, this.sort, 1).then(
           result => {
-            this.moviePng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
-            this.moviePng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
-            this.moviePng3 = 'https://image.tmdb.org/t/p/w200/' + result.results[2].poster_path
-            this.moviePng4 = 'https://image.tmdb.org/t/p/w200/' + result.results[3].poster_path
-            this.movieName1 = result.results[0].title
-            this.movieName2 = result.results[1].title
-            this.movieName3 = result.results[2].title
-            this.movieName4 = result.results[3].title
+            this.movieDiscoverPng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
+            this.movieDiscoverPng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
+            this.movieDiscoverPng3 = 'https://image.tmdb.org/t/p/w200/' + result.results[2].poster_path
+            this.movieDiscoverPng4 = 'https://image.tmdb.org/t/p/w200/' + result.results[3].poster_path
+            this.movieDiscoverName1 = result.results[0].title
+            this.movieDiscoverName2 = result.results[1].title
+            this.movieDiscoverName3 = result.results[2].title
+            this.movieDiscoverName4 = result.results[3].title
+            for (var i = 0; i < 4; i++) {
+              // eslint-disable-next-line no-undef
+              this.movieDiscoverIds[i] = result.results[i].id
+            }
           }
         )
       }
+    },
+    movieDiscover2 () {
+      // eslint-disable-next-line eqeqeq
+      if (this.year == '') {
+        this.year = 2019
+      }
+      // eslint-disable-next-line eqeqeq
+      if (this.genre == '') {
+        this.genre = 10749
+      }
+      // eslint-disable-next-line eqeqeq
+      if (this.sort == '') {
+        this.sort = 'popularity.desc'
+      }
+      this.$router.push({ path: '/discover', query: { year: this.year, genre: this.genre, sort: this.sort } })
     }
   }
 }
