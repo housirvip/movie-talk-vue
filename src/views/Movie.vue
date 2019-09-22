@@ -181,7 +181,7 @@ export default {
       }],
       scoreSubmit: null,
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      scoreTotal: '',
+      scoreTotal: 0,
       movieId: this.$route.query.id,
       Introduction: '',
       movieImage: ''
