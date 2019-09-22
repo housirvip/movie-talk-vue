@@ -150,8 +150,8 @@ export class MovieService {
   }
 
   // eslint-disable-next-line camelcase
-  static discoverMovie (year, with_genres, sort_by) {
-    return axios.get(`/movie/discover`, { params: { year: year, with_genres: with_genres, sort_by: sort_by } }).then(res => {
+  static discoverMovie (year, with_genres, sort_by, page) {
+    return axios.get(`/movie/discover`, { params: { year: year, with_genres: with_genres, sort_by: sort_by, page: page } }).then(res => {
       return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)

@@ -419,7 +419,7 @@ export default {
     }
   },
   created () {
-    MovieService.discoverMovie(2019, 10749, 'popularity.desc').then(
+    MovieService.discoverMovie(2019, 10749, 'popularity.desc', 1).then(
       result => {
         this.moviePng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
         this.moviePng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
@@ -446,7 +446,7 @@ export default {
     movieDiscover1 () {
       // eslint-disable-next-line eqeqeq
       if (this.year != '' && this.genre != '') {
-        MovieService.discoverMovie(this.year, this.genre, this.sort).then(
+        MovieService.discoverMovie(this.year, this.genre, this.sort, 1).then(
           result => {
             this.moviePng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
             this.moviePng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
