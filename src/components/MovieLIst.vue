@@ -5,8 +5,10 @@
       style="width: 100%"
       @row-click="toMovie">
       <el-table-column
-        prop="title"
         label="New Movies">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.$index + 1 + ". " + scope.row.title }}</span>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -19,48 +21,15 @@ export default {
   name: 'MovieLIst',
   data () {
     return {
-      tableData_movie: [{
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }, {
-        id: '',
-        title: ''
-      }]
+      tableData_movie: []
     }
   },
   created () {
     MovieService.findNewPlaying().then(
       result => {
-        for (var i = 0; i < 10; i++) {
-          this.tableData_movie[i].title = (i + 1) + '. ' + result.results[i].title
-          this.tableData_movie[i].id = result.results[i].id
-        }
+        this.tableData_movie = result.results.slice(0, 10)
       }
-    )
+    ).catch(() => {})
   },
   methods: {
     toMovie (row, column, event) {

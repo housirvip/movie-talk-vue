@@ -240,7 +240,7 @@
 
 <script>
 import MovieLIst from '../components/MovieLIst'
-import { AccountService, MovieService } from '../services/api'
+import { MovieService } from '../services/api'
 
 export default {
   name: 'home',
