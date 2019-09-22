@@ -5,7 +5,7 @@
         <el-row>
           <el-col :span="6" :offset="9">
             <el-input placeholder="search bar" v-model="searchCriteria" class="input-with-select">
-              <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+              <el-button slot="append" icon="el-icon-search" @click="search(searchCriteria)"></el-button>
             </el-input>
           </el-col>
         </el-row>
@@ -438,9 +438,8 @@ export default {
     )
   },
   methods: {
-    search () {
-      console.log('search')
-      AccountService.test().then(res => console.log(res))
+    search (searchCriteria) {
+      this.$router.push({ path: '/searchmovie', query: { query: searchCriteria } })
     },
     toMovie (id) {
       this.$router.push({ path: '/movie', query: { id: id } })
