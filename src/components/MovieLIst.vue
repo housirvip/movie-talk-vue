@@ -56,7 +56,7 @@ export default {
     MovieService.findNewPlaying().then(
       result => {
         for (var i = 0; i < 10; i++) {
-          this.tableData_movie[i].title = result.results[i].title
+          this.tableData_movie[i].title = (i + 1) + '. ' + result.results[i].title
           this.tableData_movie[i].id = result.results[i].id
         }
       }

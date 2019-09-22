@@ -4,7 +4,7 @@
       <el-main>
         <el-row>
           <el-col :span="6" :offset="0">
-            <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
+            <el-image :src="movieImage"></el-image>
           </el-col>
           <el-col :span="6" :offset="0">
             <el-table
@@ -183,7 +183,8 @@ export default {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       scoreTotal: 8.5,
       movieId: this.$route.query.id,
-      Introduction: ''
+      Introduction: '',
+      movieImage: ''
     }
   },
   created () {
@@ -192,6 +193,7 @@ export default {
         this.tabledData_MovieInfo[0].MovieInfo = 'Title: ' + result.title
         this.tabledData_MovieInfo[1].MovieInfo = 'Pubdate: ' + result.release_date
         this.Introduction = result.overview
+        this.movieImage = 'https://image.tmdb.org/t/p/w200/' + result.poster_path
       }
     )
 

@@ -274,8 +274,6 @@ export default {
         review: 'I love you three thousand'
       }, {
         review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
       }],
       years: [{
         value: '2019',
