@@ -6,7 +6,7 @@
       @row-click="toMovie">
       <el-table-column
         prop="title"
-        label="Top List for Movies">
+        label="New Movies">
       </el-table-column>
     </el-table>
   </div>

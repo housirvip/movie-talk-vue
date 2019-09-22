@@ -18,7 +18,7 @@
           </el-col>
           <el-col :span="6" :offset="0" style="font-size: 70px;text-align: center;">
               <p>
-                8.5
+                {{scoreTotal}}
                 <el-rate
                 v-model="scoreTotal"
                 disabled
@@ -181,7 +181,7 @@ export default {
       }],
       scoreSubmit: null,
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      scoreTotal: 8.5,
+      scoreTotal: '',
       movieId: this.$route.query.id,
       Introduction: '',
       movieImage: ''
@@ -194,6 +194,7 @@ export default {
         this.tabledData_MovieInfo[1].MovieInfo = 'Pubdate: ' + result.release_date
         this.Introduction = result.overview
         this.movieImage = 'https://image.tmdb.org/t/p/w200/' + result.poster_path
+        this.scoreTotal = result.vote_average
       }
     )
 
