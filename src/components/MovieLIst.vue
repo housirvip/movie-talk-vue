@@ -64,8 +64,7 @@ export default {
   },
   methods: {
     toMovie (row, column, event) {
-      console.log(row, column)
-      this.$router.push({ path: '/movie', query: { movieId: this.tableData_movie[row].id } })
+      this.$router.push({ path: '/movie', query: { id: row.id } })
     }
   }
 }

@@ -33,12 +33,7 @@
           </p>
         </el-row>
         <el-row>
-            Marvel's The Avengers[6] (classified under the name Marvel Avengers Assemble in the United Kingdom and Ireland),[3][7] or simply The Avengers,
-            is a 2012 American superhero film based on the Marvel Comics superhero team of the same name, produced by Marvel Studios and distributed by Walt Disney
-            Studios Motion Pictures.[N 1] It is the sixth film in the Marvel Cinematic Universe (MCU). The film was written and directed by Joss Whedon and features an
-            ensemble cast that includes Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson, and Jeremy Renner as the titular Avengers team,
-            alongside Tom Hiddleston, Clark Gregg, Cobie Smulders, Stellan Skarsgård, and Samuel L. Jackson. In the film, Nick Fury, director of the spy agency S.H.I.E.L.D.,
-            recruits Tony Stark, Steve Rogers, Bruce Banner, and Thor to form a team that must stop Thor's brother Loki from subjugating Earth.
+            {{Introduction}}
         </el-row>
         <el-row style="font-size: 20px;text-align: left;">
           <p>
@@ -169,23 +164,49 @@
 </template>
 
 <script>
+import { MovieService } from '../services/api'
+
 export default {
   name: 'Movie',
   data () {
     return {
       tabledData_MovieInfo: [{
-        MovieInfo: 'Title: The Avengers'
+        MovieInfo: ''
       }, {
-        MovieInfo: 'Pubdate: April 2019'
+        MovieInfo: ''
       }, {
-        MovieInfo: 'Director:  Joss Whedon'
+        MovieInfo: ''
       }, {
-        MovieInfo: 'Casts: Robert Downey Jr., Chris Evans , ark Ruffalo ,Chris Hemsworth'
+        MovieInfo: ''
       }],
       scoreSubmit: null,
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      scoreTotal: 8.5
+      scoreTotal: 8.5,
+      movieId: this.$route.query.id,
+      Introduction: ''
     }
+  },
+  created () {
+    MovieService.getDetails(this.movieId).then(
+      result => {
+        this.tabledData_MovieInfo[0].MovieInfo = 'Title: ' + result.title
+        this.tabledData_MovieInfo[1].MovieInfo = 'Pubdate: ' + result.release_date
+        this.Introduction = result.overview
+      }
+    )
+
+    MovieService.getCredits(this.movieId).then(
+      result => {
+        for (var i = 0; i < result.crew.length; i++) {
+          // eslint-disable-next-line eqeqeq
+          if (result.crew[i].job == 'Director') {
+            this.tabledData_MovieInfo[2].MovieInfo = 'Director: ' + result.crew[i].name
+            break
+          }
+        }
+        this.tabledData_MovieInfo[3].MovieInfo = 'Casts: ' + result.cast[0].name + ', ' + result.cast[1].name + ', ' + result.cast[2].name
+      }
+    )
   },
   methods: {
     writeReview () {

@@ -132,4 +132,20 @@ export class MovieService {
       return Promise.reject(error)
     })
   }
+
+  static getDetails (movieId) {
+    return axios.get(`/movie/details/${movieId}`).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getCredits (movieId) {
+    return axios.get(`/movie/credits/${movieId}`).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
 }
