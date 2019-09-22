@@ -5,7 +5,7 @@
       style="width: 100%"
       @row-click="toMovie">
       <el-table-column
-        prop="movie"
+        prop="title"
         label="Top List for Movies">
       </el-table-column>
     </el-table>
@@ -13,41 +13,59 @@
 </template>
 
 <script>
+import { MovieService } from '../services/api'
+
 export default {
   name: 'MovieLIst',
   data () {
     return {
       tableData_movie: [{
-        id: 1,
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        id: 2,
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }, {
-        movie: 'The avenger'
-      }, {
-        movie: 'The avenger'
+        id: '',
+        title: ''
       }]
     }
+  },
+  created () {
+    MovieService.findNewPlaying().then(
+      result => {
+        for (var i = 0; i < 10; i++) {
+          this.tableData_movie[i].title = result.results[i].title
+          this.tableData_movie[i].id = result.results[i].id
+        }
+      }
+    )
   },
   methods: {
     toMovie (row, column, event) {
       console.log(row, column)
-      this.$router.push({ path: '/movie' })
+      this.$router.push({ path: '/movie', query: { movieId: this.tableData_movie[row].id } })
     }
   }
 }

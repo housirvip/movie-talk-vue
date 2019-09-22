@@ -123,3 +123,13 @@ export class SecurityService {
       })
   }
 }
+
+export class MovieService {
+  static findNewPlaying () {
+    return axios.get('/movie/now_playing').then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+}
