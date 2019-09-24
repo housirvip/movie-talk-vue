@@ -24,29 +24,13 @@
             </el-table>
           </el-col>
         </el-row>
-<!--        <el-row>-->
-<!--          <el-col :span="4" :offset="2">-->
-<!--            <el-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"></el-image>-->
-<!--          </el-col>-->
-<!--          <el-col :span="18">-->
-<!--            <el-row>-->
-<!--              <el-col :span="4" :offset="2">-->
-<!--                <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>-->
-<!--              </el-col>-->
-<!--            </el-row>-->
-<!--            <el-row>asdasdasdasdasdasdasdasdasd</el-row>-->
-<!--          </el-col>-->
-<!--        </el-row>-->
-        <div style="margin: 20px 0;"></div>
+        <div class="div-title">
+          Discover Movie
+          <el-button type="primary" @click="toDiscoverPage">See more</el-button>
+        </div>
         <el-row>
-          <el-col  :span="4" style="font-size: 30px">
-            Discover Movie
-          </el-col>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
-          <el-col :span="4">
-            <el-select v-model="year" placeholder="year" @change="movieDiscover1">
+          <el-col :span="4" :offset="1">
+            <el-select v-model="year" placeholder="year" @change="movieDiscover" value="">
               <el-option
                 v-for="item in years"
                 :key="item.value"
@@ -55,8 +39,8 @@
               </el-option>
             </el-select>
           </el-col>
-          <el-col :span="4">
-            <el-select v-model="genre" placeholder="genre" @change="movieDiscover1">
+          <el-col :span="4" :offset="1">
+            <el-select v-model="genre" placeholder="genre" @change="movieDiscover" value="">
               <el-option
                 v-for="item in genres"
                 :key="item.value"
@@ -65,8 +49,8 @@
               </el-option>
             </el-select>
           </el-col>
-          <el-col :span="4">
-            <el-select v-model="sort" placeholder="sort" @change="movieDiscover1">
+          <el-col :span="4" :offset="1">
+            <el-select v-model="sort" placeholder="sort" @change="movieDiscover" value="">
               <el-option
                 v-for="item in sorts"
                 :key="item.value"
@@ -76,55 +60,34 @@
             </el-select>
           </el-col>
         </el-row>
-
         <div style="margin: 20px 0;"></div>
         <el-row>
-          <el-col :span="4">
-            <el-row>
-              <el-image :src="movieDiscoverPng1" @click="toMovie(movieDiscoverIds[0])"></el-image>
-            </el-row>
-            <el-row>
-              <el-link :underline="false" v-model="movieDiscoverName1" @click="toMovie(movieDiscoverIds[0])">{{movieDiscoverName1}}</el-link>
-            </el-row>
+          <el-col :span="4" :offset="1" v-for="(discover,index) in discoverList" v-bind:key="index">
+            <div @click="toMovie(discover.id)">
+              <el-card shadow="hover">
+                <div slot="header">
+                  <span style="text-align: center; margin-top: 5px;font-size: 10px">
+                    {{discover.title}}
+                  </span>
+                </div>
+                <el-image :src="'https://image.tmdb.org/t/p/w200/'+discover.poster_path"/>
+              </el-card>
+            </div>
+            <!--            <el-link :underline="false" v-model="movieDiscoverName1" @click="toMovie(movieDiscoverIds[0])">{{movieDiscoverName1}}</el-link>-->
           </el-col>
-          <el-col :span="4">
-            <el-row>
-              <el-image :src="movieDiscoverPng2" @click="toMovie(movieDiscoverIds[1])"></el-image>
-            </el-row>
-            <el-row>
-              <el-link :underline="false" v-model="movieDiscoverName2" @click="toMovie(movieDiscoverIds[1])">{{movieDiscoverName2}}</el-link>
-            </el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row>
-              <el-image :src="movieDiscoverPng3" @click="toMovie(movieDiscoverIds[2])"></el-image>
-            </el-row>
-            <el-row>
-              <el-link :underline="false" v-model="movieDiscoverName3" @click="toMovie(movieDiscoverIds[2])">{{movieDiscoverName3}}</el-link>
-            </el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row>
-              <el-image :src="movieDiscoverPng4" @click="toMovie(movieDiscoverIds[3])"></el-image>
-            </el-row>
-            <el-row>
-              <el-link :underline="false" v-model="movieDiscoverName4" @click="toMovie(movieDiscoverIds[3])">{{movieDiscoverName4}}</el-link>
-            </el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-button type="primary" @click="movieDiscover2">See more</el-button>
-          </el-col>
+<!--          <el-col :span="6">-->
+<!--            <el-row>-->
+<!--              <el-image :src="movieDiscoverPng1" @click="toMovie(movieDiscoverIds[0])"></el-image>-->
+<!--            </el-row>-->
+<!--            <el-row>-->
+<!--              <el-link :underline="false" v-model="movieDiscoverName1" @click="toMovie(movieDiscoverIds[0])">{{movieDiscoverName1}}</el-link>-->
+<!--            </el-row>-->
+<!--          </el-col>-->
         </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
-          <el-col  :span="4" style="font-size: 30px">
-            My followings
-          </el-col>
-          <el-col :span="4">
-            <el-button type="primary">See more</el-button>
-          </el-col>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
+        <div class="div-title">
+          My followings
+          <el-button type="primary">See more</el-button>
+        </div>
         <el-row>
           <el-col :span="6">
             <el-row>
@@ -192,15 +155,11 @@
             </el-row>
           </el-col>
         </el-row>
-        <div style="margin: 20px 0;"></div>
+        <div class="div-title">
+          Recommend
+        </div>
         <el-row>
-          <el-col  :span="4" style="font-size: 30px">
-            Recommend
-          </el-col>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-row>
               <el-image :src="moviePng"></el-image>
             </el-row>
@@ -208,7 +167,7 @@
               {{ movieName }}
             </el-row>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-row>
               <el-image :src="moviePng"></el-image>
             </el-row>
@@ -216,7 +175,7 @@
               {{movieName}}
             </el-row>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-row>
               <el-image :src="moviePng"></el-image>
             </el-row>
@@ -224,7 +183,7 @@
               {{movieName}}
             </el-row>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-row>
               <el-image :src="moviePng"></el-image>
             </el-row>
@@ -254,15 +213,7 @@ export default {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       moviePng: 'https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg',
       movieName: 'The Avenger',
-      movieDiscoverPng1: '',
-      movieDiscoverName1: '',
-      movieDiscoverPng2: '',
-      movieDiscoverName2: '',
-      movieDiscoverPng3: '',
-      movieDiscoverName3: '',
-      movieDiscoverPng4: '',
-      movieDiscoverName4: '',
-      movieDiscoverIds: [],
+      discoverList: [],
       tableData_review: [{
         review: 'I love you three thousand'
       }, {
@@ -419,23 +370,8 @@ export default {
       sort: ''
     }
   },
-  created () {
-    MovieService.discoverMovie(2019, 10749, 'popularity.desc', 1).then(
-      result => {
-        this.movieDiscoverPng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
-        this.movieDiscoverPng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
-        this.movieDiscoverPng3 = 'https://image.tmdb.org/t/p/w200/' + result.results[2].poster_path
-        this.movieDiscoverPng4 = 'https://image.tmdb.org/t/p/w200/' + result.results[3].poster_path
-        this.movieDiscoverName1 = result.results[0].title
-        this.movieDiscoverName2 = result.results[1].title
-        this.movieDiscoverName3 = result.results[2].title
-        this.movieDiscoverName4 = result.results[3].title
-        for (var i = 0; i < 4; i++) {
-          // eslint-disable-next-line no-undef
-          this.movieDiscoverIds[i] = result.results[i].id
-        }
-      }
-    )
+  mounted () {
+    this.movieDiscover()
   },
   methods: {
     search (searchCriteria) {
@@ -444,45 +380,26 @@ export default {
     toMovie (id) {
       this.$router.push({ path: '/movie', query: { id: id } })
     },
-    movieDiscover1 () {
-      // eslint-disable-next-line eqeqeq
-      if (this.year != '' && this.genre != '') {
-        MovieService.discoverMovie(this.year, this.genre, this.sort, 1).then(
-          result => {
-            this.movieDiscoverPng1 = 'https://image.tmdb.org/t/p/w200/' + result.results[0].poster_path
-            this.movieDiscoverPng2 = 'https://image.tmdb.org/t/p/w200/' + result.results[1].poster_path
-            this.movieDiscoverPng3 = 'https://image.tmdb.org/t/p/w200/' + result.results[2].poster_path
-            this.movieDiscoverPng4 = 'https://image.tmdb.org/t/p/w200/' + result.results[3].poster_path
-            this.movieDiscoverName1 = result.results[0].title
-            this.movieDiscoverName2 = result.results[1].title
-            this.movieDiscoverName3 = result.results[2].title
-            this.movieDiscoverName4 = result.results[3].title
-            for (var i = 0; i < 4; i++) {
-              // eslint-disable-next-line no-undef
-              this.movieDiscoverIds[i] = result.results[i].id
-            }
-          }
-        )
-      }
+    movieDiscover () {
+      MovieService.discoverMovie(this.year || 2019, this.genre || '10749', this.sort || 'popularity.desc', 1).then(
+        result => {
+          this.discoverList = result.results.slice(0, 4)
+        }
+      )
     },
-    movieDiscover2 () {
-      // eslint-disable-next-line eqeqeq
-      if (this.year == '') {
-        this.year = 2019
-      }
-      // eslint-disable-next-line eqeqeq
-      if (this.genre == '') {
-        this.genre = 10749
-      }
-      // eslint-disable-next-line eqeqeq
-      if (this.sort == '') {
-        this.sort = 'popularity.desc'
-      }
-      this.$router.push({ path: '/discover', query: { year: this.year, genre: this.genre, sort: this.sort } })
+    toDiscoverPage () {
+      this.$router.push({ path: '/discover',
+        query: { year: this.year || 2019, genre: this.genre || '10749', sort: this.sort || 'popularity.desc' }
+      })
     }
   }
 }
 </script>
 
 <style>
+  .div-title{
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 </style>
