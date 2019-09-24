@@ -4,7 +4,7 @@
       <el-main>
         <el-row>
           <el-col :span="6" :offset="9">
-            <el-input placeholder="search bar" v-model="searchCriteria" class="input-with-select">
+            <el-input placeholder="Search Here" v-model="searchCriteria">
               <el-button slot="append" icon="el-icon-search" @click="search(searchCriteria)"></el-button>
             </el-input>
           </el-col>
@@ -66,23 +66,14 @@
             <div @click="toMovie(discover.id)">
               <el-card shadow="hover">
                 <div slot="header">
-                  <span style="text-align: center; margin-top: 5px;font-size: 10px">
+                  <span class="movie-title">
                     {{discover.title}}
                   </span>
                 </div>
                 <el-image :src="'https://image.tmdb.org/t/p/w200/'+discover.poster_path"/>
               </el-card>
             </div>
-            <!--            <el-link :underline="false" v-model="movieDiscoverName1" @click="toMovie(movieDiscoverIds[0])">{{movieDiscoverName1}}</el-link>-->
           </el-col>
-<!--          <el-col :span="6">-->
-<!--            <el-row>-->
-<!--              <el-image :src="movieDiscoverPng1" @click="toMovie(movieDiscoverIds[0])"></el-image>-->
-<!--            </el-row>-->
-<!--            <el-row>-->
-<!--              <el-link :underline="false" v-model="movieDiscoverName1" @click="toMovie(movieDiscoverIds[0])">{{movieDiscoverName1}}</el-link>-->
-<!--            </el-row>-->
-<!--          </el-col>-->
         </el-row>
         <div class="div-title">
           My followings
@@ -401,5 +392,12 @@ export default {
     font-size: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+  .movie-title{
+    text-align: center;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 </style>

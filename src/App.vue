@@ -8,17 +8,17 @@
         router>
         <el-menu-item index="/">Movie Talk</el-menu-item>
         <el-menu-item index="/discover">Discover</el-menu-item>
+        <el-dropdown class="dropdown">
+          <div class="setting"><span>{{user.username||'User Center'}}</span><i class="el-icon-caret-bottom"></i></div>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item v-if="user.uid"><span @click="toUserCenter()">MyCenter</span></el-dropdown-item>
+            <el-dropdown-item v-if="user.uid"><span @click="refreshMe()">RefreshMe</span></el-dropdown-item>
+            <el-dropdown-item v-if="user.uid"><span @click="logout()">LogOut</span></el-dropdown-item>
+            <el-dropdown-item v-if="!user.uid"><span @click="toLogin()">Login</span></el-dropdown-item>
+            <el-dropdown-item v-if="!user.uid"><span @click="toSignUp()">SignUp</span></el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-menu>
-      <el-dropdown class="dropdown">
-        <div class="setting"><span>{{user.username||'User Center'}}</span><i class="el-icon-caret-bottom"></i></div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-if="user.uid"><span @click="toUserCenter()">MyCenter</span></el-dropdown-item>
-          <el-dropdown-item v-if="user.uid"><span @click="refreshMe()">RefreshMe</span></el-dropdown-item>
-          <el-dropdown-item v-if="user.uid"><span @click="logout()">LogOut</span></el-dropdown-item>
-          <el-dropdown-item v-if="!user.uid"><span @click="toLogin()">Login</span></el-dropdown-item>
-          <el-dropdown-item v-if="!user.uid"><span @click="toSignUp()">SignUp</span></el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
     </div>
     <router-view/>
   </div>
@@ -101,9 +101,9 @@ export default {
 .header{
   text-align: right;
   .dropdown {
-    position: fixed;
-    right: 30px;
-    top: 30px;
+    /*position: fixed;*/
+    right: 20px;
+    top: 20px;
     .setting {
       cursor: pointer;
       .el-icon-setting:first-child {
