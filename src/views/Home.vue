@@ -2,7 +2,7 @@
   <div class="home">
     <el-container>
       <el-main>
-        <el-row>
+        <el-row class="search-bar">
           <el-col :span="6" :offset="9">
             <el-input placeholder="Search Here" v-model="searchCriteria">
               <el-button slot="append" icon="el-icon-search" @click="search(searchCriteria)"></el-button>
@@ -11,17 +11,10 @@
         </el-row>
         <el-row>
           <el-col :span="9" :offset="2">
-            <MovieLIst></MovieLIst>
+            <movie-list></movie-list>
           </el-col>
           <el-col :span="9" :offset="2">
-            <el-table
-              :data="tableData_review"
-              style="width: 100%">
-              <el-table-column
-                prop="review"
-                label="Hot Reviews List">
-              </el-table-column>
-            </el-table>
+            <review-list></review-list>
           </el-col>
         </el-row>
         <div class="div-title">
@@ -30,7 +23,7 @@
         </div>
         <el-row>
           <el-col :span="4" :offset="1">
-            <el-select v-model="year" placeholder="year" @change="movieDiscover" value="">
+            <el-select v-model="year" placeholder="year" @change="getDiscoverList" value="">
               <el-option
                 v-for="item in years"
                 :key="item.value"
@@ -40,7 +33,7 @@
             </el-select>
           </el-col>
           <el-col :span="4" :offset="1">
-            <el-select v-model="genre" placeholder="genre" @change="movieDiscover" value="">
+            <el-select v-model="genre" placeholder="genre" @change="getDiscoverList" value="">
               <el-option
                 v-for="item in genres"
                 :key="item.value"
@@ -50,7 +43,7 @@
             </el-select>
           </el-col>
           <el-col :span="4" :offset="1">
-            <el-select v-model="sort" placeholder="sort" @change="movieDiscover" value="">
+            <el-select v-model="sort" placeholder="sort" @change="getDiscoverList" value="">
               <el-option
                 v-for="item in sorts"
                 :key="item.value"
@@ -60,127 +53,23 @@
             </el-select>
           </el-col>
         </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
+        <el-row style="margin-top: 20px">
           <el-col :span="4" :offset="1" v-for="(discover,index) in discoverList" v-bind:key="index">
-            <div @click="toMovie(discover.id)">
-              <el-card shadow="hover">
-                <div slot="header">
-                  <span class="movie-title">
-                    {{discover.title}}
-                  </span>
-                </div>
-                <el-image :src="'https://image.tmdb.org/t/p/w200/'+discover.poster_path"/>
-              </el-card>
-            </div>
+            <movie-card :movie-id="discover.id" :title="discover.title" width="300"
+                        :url="discover.poster_path"></movie-card>
           </el-col>
         </el-row>
         <div class="div-title">
           My followings
           <el-button type="primary">See more</el-button>
         </div>
-        <el-row>
-          <el-col :span="6">
-            <el-row>
-              <el-image :src="moviePng"></el-image>
-            </el-row>
-            <el-row>
-              {{movieName}}
-            </el-row>
-          </el-col>
-          <el-col :span="12" :offset="0">
-            <el-row style="font-size: 20px;text-align: left;">
-              <el-col :span="3">
-                <el-row>
-                  <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>
-                </el-row>
-                <el-row>
-                  Tom
-                </el-row>
-              </el-col>
-              <el-col :span="6" :offset="3" style="font-size: 25px">
-                Good movie
-              </el-col>
-            </el-row>
-            <div style="margin: 20px 0;"></div>
-            <el-row>
-              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much to distract from the fun.
-              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they where going to get the Hulk
-              in there since he’s supposed to be uncontrol.
-            </el-row>
-          </el-col>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
-          <el-col :span="6">
-            <el-row>
-              <el-image :src="moviePng"></el-image>
-            </el-row>
-            <el-row>
-              {{movieName}}
-            </el-row>
-          </el-col>
-          <el-col :span="12" :offset="0">
-            <el-row style="font-size: 20px;text-align: left;">
-              <el-col :span="3">
-                <el-row>
-                  <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>
-                </el-row>
-                <el-row>
-                  Tom
-                </el-row>
-              </el-col>
-              <el-col :span="6" :offset="3" style="font-size: 25px">
-                Good movie
-              </el-col>
-            </el-row>
-            <div style="margin: 20px 0;"></div>
-            <el-row>
-              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much to distract from the fun.
-              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they where going to get the Hulk
-              in there since he’s supposed to be uncontrol.
-            </el-row>
-          </el-col>
-        </el-row>
+        <following-list></following-list>
         <div class="div-title">
           Recommend
         </div>
         <el-row>
-          <el-col :span="6">
-            <el-row>
-              <el-image :src="moviePng"></el-image>
-            </el-row>
-            <el-row>
-              {{ movieName }}
-            </el-row>
-          </el-col>
-          <el-col :span="6">
-            <el-row>
-              <el-image :src="moviePng"></el-image>
-            </el-row>
-            <el-row>
-              {{movieName}}
-            </el-row>
-          </el-col>
-          <el-col :span="6">
-            <el-row>
-              <el-image :src="moviePng"></el-image>
-            </el-row>
-            <el-row>
-              {{movieName}}
-            </el-row>
-          </el-col>
-          <el-col :span="6">
-            <el-row>
-              <el-image :src="moviePng"></el-image>
-            </el-row>
-            <el-row>
-              {{movieName}}
-            </el-row>
+          <el-col :span="4" :offset="1" v-for="(recommend,index) in recommendList" v-bind:key="index">
+            <movie-card :movie-id="recommend.id" :title="recommend.title" width="300" url="/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg"></movie-card>
           </el-col>
         </el-row>
       </el-main>
@@ -189,43 +78,28 @@
 </template>
 
 <script>
-import MovieLIst from '../components/MovieLIst'
 import { MovieService } from '../services/api'
+import MovieList from '../components/MovieList'
+import MovieCard from '../components/MovieCard'
+import ReviewList from '../components/ReviewList'
+import FollowingList from '../components/FollowingList'
 
 export default {
   name: 'home',
   components: {
-    MovieLIst
+    MovieList,
+    ReviewList,
+    MovieCard,
+    FollowingList
   },
   data () {
     return {
       checked: true,
       searchCriteria: '',
-      avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      moviePng: 'https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg',
-      movieName: 'The Avenger',
       discoverList: [],
-      tableData_review: [{
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }, {
-        review: 'I love you three thousand'
-      }],
+      recommendList: [],
+      followingList: [],
+      avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       years: [{
         value: '2019',
         label: '2019'
@@ -362,7 +236,8 @@ export default {
     }
   },
   mounted () {
-    this.movieDiscover()
+    this.getDiscoverList()
+    this.getRecommendList()
   },
   methods: {
     search (searchCriteria) {
@@ -371,12 +246,22 @@ export default {
     toMovie (id) {
       this.$router.push({ path: '/movie', query: { id: id } })
     },
-    movieDiscover () {
+    getDiscoverList () {
       MovieService.discoverMovie(this.year || 2019, this.genre || '10749', this.sort || 'popularity.desc', 1).then(
         result => {
           this.discoverList = result.results.slice(0, 4)
         }
       )
+    },
+    getRecommendList () {
+      // TODO api get truly data instead of fake data
+      let tmp = {
+        title: 'L-DK: Two Loves, Under One Roo',
+        id: 578672
+      }
+      for (let i = 0; i < 4; i++) {
+        this.recommendList.push(tmp)
+      }
     },
     toDiscoverPage () {
       this.$router.push({ path: '/discover',
@@ -387,17 +272,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .div-title{
     font-size: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-left: 2%;
   }
-  .movie-title{
-    text-align: center;
-    font-size: 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .search-bar {
+    margin-top: 30px;
+    margin-bottom: 50px;
   }
 </style>

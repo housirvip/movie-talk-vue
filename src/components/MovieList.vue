@@ -1,13 +1,13 @@
 <template>
   <div class="movie-list">
     <el-table
-      :data="tableData_movie"
-      style="width: 100%"
+      :data="tableDataMovie"
+      class="movie-table"
       @row-click="toMovie">
       <el-table-column
         label="New Movies">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.$index + 1 + ". " + scope.row.title }}</span>
+          <span style="margin-left: 10px">{{scope.$index+1+". "+scope.row.title}}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -18,26 +18,33 @@
 import { MovieService } from '../services/api'
 
 export default {
-  name: 'MovieLIst',
+  name: 'MovieList',
   data () {
     return {
-      tableData_movie: []
+      tableDataMovie: []
     }
   },
   created () {
-    MovieService.findNewPlaying().then(
-      result => {
-        this.tableData_movie = result.results.slice(0, 10)
-      }
-    ).catch(() => {})
+    this.getMovieList()
   },
   methods: {
     toMovie (row, column, event) {
       this.$router.push({ path: '/movie', query: { id: row.id } })
+    },
+    getMovieList () {
+      MovieService.findNewPlaying().then(
+        result => {
+          this.tableDataMovie = result.results.slice(0, 10)
+        }
+      ).catch(() => {})
     }
   }
 }
 </script>
 
 <style scoped>
+  .movie-table{
+    width: 100%;
+    font-size: 15px;
+  }
 </style>

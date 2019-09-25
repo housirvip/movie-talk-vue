@@ -18,20 +18,20 @@
         </el-form>
       </el-col>
       <el-col :span="8" :offset="4">
-        <MovieLIst></MovieLIst>
+        <movie-list></movie-list>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import MovieLIst from '../../components/MovieLIst'
+import MovieList from '../../components/MovieList'
 import { AccountService, UserService } from '../../services/api'
 
 export default {
   name: 'Login',
   components: {
-    MovieLIst
+    MovieList
   },
   data () {
     return {
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped>
   .login {
     margin-top: 20px;
   }

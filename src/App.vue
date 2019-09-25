@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="header">
+    <div id="header">
       <el-menu
-        class="el-menu-demo"
+        class="app-menu"
         mode="horizontal"
         :default-active="defaultActive"
         router>
@@ -81,36 +81,40 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: left;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
+  #app {
+    /*font-family: 'Avenir', Helvetica, Menlo, sans-serif;*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: left;
     color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
   }
-}
-.header{
-  text-align: right;
-  .dropdown {
-    /*position: fixed;*/
-    right: 20px;
-    top: 20px;
-    .setting {
-      cursor: pointer;
-      .el-icon-setting:first-child {
-        font-size: 120px;
-        vertical-align: middle;
+  #nav {
+    padding: 30px;
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+      &.router-link-exact-active {
+        color: #42b983;
       }
     }
   }
-}
+  #header{
+    text-align: right;
+    .dropdown {
+      /*position: fixed;*/
+      right: 20px;
+      top: 20px;
+      font-size: 15px;
+      .setting {
+        /*cursor: pointer;*/
+        .el-icon-setting:first-child {
+          font-size: 120px;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .app-menu{
+    font-size: 15px;
+  }
 </style>
