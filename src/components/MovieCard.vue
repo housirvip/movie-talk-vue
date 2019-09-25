@@ -1,12 +1,10 @@
 <template>
-  <div @click="toMovie">
-    <el-card shadow="hover" class="movie-card">
-      <div slot="header">
-        <span class="movie-title">
-          {{title}}
-        </span>
-      </div>
+  <div @click="toMovie" class="div-card">
+    <el-card shadow="hover" class="movie-card" :body-style="{ padding: '0px' }">
       <el-image :src="'https://image.tmdb.org/t/p/w'+width+url"/>
+      <div style="padding: 5px;">
+        <span class="movie-title">{{title}}</span>
+      </div>
     </el-card>
   </div>
 </template>
@@ -22,7 +20,7 @@ export default {
   },
   methods: {
     toMovie () {
-      this.$router.push({ path: '/movie', query: { id: this.movieId.toString() } })
+      this.$router.push({ path: '/movie/detail', query: { id: this.movieId.toString() } })
     }
   }
 }
@@ -39,7 +37,8 @@ export default {
   }
   .movie-card{
     text-align: center;
-    padding: 0;
-    margin: 0;
+  }
+  .div-card{
+    padding-bottom: 20px;
   }
 </style>

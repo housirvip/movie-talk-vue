@@ -10,9 +10,9 @@
             <el-row>
               <el-avatar shape="square" :size="100" :src="follow.avatar"></el-avatar>
             </el-row>
-            <p style="text-align: center">
+            <div style="text-align: center">
               {{follow.user}}
-            </p>
+            </div>
           </el-col>
           <el-col :span="6" :offset="3">
             <p style="font-size: 25px">
@@ -51,8 +51,8 @@ export default {
       // TODO api get truly data instead of fake data
       let tmp = {
         title: 'Good movie',
-        user: '',
-        avatar: '',
+        user: 'Tony Ma',
+        avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
         movieId: 578672,
         movieName: 'L-DK: Two Loves, Under One Roo',
         content: 'After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost Rider, this was a pleasant experience.\n' +

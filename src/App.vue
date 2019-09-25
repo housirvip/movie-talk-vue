@@ -7,7 +7,7 @@
         :default-active="defaultActive"
         router>
         <el-menu-item index="/">Movie Talk</el-menu-item>
-        <el-menu-item index="/discover">Discover</el-menu-item>
+        <el-menu-item index="/movie/discover">Discover</el-menu-item>
         <el-dropdown class="dropdown">
           <div class="setting"><span>{{user.username||'User Center'}}</span><i class="el-icon-caret-bottom"></i></div>
           <el-dropdown-menu slot="dropdown">
@@ -43,8 +43,8 @@ export default {
     menuIndex () {
       if (this.$route.path.startsWith('/user-center')) {
         this.defaultActive = '/user-center'
-      } else if (this.$route.path.startsWith('/discover')) {
-        this.defaultActive = '/discover'
+      } else if (this.$route.path.startsWith('/movie')) {
+        this.defaultActive = '/movie/discover'
       } else {
         this.defaultActive = '/'
       }

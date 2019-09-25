@@ -57,14 +57,25 @@ export default new Router({
       ]
     },
     {
-      path: '/discover',
-      name: 'Discover',
-      component: () => import('./views/Discover.vue')
-    },
-    {
       path: '/movie',
       name: 'Movie',
-      component: () => import('./views/Movie.vue')
+      component: () => import('./views/Movie.vue'),
+      children: [
+        {
+          path: '/',
+          redirect: 'discover'
+        },
+        {
+          path: 'detail',
+          name: 'Detail',
+          component: () => import('./views/movie/MovieDetail.vue')
+        },
+        {
+          path: 'discover',
+          name: 'Discover',
+          component: () => import('./views/movie/Discover.vue')
+        }
+      ]
     },
     {
       path: '/writereview',

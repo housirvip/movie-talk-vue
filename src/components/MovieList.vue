@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     toMovie (row, column, event) {
-      this.$router.push({ path: '/movie', query: { id: row.id } })
+      this.$router.push({ path: '/movie/detail', query: { id: row.id } })
     },
     getMovieList () {
       MovieService.findNewPlaying().then(

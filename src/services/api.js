@@ -149,9 +149,14 @@ export class MovieService {
     })
   }
 
-  // eslint-disable-next-line camelcase
-  static discoverMovie (year, with_genres, sort_by, page) {
-    return axios.get(`/movie/discover`, { params: { year: year, with_genres: with_genres, sort_by: sort_by, page: page } }).then(res => {
+  static discoverMovie (discoverFilter, page) {
+    return axios.get(`/movie/discover`, {
+      params: {
+        year: discoverFilter.year || 2019,
+        with_genres: discoverFilter.genre || '10749',
+        sort_by: discoverFilter.sort || 'popularity.desc',
+        page: page || 1
+      } }).then(res => {
       return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)
