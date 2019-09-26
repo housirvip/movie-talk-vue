@@ -81,7 +81,7 @@
 
 <script>
 export default {
-  name: 'ModifyUsrInfo',
+  name: 'ModifyUserInfo',
   data () {
     return {
       nickName: 'asdasd',

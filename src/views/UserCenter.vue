@@ -1,10 +1,9 @@
 <template>
   <div class="user-center">
     <el-container>
-      <el-aside>
+      <el-aside width="200px">
         <el-menu
           default-active="dashboard"
-          class="el-menu-vertical-demo"
           router>
           <el-menu-item index="dashboard">
             <i class="el-icon-menu"></i>

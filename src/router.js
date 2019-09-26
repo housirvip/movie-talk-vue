@@ -60,7 +60,7 @@ export default new Router({
         {
           path: 'modifyUsrInfo',
           name: 'modifyUsrInfo',
-          component: () => import('./views/user-center/ModifyUsrInfo.vue')
+          component: () => import('./views/user-center/ModifyUserInfo.vue')
         },
         {
           path: 'modifyPasswd',
@@ -71,7 +71,6 @@ export default new Router({
     },
     {
       path: '/movie',
-      name: 'Movie',
       component: () => import('./views/Movie.vue'),
       children: [
         {
@@ -96,14 +95,34 @@ export default new Router({
       ]
     },
     {
+      path: '/review',
+      component: () => import('./views/Review.vue'),
+      children: [
+        {
+          path: '/',
+          redirect: 'discover'
+        },
+        {
+          path: 'reply',
+          name: 'Reply',
+          component: () => import('./views/review/Reply.vue')
+        },
+        {
+          path: 'write',
+          name: 'Write',
+          component: () => import('./views/review/Write.vue')
+        }
+      ]
+    },
+    {
       path: '/writereview',
       name: 'WriteReview',
-      component: () => import('./views/WriteReview.vue')
+      component: () => import('./views/review/Write.vue')
     },
     {
       path: '/writereply',
       name: 'WriteReply',
-      component: () => import('./views/WriteReply.vue')
+      component: () => import('./views/review/Reply.vue')
     }
   ]
 })
