@@ -2,11 +2,9 @@
   <div class="home">
     <el-container>
       <el-main>
-        <el-row class="search-bar">
+        <el-row>
           <el-col :span="6" :offset="9">
-            <el-input placeholder="Search Here" v-model="searchCriteria">
-              <el-button slot="append" icon="el-icon-search" @click="search(searchCriteria)"></el-button>
-            </el-input>
+            <search-bar></search-bar>
           </el-col>
         </el-row>
         <el-row>
@@ -38,7 +36,7 @@
         </div>
         <el-row>
           <el-col :span="4" :offset="1" v-for="(recommend,index) in recommendList" v-bind:key="index">
-            <movie-card :movie-id="recommend.id" :title="recommend.title" width="300" url="/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg"></movie-card>
+            <movie-card :movie-id="recommend.id" :title="recommend.title" :width="recommend.width" :url="recommend.url"></movie-card>
           </el-col>
         </el-row>
       </el-main>
@@ -53,6 +51,7 @@ import MovieCard from '../components/MovieCard'
 import ReviewList from '../components/ReviewList'
 import FollowingList from '../components/FollowingList'
 import DiscoverFilter from '../components/DiscoverFilter'
+import SearchBar from '../components/SearchBar'
 
 export default {
   name: 'home',
@@ -61,12 +60,12 @@ export default {
     ReviewList,
     MovieCard,
     FollowingList,
-    DiscoverFilter
+    DiscoverFilter,
+    SearchBar
   },
   data () {
     return {
       checked: true,
-      searchCriteria: '',
       discoverList: [],
       recommendList: [],
       followingList: [],
@@ -82,12 +81,6 @@ export default {
     this.getRecommendList()
   },
   methods: {
-    search (searchCriteria) {
-      this.$router.push({ path: '/searchmovie', query: { query: searchCriteria } })
-    },
-    toMovie (id) {
-      this.$router.push({ path: '/movie/detail', query: { id: id } })
-    },
     getDiscoverList (discoverFilter) {
       MovieService.discoverMovie(discoverFilter || this.discoverFilter, 1).then(
         result => {
@@ -99,7 +92,9 @@ export default {
       // TODO api get truly data instead of fake data
       let tmp = {
         title: 'L-DK: Two Loves, Under One Roo',
-        id: 578672
+        id: 578672,
+        width: '300',
+        url: '/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg'
       }
       for (let i = 0; i < 4; i++) {
         this.recommendList.push(tmp)

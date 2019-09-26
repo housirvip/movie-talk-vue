@@ -7,6 +7,9 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
   routes: [
     {
       path: '/',
@@ -68,12 +71,17 @@ export default new Router({
         {
           path: 'detail',
           name: 'Detail',
-          component: () => import('./views/movie/MovieDetail.vue')
+          component: () => import('./views/movie/Detail.vue')
         },
         {
           path: 'discover',
           name: 'Discover',
           component: () => import('./views/movie/Discover.vue')
+        },
+        {
+          path: 'search',
+          name: 'Search',
+          component: () => import('./views/movie/Search.vue')
         }
       ]
     },
@@ -86,11 +94,6 @@ export default new Router({
       path: '/writereply',
       name: 'WriteReply',
       component: () => import('./views/WriteReply.vue')
-    },
-    {
-      path: '/searchmovie',
-      name: 'SearchMovie',
-      component: () => import('./views/SearchMovie.vue')
     }
   ]
 })

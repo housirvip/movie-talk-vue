@@ -167,7 +167,7 @@
 import { MovieService } from '../../services/api'
 
 export default {
-  name: 'MovieDetail',
+  name: 'Detail',
   data () {
     return {
       tabledDataMovieInfo: [{

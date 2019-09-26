@@ -2,9 +2,7 @@
   <div class="discover">
     <el-row>
       <el-col :span="6" :offset="17">
-        <el-input placeholder="Movie Search" v-model="movieSearchInput" class="search-bar">
-          <el-button slot="append" icon="el-icon-search" @click="movieSearch"></el-button>
-        </el-input>
+        <search-bar></search-bar>
       </el-col>
     </el-row>
     <el-row>
@@ -33,12 +31,14 @@
 import { MovieService } from '../../services/api'
 import DiscoverFilter from '../../components/DiscoverFilter'
 import MovieCard from '../../components/MovieCard'
+import SearchBar from '../../components/SearchBar'
 
 export default {
   name: 'Discover',
   components: {
     DiscoverFilter,
-    MovieCard
+    MovieCard,
+    SearchBar
   },
   data () {
     return {
@@ -57,10 +57,6 @@ export default {
     this.getDiscoverList()
   },
   methods: {
-    movieSearch () {
-      // Todo Search Movies according input
-      this.$router.push({ path: '/searchmovie' })
-    },
     getDiscoverList (discoverFilter) {
       MovieService.discoverMovie(discoverFilter || this.discoverFilter, this.currentPage).then(
         result => {
@@ -90,8 +86,4 @@ export default {
 </script>
 
 <style scoped>
-  .search-bar {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
 </style>
