@@ -56,6 +56,16 @@ export default new Router({
           path: 'reviews',
           name: 'Reviews',
           component: () => import('./views/user-center/Reviews.vue')
+        },
+        {
+          path: 'modifyUsrInfo',
+          name: 'modifyUsrInfo',
+          component: () => import('./views/user-center/ModifyUsrInfo.vue')
+        },
+        {
+          path: 'modifyPasswd',
+          name: 'modifyPasswd',
+          component: () => import('./views/user-center/ModifyPassword.vue')
         }
       ]
     },

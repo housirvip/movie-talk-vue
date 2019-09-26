@@ -10,6 +10,10 @@
             <i class="el-icon-menu"></i>
             <span slot="title">Dashboard</span>
           </el-menu-item>
+          <el-menu-item index="modifyPasswd">
+            <i class="el-icon-menu"></i>
+            <span slot="title">Password</span>
+          </el-menu-item>
           <el-menu-item index="reviews">
             <i class="el-icon-menu"></i>
             <span slot="title">Reviews</span>
