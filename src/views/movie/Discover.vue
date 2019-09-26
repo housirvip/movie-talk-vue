@@ -54,6 +54,9 @@ export default {
     }
   },
   mounted () {
+    this.discoverFilter.year = this.$route.query.year
+    this.discoverFilter.genre = this.$route.query.genre
+    this.discoverFilter.sort = this.$route.query.sort
     this.getDiscoverList()
   },
   methods: {

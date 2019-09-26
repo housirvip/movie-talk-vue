@@ -82,6 +82,7 @@ export default {
   },
   methods: {
     getDiscoverList (discoverFilter) {
+      if (discoverFilter != null) { this.discoverFilter = discoverFilter }
       MovieService.discoverMovie(discoverFilter || this.discoverFilter, 1).then(
         result => {
           this.discoverList = result.results.slice(0, 4)
@@ -101,7 +102,8 @@ export default {
       }
     },
     toDiscoverPage () {
-      this.$router.push({ path: '/movie/discover' })
+      // eslint-disable-next-line standard/object-curly-even-spacing
+      this.$router.push({ path: '/movie/discover', query: { year: this.discoverFilter.year, genre: this.discoverFilter.genre, sort: this.discoverFilter.sort } })
     }
   }
 }
