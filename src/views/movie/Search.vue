@@ -44,8 +44,9 @@ export default {
   data () {
     return {
       searchList: [],
-      totalCount: 40,
-      currentPage: 1
+      totalCount: 0,
+      currentPage: 1,
+      searchCriteria: ''
     }
   },
   watch: {
@@ -54,12 +55,14 @@ export default {
     }
   },
   mounted () {
-    this.getSearchList(this.$route.query.searchCriteria)
+    this.searchCriteria = this.$route.query.searchCriteria
+    this.getSearchList()
   },
   methods: {
     getSearchList (searchCriteria) {
-      MovieService.getSearch(searchCriteria, this.currentPage).then(
+      MovieService.getSearch(searchCriteria || this.searchCriteria, this.currentPage).then(
         result => {
+          this.totalCount = result.total_results
           this.searchList = result.results.reduce((pre, next, idx) => {
             const inner = pre[~~(idx / 4)]
             if (inner !== undefined) {
@@ -81,9 +84,7 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>
-
 </style>
