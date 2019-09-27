@@ -12,8 +12,8 @@
             <el-input v-model="ruleForm.password" type="password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">Login</el-button>
-            <el-button @click="resetForm('ruleForm')">Reset</el-button>
+            <el-button type="primary" @click="submitForm">Login</el-button>
+            <el-button @click="resetForm">Reset</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -55,8 +55,8 @@ export default {
     goBack () {
       this.$router.back()
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           AccountService.login(this.ruleForm).then(() => {
             this.$message.success('Logged in, redirecting...')
@@ -71,8 +71,8 @@ export default {
         }
       })
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm () {
+      this.$refs['ruleForm'].resetFields()
     }
   }
 }

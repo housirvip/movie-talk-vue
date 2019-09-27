@@ -8,26 +8,22 @@
         <el-table
           :data="tableDataReviews"
           class="review-table">
-          <el-table-column
-            label="Review">
+          <el-table-column label="Review" min-width="160">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{scope.row.review}}</span>
             </template>
           </el-table-column>
-          <el-table-column
-            label="Date">
+          <el-table-column label="Date" width="140">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{scope.row.date}}</span>
             </template>
           </el-table-column>
-          <el-table-column
-            label="likes">
+          <el-table-column label="likes" width="100">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{scope.row.like}}</span>
             </template>
           </el-table-column>
-          <el-table-column
-            label="comments">
+          <el-table-column label="comments" width="100">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{scope.row.comment}}</span>
             </template>
@@ -68,6 +64,10 @@ export default {
       for (let i = 0; i < 10; i++) {
         this.tableDataReviews.push(tmp)
       }
+    },
+    pageChange (page) {
+      this.currentPage = page
+      this.getSearchList()
     }
   }
 }

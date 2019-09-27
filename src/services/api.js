@@ -103,6 +103,15 @@ export class UserService {
         return Promise.reject(error)
       })
   }
+
+  static passChange (form) {
+    return axios.put('user/change-pass', form)
+      .then(res => {
+        return Promise.resolve(res.result)
+      }).catch(error => {
+        return Promise.reject(error)
+      })
+  }
 }
 
 export class SecurityService {

@@ -31,7 +31,7 @@ export default {
   name: 'App',
   data () {
     return {
-      defaultActive: '/'
+      defaultActive: ''
     }
   },
   computed: {

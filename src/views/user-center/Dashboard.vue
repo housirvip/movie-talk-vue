@@ -103,36 +103,35 @@
         </el-row>
         <p></p>
         <el-row>
-          <el-col :span="4" :offset="4" style="text-align: left">
-            <el-button type="primary" @click="modifyUserInfo = true">Modify</el-button>
-          </el-col>
+          <el-button type="primary" @click="modifyUserInfo = true">Modify Info</el-button>
+          <el-button type="primary" @click="modifyPassword = true">Modify Password</el-button>
         </el-row>
       </el-col>
     </el-row>
     <el-dialog title="Change User Info" :visible.sync="modifyUserInfo" width="30%" top="6vh">
-      <el-form :model="ruleForm">
-        <el-form-item label="NickName" label-width="5">
-          <el-input v-model="ruleForm.name" autocomplete="off"></el-input>
+      <el-form :model="infoForm" :rules="infoRules" ref="infoForm">
+        <el-form-item label="NickName" label-width="5" prop="nickname">
+          <el-input v-model="infoForm.nickname" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="Sex" label-width="5">
-          <el-radio-group v-model="ruleForm.sex" style="width: 100%">
+        <el-form-item label="Sex" label-width="5" prop="sex">
+          <el-radio-group v-model="infoForm.sex" style="width: 100%">
             <el-radio-button label="Male" value="Male"></el-radio-button>
             <el-radio-button label="Female" value="Female"></el-radio-button>
             <el-radio-button label="Conceal" value="Conceal"></el-radio-button>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="State" label-width="5">
-          <el-select v-model="ruleForm.state" placeholder="请选择活动区域" value="" style="width: 100%">
+        <el-form-item label="State" label-width="5" prop="state">
+          <el-select v-model="infoForm.state" placeholder="请选择活动区域" value="" style="width: 100%">
             <el-option value="Texas"></el-option>
             <el-option value="California"></el-option>
             <el-option value="Washington"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Job" label-width="5">
-          <el-input v-model="ruleForm.job" autocomplete="off"></el-input>
+        <el-form-item label="Job" label-width="5" prop="job">
+          <el-input v-model="infoForm.job" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="Birthday" label-width="5">
-          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birthday" style="width: 100%;"></el-date-picker>
+        <el-form-item label="Birthday" label-width="5" prop="birthday">
+          <el-date-picker type="date" placeholder="选择日期" v-model="infoForm.birthday" style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -140,30 +139,91 @@
         <el-button type="primary" @click="updateUserInfo">确 定</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="Change Password" :visible.sync="modifyPassword" width="30%" top="6vh">
+      <el-form :model="passForm" :rules="passRules" ref="passForm">
+        <el-form-item label="Origin Password" label-width="5" prop="password">
+          <el-input v-model="passForm.password" autocomplete="off" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="New Password" label-width="5" prop="newPass">
+          <el-input v-model="passForm.newPass" autocomplete="off" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="Confirm Password" label-width="5" prop="confirmPass">
+          <el-input v-model="passForm.confirmPass" autocomplete="off" type="password"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="modifyPassword = false">取 消</el-button>
+        <el-button type="primary" @click="updatePassword">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { UserService } from '../../services/api'
+
 export default {
   name: 'Dashboard',
   data () {
+    let validateConfirmPass = (rule, value, callback) => {
+      if (value !== this.passForm.newPass) {
+        callback(new Error('Confirm again'))
+      } else {
+        callback()
+      }
+    }
     return {
       job: 'student',
       sex: 'male',
       birth: '1987/11/22',
       nation: 'US',
       modifyUserInfo: false,
-      ruleForm: {},
-      cities: [{
-        label: 'asd1',
-        key: 'asd'
-      }, {
-        label: 'asd2',
-        key: 'asd'
-      }, {
-        label: 'asd3',
-        key: 'asd'
-      }]
+      modifyPassword: false,
+      infoForm: {
+        sex: '',
+        state: '',
+        job: '',
+        birthday: ''
+      },
+      passForm: {
+        password: '',
+        newPass: '',
+        confirmPass: ''
+      },
+      infoRules: {
+        nickname: [
+          { required: true, message: 'Enter your nickname', trigger: 'blur' },
+          { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
+        ],
+        sex: [
+          { required: true, message: 'Select your sex', trigger: 'blur' },
+          { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
+        ],
+        state: [
+          { required: true, message: 'Select your state', trigger: 'blur' }
+        ],
+        job: [
+          { required: true, message: 'Enter your job', trigger: 'blur' },
+          { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
+        ],
+        birthday: [
+          { required: true, message: 'Select your birthday', trigger: 'blur' }
+        ]
+      },
+      passRules: {
+        password: [
+          { required: true, message: 'Enter your origin password', trigger: 'blur' },
+          { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
+        ],
+        newPass: [
+          { required: true, message: 'Enter your new password', trigger: 'blur' },
+          { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
+        ],
+        confirmPass: [
+          { required: true, message: 'Confirm your new password', trigger: 'blur' },
+          { validator: validateConfirmPass, trigger: 'change' }
+        ]
+      }
     }
   },
   computed: {
@@ -173,14 +233,41 @@ export default {
   },
   methods: {
     updateUserInfo () {
-      console.log(this.ruleForm)
-      this.modifyUserInfo = false
+      console.log(this.infoForm)
+      this.$refs['infoForm'].validate((valid) => {
+        if (valid) {
+          this.modifyUserInfo = false
+        } else {
+          this.$message.error('Form error, please correct it')
+          return false
+        }
+      })
+    },
+    resetInfoForm () {
+      this.$refs['infoForm'].resetFields()
+    },
+    updatePassword () {
+      console.log(this.passForm)
+      this.$refs['passForm'].validate((valid) => {
+        if (valid) {
+          UserService.passChange(this.passForm).then(res => {
+            this.modifyPassword = false
+            this.resetPassForm()
+            this.$message.success('Password Changed')
+          }).catch(() => {})
+        } else {
+          this.$message.error('Form error, please correct it')
+          return false
+        }
+      })
+    },
+    resetPassForm () {
+      this.$refs['passForm'].resetFields()
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .tag-card-wrapper {
     .tag-card {

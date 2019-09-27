@@ -17,12 +17,12 @@
           <el-form-item label="Password" required prop="password" >
             <el-input v-model="ruleForm.password" type="password"></el-input>
           </el-form-item>
-          <el-form-item label="Confirm" required prop="passRepeat" >
-            <el-input v-model="ruleForm.passRepeat" type="password"></el-input>
+          <el-form-item label="Confirm" required prop="confirmPass" >
+            <el-input v-model="ruleForm.confirmPass" type="password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">Sign Up</el-button>
-            <el-button @click="resetForm('ruleForm')">Reset</el-button>
+            <el-button type="primary" @click="submitForm">Sign Up</el-button>
+            <el-button @click="resetForm">Reset</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -43,7 +43,7 @@ export default {
     MovieList
   },
   data () {
-    let validatePassRepeat = (rule, value, callback) => {
+    let validateConfirmPass = (rule, value, callback) => {
       if (value !== this.ruleForm.password) {
         callback(new Error('Confirm again'))
       } else {
@@ -56,7 +56,7 @@ export default {
         email: '',
         username: '',
         password: '',
-        passRepeat: ''
+        confirmPass: ''
       },
       rules: {
         phone: [
@@ -75,9 +75,9 @@ export default {
           { required: true, message: 'Enter your password', trigger: 'blur' },
           { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
         ],
-        passRepeat: [
+        confirmPass: [
           { required: true, message: 'Confirm your password', trigger: 'blur' },
-          { validator: validatePassRepeat, trigger: 'change' }
+          { validator: validateConfirmPass, trigger: 'change' }
         ]
       }
     }
@@ -86,8 +86,8 @@ export default {
     goBack () {
       this.$router.back()
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           AccountService.register(this.ruleForm).then(() => {
             this.$message.success('Sign up success, redirecting...')
@@ -98,8 +98,8 @@ export default {
         }
       })
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm () {
+      this.$refs['ruleForm'].resetFields()
     }
   }
 }

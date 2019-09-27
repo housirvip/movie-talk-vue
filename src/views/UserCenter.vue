@@ -3,15 +3,11 @@
     <el-container>
       <el-aside width="200px">
         <el-menu
-          default-active="dashboard"
+          :default-active="defaultActive"
           router>
           <el-menu-item index="dashboard">
             <i class="el-icon-menu"></i>
             <span slot="title">Dashboard</span>
-          </el-menu-item>
-          <el-menu-item index="modifyPasswd">
-            <i class="el-icon-menu"></i>
-            <span slot="title">Password</span>
           </el-menu-item>
           <el-menu-item index="reviews">
             <i class="el-icon-menu"></i>
@@ -25,3 +21,31 @@
     </el-container>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'UserCenter',
+  data () {
+    return {
+      defaultActive: ''
+    }
+  },
+  methods: {
+    menuIndex () {
+      if (this.$route.path.endsWith('/dashboard')) {
+        this.defaultActive = 'dashboard'
+      } else if (this.$route.path.endsWith('/reviews')) {
+        this.defaultActive = 'reviews'
+      } else {
+        this.defaultActive = 'dashboard'
+      }
+    }
+  },
+  mounted () {
+    this.menuIndex()
+  },
+  updated () {
+    this.menuIndex()
+  }
+}
+</script>
