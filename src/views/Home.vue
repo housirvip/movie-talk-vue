@@ -83,7 +83,7 @@ export default {
   methods: {
     getDiscoverList (discoverFilter) {
       if (discoverFilter != null) { this.discoverFilter = discoverFilter }
-      MovieService.discoverMovie(discoverFilter || this.discoverFilter, 1).then(
+      MovieService.getDiscover(discoverFilter || this.discoverFilter, 1).then(
         result => {
           this.discoverList = result.results.slice(0, 4)
         }

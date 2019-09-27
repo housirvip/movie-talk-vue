@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     getDiscoverList (discoverFilter) {
-      MovieService.discoverMovie(discoverFilter || this.discoverFilter, this.currentPage).then(
+      MovieService.getDiscover(discoverFilter || this.discoverFilter, this.currentPage).then(
         result => {
           this.totalCount = result.total_results
           // long list reduce to two-dimensional array

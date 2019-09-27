@@ -32,7 +32,7 @@ export default {
       this.$router.push({ path: '/movie/detail', query: { id: row.id } })
     },
     getMovieList () {
-      MovieService.findNewPlaying().then(
+      MovieService.getNowPlaying().then(
         result => {
           this.tableDataMovie = result.results.slice(0, 10)
         }

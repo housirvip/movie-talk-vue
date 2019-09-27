@@ -33,6 +33,7 @@
 <script>
 import SearchBar from '../../components/SearchBar'
 import MovieCard from '../../components/MovieCard'
+import { MovieService } from '../../services/api'
 
 export default {
   name: 'Search',
@@ -47,31 +48,29 @@ export default {
       currentPage: 1
     }
   },
+  watch: {
+    '$route.query.searchCriteria': function (newValue, oldValue) {
+      this.getSearchList(newValue)
+    }
+  },
   mounted () {
-    this.getSearchList()
+    this.getSearchList(this.$route.query.searchCriteria)
   },
   methods: {
     getSearchList (searchCriteria) {
-      // TODO api get truly data instead of fake data
-      let tmp = {
-        title: 'L-DK: Two Loves, Under One Roo',
-        id: 578672,
-        width: '300',
-        poster_path: '/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg'
-      }
-      let tmpList = []
-      for (let i = 0; i < 20; i++) {
-        tmpList.push(tmp)
-      }
-      this.searchList = tmpList.reduce((pre, next, idx) => {
-        const inner = pre[~~(idx / 4)]
-        if (inner !== undefined) {
-          inner.push(next)
-        } else {
-          pre.push([next])
+      MovieService.getSearch(searchCriteria, this.currentPage).then(
+        result => {
+          this.searchList = result.results.reduce((pre, next, idx) => {
+            const inner = pre[~~(idx / 4)]
+            if (inner !== undefined) {
+              inner.push(next)
+            } else {
+              pre.push([next])
+            }
+            return pre
+          }, [[]])
         }
-        return pre
-      }, [[]])
+      ).catch(() => {})
     },
     pageChange (page) {
       this.currentPage = page

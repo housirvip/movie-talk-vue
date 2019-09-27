@@ -58,11 +58,6 @@ export default new Router({
           component: () => import('./views/user-center/Reviews.vue')
         },
         {
-          path: 'modifyUsrInfo',
-          name: 'modifyUsrInfo',
-          component: () => import('./views/user-center/ModifyUserInfo.vue')
-        },
-        {
           path: 'modifyPasswd',
           name: 'modifyPasswd',
           component: () => import('./views/user-center/ModifyPassword.vue')
@@ -113,16 +108,6 @@ export default new Router({
           component: () => import('./views/review/Write.vue')
         }
       ]
-    },
-    {
-      path: '/writereview',
-      name: 'WriteReview',
-      component: () => import('./views/review/Write.vue')
-    },
-    {
-      path: '/writereply',
-      name: 'WriteReply',
-      component: () => import('./views/review/Reply.vue')
     }
   ]
 })

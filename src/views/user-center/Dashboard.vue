@@ -3,7 +3,13 @@
     <el-row style="margin-bottom: 20px" type="flex" justify="center">
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card" shadow="hover">
-          <p>Reviews</p>
+          <p>Likes</p>
+          <p>123</p>
+        </el-card>
+      </el-col>
+      <el-col class="tag-card-wrapper">
+        <el-card class="tag-card">
+          <p>Followers</p>
           <p>123</p>
         </el-card>
       </el-col>
@@ -15,13 +21,7 @@
       </el-col>
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card">
-          <p>Reviews</p>
-          <p>123</p>
-        </el-card>
-      </el-col>
-      <el-col class="tag-card-wrapper">
-        <el-card class="tag-card">
-          <p>Reviews</p>
+          <p>Comments</p>
           <p>123</p>
         </el-card>
       </el-col>
@@ -109,21 +109,35 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-dialog title="收货地址" :visible.sync="modifyUserInfo">
+    <el-dialog title="Change User Info" :visible.sync="modifyUserInfo" width="30%" top="6vh">
       <el-form :model="ruleForm">
-        <el-form-item label="活动名称" label-width="5">
+        <el-form-item label="NickName" label-width="5">
           <el-input v-model="ruleForm.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="活动区域" label-width="5">
-          <el-select v-model="ruleForm.region" placeholder="请选择活动区域" value="">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
+        <el-form-item label="Sex" label-width="5">
+          <el-radio-group v-model="ruleForm.sex" style="width: 100%">
+            <el-radio-button label="Male" value="Male"></el-radio-button>
+            <el-radio-button label="Female" value="Female"></el-radio-button>
+            <el-radio-button label="Conceal" value="Conceal"></el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="State" label-width="5">
+          <el-select v-model="ruleForm.state" placeholder="请选择活动区域" value="" style="width: 100%">
+            <el-option value="Texas"></el-option>
+            <el-option value="California"></el-option>
+            <el-option value="Washington"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="Job" label-width="5">
+          <el-input v-model="ruleForm.job" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Birthday" label-width="5">
+          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birthday" style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="modifyUserInfo = false">取 消</el-button>
-        <el-button type="primary" @click="modifyUserInfo = false">确 定</el-button>
+        <el-button type="primary" @click="updateUserInfo">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -139,7 +153,17 @@ export default {
       birth: '1987/11/22',
       nation: 'US',
       modifyUserInfo: false,
-      ruleForm: {}
+      ruleForm: {},
+      cities: [{
+        label: 'asd1',
+        key: 'asd'
+      }, {
+        label: 'asd2',
+        key: 'asd'
+      }, {
+        label: 'asd3',
+        key: 'asd'
+      }]
     }
   },
   computed: {
@@ -148,8 +172,9 @@ export default {
     }
   },
   methods: {
-    toModify () {
-      this.$router.push('/user-center/modifyUsrInfo')
+    updateUserInfo () {
+      console.log(this.ruleForm)
+      this.modifyUserInfo = false
     }
   }
 }

@@ -125,7 +125,7 @@ export class SecurityService {
 }
 
 export class MovieService {
-  static findNewPlaying () {
+  static getNowPlaying () {
     return axios.get('/movie/now_playing').then(res => {
       return Promise.resolve(res.result)
     }).catch(error => {
@@ -149,12 +149,24 @@ export class MovieService {
     })
   }
 
-  static discoverMovie (discoverFilter, page) {
+  static getDiscover (discoverFilter, page) {
     return axios.get(`/movie/discover`, {
       params: {
         year: discoverFilter.year || 2019,
         with_genres: discoverFilter.genre || '10749',
         sort_by: discoverFilter.sort || 'popularity.desc',
+        page: page || 1
+      } }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getSearch (searchCriteria, page) {
+    return axios.get(`/movie/search`, {
+      params: {
+        query: searchCriteria || '',
         page: page || 1
       } }).then(res => {
       return Promise.resolve(res.result)

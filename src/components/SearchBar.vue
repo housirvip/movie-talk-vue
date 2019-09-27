@@ -14,12 +14,15 @@ export default {
       searchCriteria: ''
     }
   },
+  created () {
+    this.searchCriteria = this.$route.query.searchCriteria
+  },
   methods: {
     search () {
-      if (this.$route.path.startsWith('/movie/search')) {
+      if (this.$route.path.startsWith('/movie/search') && this.$route.query.searchCriteria === this.searchCriteria) {
         this.$emit('change', this.searchCriteria)
       } else {
-        this.$router.push({ path: '/movie/search', query: { query: this.searchCriteria } })
+        this.$router.push({ path: '/movie/search', query: { searchCriteria: this.searchCriteria } })
       }
     }
   }
