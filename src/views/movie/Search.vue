@@ -51,7 +51,8 @@ export default {
   },
   watch: {
     '$route.query.searchCriteria': function (newValue, oldValue) {
-      this.getSearchList(newValue)
+      this.searchCriteria = newValue
+      this.getSearchList()
     }
   },
   mounted () {
