@@ -3,63 +3,59 @@
     <el-container>
       <el-main>
         <el-row>
-          <el-col :span="6" :offset="0">
-            <el-image :src="movieImage"></el-image>
+          <el-col :span="5" :offset="0">
+            <movie-card :movie-id="movie.id" :title="movie.title" width="500"
+                        :url="movie.poster_path"></movie-card>
           </el-col>
-          <el-col :span="6" :offset="0">
-            <el-table
-              :data="tabledDataMovieInfo"
-              style="width: 100%">
+          <el-col :span="10" :offset="1">
+            <el-table :show-header="false" :data="tableData" style="width: 100%">
               <el-table-column
-                prop="MovieInfo"
-                label="Movie Info">
+                width="120"
+                prop="key"
+                label="Key">
+              </el-table-column>
+              <el-table-column
+                prop="value"
+                label="Value">
               </el-table-column>
             </el-table>
           </el-col>
-          <el-col :span="6" :offset="0" style="font-size: 70px;text-align: center;">
-              <p>
-                {{scoreTotal}}
-                <el-rate
-                v-model="scoreTotal"
+          <el-col :span="7" :offset="1" style="font-size: 70px;text-align: center;">
+            <p>
+              {{movie.vote_average}}
+              <el-rate
+                v-model="movie.vote_average"
                 disabled
                 :max=10.00
                 text-color="#ff9900">
-              </el-rate></p>
+              </el-rate>
+            </p>
           </el-col>
         </el-row>
-        <el-row style="font-size: 20px;text-align: left;">
-          <p>
-            Introduction:
-          </p>
+        <p class="title-p">
+          Introduction:
+        </p>
+        <p>
+          {{movie.overview}}
+        </p>
+        <p class="title-p">
+          Your Voting:
+        </p>
+        <el-row>
+          <el-col>
+            <el-rate :allow-half="true" :show-score="true" :max="10" v-model="yourVoting"></el-rate>
+          </el-col>
         </el-row>
         <el-row>
-            {{Introduction}}
+          <div class="write-review-div">
+            <span class="title-p">
+              Reviews:
+            </span>
+            <el-button id="write-review-btn" type="warning" @click="toWriteReview" icon="el-icon-edit" round>Write
+              Review
+            </el-button>
+          </div>
         </el-row>
-        <el-row style="font-size: 20px;text-align: left;">
-          <p>
-            Movie-scoring:
-          </p>
-        </el-row>
-        <el-row>
-          <el-col :span="4" :offset="0">
-            <el-rate :allow-half="true" :show-score="true" :max="10" v-model="scoreSubmit">
-            </el-rate>
-          </el-col>
-          <el-col :span="4" :offset="0">
-            <el-button type="primary">Submit</el-button>
-          </el-col>
-        </el-row>
-        <el-row style="font-size: 20px;text-align: left;">
-          <p>
-            Reviews:
-          </p>
-        </el-row>
-        <el-row>
-          <el-col :span="12" :offset="11">
-            <el-button type="danger" size="medium" @click="toWriteReview">Write a review</el-button>
-          </el-col>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
         <el-row>
           <el-col :span="3">
             <el-row>
@@ -70,19 +66,23 @@
             </el-row>
           </el-col>
           <el-col :span="21">
-            <el-row style="font-size: 20px;text-align: left;">
-              Good movie
+            <el-row>
+              <p class="title-p">Good movie</p>
             </el-row>
             <el-row>
-              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much to distract from the fun.
-              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they where going to get the Hulk
-              in there since he’s supposed to be uncontrol.
+              <p>After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
+                Rider, this was a pleasant experience.
+                The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out
+                of themselves just because the director
+                wanted some “depth” to their characters. Sure there is a little bickering in between them but not too
+                much to distract from the fun.
+                I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they
+                where going to get the Hulk
+                in there since he’s supposed to be uncontrol.</p>
             </el-row>
             <el-row>
               <el-col :span="6" :offset="16" style="text-align: right">
-                <el-button type="danger" size="medium" >Give a like</el-button>
+                <el-button type="danger" size="medium">Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
                 <el-button type="primary" size="medium" @click="toWriteReply">Reply</el-button>
@@ -101,19 +101,23 @@
             </el-row>
           </el-col>
           <el-col :span="21">
-            <el-row style="font-size: 20px;text-align: left;">
+            <el-row>
               Good movie
             </el-row>
             <el-row>
-              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much to distract from the fun.
-              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they where going to get the Hulk
+              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
+              Rider, this was a pleasant experience.
+              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of
+              themselves just because the director
+              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much
+              to distract from the fun.
+              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they
+              where going to get the Hulk
               in there since he’s supposed to be uncontrol.
             </el-row>
             <el-row>
               <el-col :span="6" :offset="16" style="text-align: right">
-                <el-button type="danger" size="medium" >Give a like</el-button>
+                <el-button type="danger" size="medium">Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
                 <el-button type="primary" size="medium" @click="toWriteReply">Reply</el-button>
@@ -132,19 +136,23 @@
             </el-row>
           </el-col>
           <el-col :span="21">
-            <el-row style="font-size: 20px;text-align: left;">
+            <el-row>
               Good movie
             </el-row>
             <el-row>
-              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much to distract from the fun.
-              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they where going to get the Hulk
+              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
+              Rider, this was a pleasant experience.
+              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of
+              themselves just because the director
+              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much
+              to distract from the fun.
+              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they
+              where going to get the Hulk
               in there since he’s supposed to be uncontrol.
             </el-row>
             <el-row>
               <el-col :span="6" :offset="16" style="text-align: right">
-                <el-button type="danger" size="medium" >Give a like</el-button>
+                <el-button type="danger" size="medium">Give a like</el-button>
               </el-col>
               <el-col :span="2" style="text-align: center">
                 <el-button type="primary" size="medium" @click="toWriteReply">Reply</el-button>
@@ -165,51 +173,51 @@
 
 <script>
 import { MovieService } from '../../services/api'
+import MovieCard from '../../components/MovieCard'
 
 export default {
   name: 'Detail',
+  components: {
+    MovieCard
+  },
   data () {
     return {
-      tabledDataMovieInfo: [{
-        MovieInfo: ''
-      }, {
-        MovieInfo: ''
-      }, {
-        MovieInfo: ''
-      }, {
-        MovieInfo: ''
-      }],
-      scoreSubmit: null,
+      tableData: [],
+      yourVoting: 6.5,
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-      scoreTotal: 0,
       movieId: this.$route.query.id,
-      Introduction: '',
-      movieImage: ''
+      movie: {}
     }
   },
   created () {
     MovieService.getDetails(this.movieId).then(
       result => {
-        this.tabledDataMovieInfo[0].MovieInfo = 'Title: ' + result.title
-        this.tabledDataMovieInfo[1].MovieInfo = 'Pubdate: ' + result.release_date
-        this.Introduction = result.overview
-        this.movieImage = 'https://image.tmdb.org/t/p/w200/' + result.poster_path
-        this.scoreTotal = result.vote_average
+        this.movie = result
+        this.tableData.push({ key: 'Tilte', value: result.title })
+        this.tableData.push({ key: 'Pubdate', value: result.release_date })
       }
-    )
-
+    ).catch(() => {})
     MovieService.getCredits(this.movieId).then(
       result => {
-        for (var i = 0; i < result.crew.length; i++) {
-          // eslint-disable-next-line eqeqeq
-          if (result.crew[i].job == 'Director') {
-            this.tabledDataMovieInfo[2].MovieInfo = 'Director: ' + result.crew[i].name
+        for (let item of result.crew) {
+          if (item.job === 'Director') {
+            this.tableData.push({ key: 'Director', value: item.name })
+          }
+        }
+        let casts = ''
+        let len = 0; let max = 8
+        for (let item of result.cast) {
+          len++
+          if (len < max) {
+            casts = casts + item.name + ', '
+          } else {
+            casts = casts + item.name
             break
           }
         }
-        this.tabledDataMovieInfo[3].MovieInfo = 'Casts: ' + result.cast[0].name + ', ' + result.cast[1].name + ', ' + result.cast[2].name
+        this.tableData.push({ key: 'Casts', value: casts })
       }
-    )
+    ).catch(() => {})
   },
   methods: {
     toWriteReview () {
@@ -222,6 +230,27 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .write-review-div {
+    span {
+      margin-right: 60%;
+    }
 
+    #write-review-btn {
+      right: 20px;
+    }
+
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  .title-p {
+    text-align: left;
+    font-size: 20px;
+  }
+  .cast-p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;  //需要显示时文本行数
+    overflow: hidden;
+  }
 </style>

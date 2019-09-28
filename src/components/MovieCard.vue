@@ -1,7 +1,7 @@
 <template>
   <div @click="toMovie" class="div-card">
     <el-card shadow="hover" class="movie-card" :body-style="{ padding: '0px' }">
-      <el-image :src="'https://image.tmdb.org/t/p/w'+width+url"/>
+      <el-image v-if="url" :src="'https://image.tmdb.org/t/p/w'+width+url"/>
       <div style="padding: 5px;">
         <span class="movie-title">{{title}}</span>
       </div>
