@@ -45,8 +45,10 @@ export default {
         this.defaultActive = '/user-center'
       } else if (this.$route.path.startsWith('/movie')) {
         this.defaultActive = '/movie/discover'
-      } else {
+      } else if (this.$route.path === '/') {
         this.defaultActive = '/'
+      } else {
+        this.defaultActive = ''
       }
     },
     logout () {

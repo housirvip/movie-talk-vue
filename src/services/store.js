@@ -5,12 +5,14 @@ import * as types from './types'
 const anonymous = {
   uid: 0,
   level: 0,
-  nickname: '',
   username: '',
   email: '',
   phone: '',
-  address: '',
-  birthday: 0
+  avatar: '',
+  sex: '',
+  job: '',
+  state: '',
+  birthday: ''
 }
 
 Vue.use(Vuex)

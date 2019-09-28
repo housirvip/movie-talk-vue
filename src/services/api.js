@@ -81,12 +81,18 @@ export class UserService {
       .then(res => {
         if (res.result) {
           let u = res.result
+          let i = res.result.userInfo
           let user = {
             uid: u.id,
             username: u.username,
             email: u.email,
             phone: u.phone,
-            level: u.level || 0
+            level: u.level || 0,
+            avatar: i.avatar,
+            sex: i.sex,
+            job: i.job,
+            state: i.state,
+            birthday: i.birthday
           }
           store.commit(types.STORE_USER, user)
         }
@@ -105,7 +111,7 @@ export class UserService {
   }
 
   static passChange (form) {
-    return axios.put('user/change-pass', form)
+    return axios.put('user/password', form)
       .then(res => {
         return Promise.resolve(res.result)
       }).catch(error => {

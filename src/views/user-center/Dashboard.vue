@@ -71,16 +71,16 @@
             Sex:
           </el-col>
           <el-col :span="4">
-            {{sex}}
+            {{user.sex}}
           </el-col>
         </el-row>
         <p></p>
         <el-row :gutter="20">
           <el-col :span="4" style="text-align: right">
-            Nation:
+            State:
           </el-col>
           <el-col :span="4">
-            {{nation}}
+            {{user.state}}
           </el-col>
         </el-row>
         <p></p>
@@ -89,30 +89,27 @@
             Job:
           </el-col>
           <el-col :span="4">
-            {{job}}
+            {{user.job}}
           </el-col>
         </el-row>
         <p></p>
         <el-row :gutter="20">
           <el-col :span="4" style="text-align: right">
-            Birth:
+            Birthday:
           </el-col>
           <el-col :span="4">
-            {{birth}}
+            {{user.birthday}}
           </el-col>
         </el-row>
         <p></p>
         <el-row>
-          <el-button type="primary" @click="modifyUserInfo = true">Modify Info</el-button>
+          <el-button type="primary" @click="modifyUserInfoDialog">Modify Info</el-button>
           <el-button type="primary" @click="modifyPassword = true">Modify Password</el-button>
         </el-row>
       </el-col>
     </el-row>
     <el-dialog title="Change User Info" :visible.sync="modifyUserInfo" width="30%" top="6vh">
       <el-form :model="infoForm" :rules="infoRules" ref="infoForm">
-        <el-form-item label="NickName" label-width="5" prop="nickname">
-          <el-input v-model="infoForm.nickname" autocomplete="off"></el-input>
-        </el-form-item>
         <el-form-item label="Sex" label-width="5" prop="sex">
           <el-radio-group v-model="infoForm.sex" style="width: 100%">
             <el-radio-button label="Male" value="Male"></el-radio-button>
@@ -131,7 +128,8 @@
           <el-input v-model="infoForm.job" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Birthday" label-width="5" prop="birthday">
-          <el-date-picker type="date" placeholder="选择日期" v-model="infoForm.birthday" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="datetime" placeholder="选择日期" v-model="infoForm.birthday" default-time="12:00:00"
+                          format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -191,10 +189,6 @@ export default {
         confirmPass: ''
       },
       infoRules: {
-        nickname: [
-          { required: true, message: 'Enter your nickname', trigger: 'blur' },
-          { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
-        ],
         sex: [
           { required: true, message: 'Select your sex', trigger: 'blur' },
           { min: 3, max: 32, message: 'length from 3 to 32', trigger: 'blur' }
@@ -232,11 +226,23 @@ export default {
     }
   },
   methods: {
+    modifyUserInfoDialog: function () {
+      this.modifyUserInfo = true
+      let user = this.user
+      let form = this.infoForm
+      Object.keys(form).forEach(function (key) {
+        form[key] = user[key]
+      })
+    },
     updateUserInfo () {
-      console.log(this.infoForm)
       this.$refs['infoForm'].validate((valid) => {
         if (valid) {
-          this.modifyUserInfo = false
+          UserService.infoChange(this.infoForm).then(res => {
+            this.modifyUserInfo = false
+            this.resetInfoForm()
+            UserService.detail()
+            this.$message.success('User Info Changed')
+          }).catch(() => {})
         } else {
           this.$message.error('Form error, please correct it')
           return false
@@ -247,7 +253,6 @@ export default {
       this.$refs['infoForm'].resetFields()
     },
     updatePassword () {
-      console.log(this.passForm)
       this.$refs['passForm'].validate((valid) => {
         if (valid) {
           UserService.passChange(this.passForm).then(res => {
