@@ -205,10 +205,10 @@ export default {
           }
         }
         let casts = ''
-        let len = 0; let max = 8
+        let len = 1; let max = 8
         for (let item of result.cast) {
           len++
-          if (len < max) {
+          if (len < max && len < result.cast.length) {
             casts = casts + item.name + ', '
           } else {
             casts = casts + item.name
