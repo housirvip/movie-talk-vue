@@ -101,6 +101,11 @@ export default new Router({
           path: 'write',
           name: 'Write',
           component: () => import('./views/review/Write.vue')
+        },
+        {
+          path: 'friend',
+          name: 'friend',
+          component: () => import('./views/review/Friend.vue')
         }
       ]
     }

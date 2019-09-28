@@ -59,7 +59,7 @@
         <el-row>
           <el-col :span="3">
             <el-row>
-              <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>
+              <user-card uid="1" username="asdasd"></user-card>
             </el-row>
             <el-row>
               Tom
@@ -174,10 +174,12 @@
 <script>
 import { MovieService } from '../../services/api'
 import MovieCard from '../../components/MovieCard'
+import UserCard from '../../components/UserCard'
 
 export default {
   name: 'Detail',
   components: {
+    UserCard,
     MovieCard
   },
   data () {

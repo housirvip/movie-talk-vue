@@ -101,6 +101,15 @@ export class UserService {
       })
   }
 
+  static friendDetail (id) {
+    return axios.get('user/friend', { params: { id: id } })
+      .then(res => {
+        return Promise.resolve(res.result)
+      }).catch(error => {
+        return Promise.reject(error)
+      })
+  }
+
   static infoChange (info) {
     return axios.put('user/info', info)
       .then(res => {
