@@ -34,7 +34,7 @@
         <p></p>
         <el-row>
           <el-col :span="4" style="text-align: right">
-            <el-button type="primary">follow</el-button>
+            <el-button :type="followAction==='follow'?'primary':'danger'" @click="follow">{{followAction}}</el-button>
           </el-col>
         </el-row>
       </el-col>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { UserService } from '../../services/api'
+import { ReviewService, UserService } from '../../services/api'
 
 export default {
   name: 'Friend',
@@ -51,11 +51,12 @@ export default {
     return {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       friend: {
-        uid: '',
+        uid: 3,
         username: '',
         sex: '',
         birthday: ''
-      }
+      },
+      followAction: ''
     }
   },
   computed: {
@@ -65,7 +66,7 @@ export default {
     }
   },
   mounted () {
-    UserService.friendDetail(1).then(
+    UserService.friendDetail(this.friend.uid).then(
       result => {
         this.friend.uid = result.id
         this.friend.username = result.username
@@ -73,6 +74,33 @@ export default {
         this.friend.birthday = result.userInfo.birthday
       }
     ).catch(() => {})
+
+    ReviewService.getFollowing(1, 5, this.friend.uid).then(
+      res => {
+        if (res.total >= 1) {
+          this.followAction = 'unfollow'
+        } else {
+          this.followAction = 'follow'
+        }
+      }
+    )
+  },
+  methods: {
+    follow () {
+      if (this.followAction === 'follow') {
+        ReviewService.createFollowing(this.friend.uid).then(
+          result => {
+            this.followAction = 'unfollow'
+          }
+        )
+      } else {
+        ReviewService.deleteFollowing(this.friend.uid).then(
+          result => {
+            this.followAction = 'follow'
+          }
+        )
+      }
+    }
   }
 }
 </script>

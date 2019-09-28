@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import store from './store'
 import * as types from './types'
+import da from 'element-ui/src/locale/lang/da'
 
 export class Urls {
   // captcha的地址不能写死 http 或者 https
@@ -193,6 +194,48 @@ export class MovieService {
         query: searchCriteria || '',
         page: page || 1
       } }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+}
+
+export class ReviewService {
+  static getFollowing (pageNum, pageSize, toId) {
+    return axios.get(`/user/following`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5,
+        param: {
+          toId: toId || null
+        }
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static createFollowing (toId) {
+    return axios.put(`/user/following`, {}, {
+      params: {
+        toId: toId
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteFollowing (toId) {
+    return axios.delete(`/user/following`, {
+      params: {
+        toId: toId
+      }
+    }).then(res => {
       return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)

@@ -59,7 +59,7 @@
         <el-row>
           <el-col :span="3">
             <el-row>
-              <user-card uid="1" username="asdasd"></user-card>
+              <user-card uid="3" username="asdasd"></user-card>
             </el-row>
             <el-row>
               Tom
