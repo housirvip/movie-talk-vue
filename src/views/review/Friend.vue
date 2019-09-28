@@ -39,14 +39,19 @@
         </el-row>
       </el-col>
     </el-row>
+    <el-row>
+      <review-history></review-history>
+    </el-row>
   </div>
 </template>
 
 <script>
 import { ReviewService, UserService } from '../../services/api'
+import ReviewHistory from '../../components/ReviewHistory'
 
 export default {
   name: 'Friend',
+  components: { ReviewHistory },
   data () {
     return {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',

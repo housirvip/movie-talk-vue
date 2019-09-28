@@ -106,6 +106,11 @@ export default new Router({
           path: 'friend',
           name: 'friend',
           component: () => import('./views/review/Friend.vue')
+        },
+        {
+          path: 'following',
+          name: 'following',
+          component: () => import('./views/review/Following.vue')
         }
       ]
     }

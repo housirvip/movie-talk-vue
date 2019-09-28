@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import store from './store'
 import * as types from './types'
-import da from 'element-ui/src/locale/lang/da'
 
 export class Urls {
   // captcha的地址不能写死 http 或者 https

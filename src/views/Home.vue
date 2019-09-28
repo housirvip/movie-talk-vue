@@ -28,7 +28,7 @@
         </el-row>
         <div class="div-title">
           My followings
-          <el-button type="primary">See more</el-button>
+          <el-button type="primary" @click="toFollow">See more</el-button>
         </div>
         <following-list></following-list>
         <div class="div-title">
@@ -104,6 +104,9 @@ export default {
     toDiscoverPage () {
       // eslint-disable-next-line standard/object-curly-even-spacing
       this.$router.push({ path: '/movie/discover', query: { year: this.discoverFilter.year, genre: this.discoverFilter.genre, sort: this.discoverFilter.sort } })
+    },
+    toFollow () {
+      this.$router.push({ path: '/review/following' })
     }
   }
 }
