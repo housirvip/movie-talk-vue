@@ -78,7 +78,6 @@ export default {
       }
       ReviewService.getByUid(this.currentPage, this.pageSize, this.user.uid).then(
         res => {
-          console.log(res)
           this.tableDataReviews = res.result
           this.totalCount = res.total
         }
