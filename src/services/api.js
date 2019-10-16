@@ -201,6 +201,14 @@ export class MovieService {
 }
 
 export class ReviewService {
+  static getById (rid) {
+    return axios.get(`/review/getById/${rid}`).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static getFollowing (pageNum, pageSize, toId) {
     return axios.get(`/user/following`, {
       params: {
@@ -286,6 +294,30 @@ export class ReviewService {
       params: {
         pageNum: pageNum || 1,
         pageSize: pageSize || 5
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static createReply (reply) {
+    return axios.post(`/review/reply`, reply).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getReplyByRid (pageNum, pageSize, rid) {
+    return axios.get(`/review/reply/getByRid`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5,
+        param: {
+          rid: rid || null
+        }
       }
     }).then(res => {
       return Promise.resolve(res)

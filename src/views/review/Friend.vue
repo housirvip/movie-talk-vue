@@ -132,7 +132,6 @@ export default {
       ReviewService.getByUid(this.currentPage, this.pageSize, this.uid).then(
         res => {
           this.reviewList = res.result
-          console.log(res)
         }
       ).catch(() => {
       })

@@ -70,7 +70,7 @@
                 </el-badge>
               </el-col>
               <el-col :span="2">
-                <el-button type="primary" size="medium" @click="toWriteReply(review.id)">Reply</el-button>
+                <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -116,7 +116,7 @@ export default {
       reviewList: []
     }
   },
-  created () {
+  mounted () {
     this.getMovieDetail()
     this.getMovieCredits()
     this.getReviews()
@@ -125,8 +125,8 @@ export default {
     toWriteReview () {
       this.$router.push({ path: '/review/write', query: { id: this.movie.id.toString() } })
     },
-    toWriteReply (rid) {
-      this.$router.push({ path: '/review/reply', query: { rid: rid } })
+    toWriteReply (rid, uid) {
+      this.$router.push({ path: '/review/reply', query: { uid: uid, rid: rid } })
     },
     getMovieDetail () {
       MovieService.getDetails(this.movieId).then(
