@@ -4,22 +4,20 @@
       <el-col :span="4" :offset="1">
         <movie-card :movie-id="follow.movieId" :title="follow.movieName" width="300" url="/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg"></movie-card>
       </el-col>
-      <el-col :span="12" :offset="1">
+      <el-col :span="16" :offset="1">
         <el-row style="font-size: 20px;text-align: left;">
           <el-col :span="3">
             <el-row>
-              <el-avatar shape="square" :size="100" :src="follow.avatar"></el-avatar>
+              <user-card :uid="follow.uid" :username="follow.user"></user-card>
             </el-row>
-            <div style="text-align: center">
-              {{follow.user}}
-            </div>
           </el-col>
-          <el-col :span="6" :offset="3">
+          <el-col :span="12" :offset="1">
             <p style="font-size: 25px">
               {{follow.title}}
             </p>
           </el-col>
         </el-row>
+        <el-divider></el-divider>
         <el-row>
           <p style="font-size: 16px">
             {{follow.content}}
@@ -32,10 +30,12 @@
 
 <script>
 import MovieCard from './MovieCard'
+import UserCard from './UserCard'
 
 export default {
   name: 'FollowingList',
   components: {
+    UserCard,
     MovieCard
   },
   data () {
@@ -51,7 +51,7 @@ export default {
       // TODO api get truly data instead of fake data
       let tmp = {
         title: 'Good movie',
-        user: 'Tony Ma',
+        user: 'Tony',
         avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
         movieId: 578672,
         movieName: 'L-DK: Two Loves, Under One Roo',

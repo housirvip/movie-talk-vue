@@ -1,15 +1,15 @@
 <template>
   <div class="friend">
     <el-row style="margin-bottom: 20px" type="flex" justify="center">
-      <el-col :span="4" :offset="1">
-        <el-image :src="avatar"/>
+      <el-col :span="3" :offset="1">
+        <user-card :uid="friend.uid" :username="friend.username"></user-card>
       </el-col>
       <el-col :span="14" :offset="0">
         <el-row :gutter="20">
           <el-col :span="4" style="text-align: right">
             Username:
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             {{friend.username}}
           </el-col>
         </el-row>
@@ -18,7 +18,7 @@
           <el-col :span="4" style="text-align: right">
             Sex:
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             {{friend.sex}}
           </el-col>
         </el-row>
@@ -27,7 +27,7 @@
           <el-col :span="4" style="text-align: right">
             Birthday:
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             {{friend.birthday}}
           </el-col>
         </el-row>
@@ -48,10 +48,14 @@
 <script>
 import { ReviewService, UserService } from '../../services/api'
 import ReviewHistory from '../../components/ReviewHistory'
+import UserCard from '../../components/UserCard'
 
 export default {
   name: 'Friend',
-  components: { ReviewHistory },
+  components: {
+    UserCard,
+    ReviewHistory
+  },
   data () {
     return {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',

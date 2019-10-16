@@ -2,7 +2,7 @@
   <div class="review-history">
     <el-row v-for="(review,index) in reviewList" v-bind:key="index" class="follow-row">
       <el-col :span="4" :offset="1">
-        <movie-card :movie-id="review.movieId" :title="review.movieName" width="200" url="/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg"></movie-card>
+        <movie-card :movie-id="review.movieId" :title="review.movieName" width="300" url="/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg"></movie-card>
       </el-col>
       <el-col :span="12" :offset="1">
         <el-row style="font-size: 20px;text-align: left;">

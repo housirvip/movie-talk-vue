@@ -58,7 +58,7 @@
         </el-row>
         <el-row v-for="(review,index) in reviewList" v-bind:key="index">
           <el-col :span="3">
-            <user-card :uid="review.uid" username="asdasd"></user-card>
+            <user-card :uid="review.uid" username="Tony"></user-card>
           </el-col>
           <el-col :span="20" :offset="1">
             <p class="title-p">{{review.title}}</p>
@@ -70,7 +70,7 @@
                 </el-badge>
               </el-col>
               <el-col :span="2">
-                <el-button type="primary" size="medium" @click="toWriteReply">Reply</el-button>
+                <el-button type="primary" size="medium" @click="toWriteReply(review.id)">Reply</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -125,8 +125,8 @@ export default {
     toWriteReview () {
       this.$router.push({ path: '/review/write', query: { id: this.movie.id.toString() } })
     },
-    toWriteReply () {
-      this.$router.push({ path: '/review/reply' })
+    toWriteReply (rid) {
+      this.$router.push({ path: '/review/reply', query: { rid: rid } })
     },
     getMovieDetail () {
       MovieService.getDetails(this.movieId).then(
