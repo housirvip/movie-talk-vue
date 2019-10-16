@@ -39,22 +39,43 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-row>
-      <review-history></review-history>
+    <el-row v-for="(review,index) in reviewList" v-bind:key="index" class="follow-row">
+      <el-col :span="4" :offset="1">
+        <movie-card :movie-id="review.mid" width="300" :request="true"></movie-card>
+      </el-col>
+      <el-col :span="12" :offset="1">
+        <h2>
+          {{review.title}}
+        </h2>
+        <p style="font-size: 16px">
+          {{review.content}}
+        </p>
+      </el-col>
+    </el-row>
+    <el-row type="flex" justify="center">
+      <el-pagination
+        @current-change="pageChange"
+        @size-change="sizeChange"
+        :current-page.sync="currentPage"
+        :page-sizes="[5, 10, 20, 40]"
+        :page-size="pageSize"
+        layout="sizes, prev, pager, next, jumper"
+        :total="totalCount">
+      </el-pagination>
     </el-row>
   </div>
 </template>
 
 <script>
 import { ReviewService, UserService } from '../../services/api'
-import ReviewHistory from '../../components/ReviewHistory'
 import UserCard from '../../components/UserCard'
+import MovieCard from '../../components/MovieCard'
 
 export default {
   name: 'Friend',
   components: {
     UserCard,
-    ReviewHistory
+    MovieCard
   },
   data () {
     return {
@@ -65,36 +86,65 @@ export default {
         sex: '',
         birthday: ''
       },
-      followAction: ''
+      uid: this.$route.query.uid,
+      followAction: '',
+      currentPage: 1,
+      pageSize: 5,
+      totalCount: 0,
+      reviewList: []
     }
   },
   computed: {
-    // eslint-disable-next-line vue/no-dupe-keys
     user: function () {
       return this.$store.state.global.user
     }
   },
   mounted () {
-    UserService.friendDetail(this.friend.uid).then(
-      result => {
-        this.friend.uid = result.id
-        this.friend.username = result.username
-        this.friend.sex = result.userInfo.sex
-        this.friend.birthday = result.userInfo.birthday
-      }
-    ).catch(() => {})
-
-    ReviewService.getFollowing(1, 5, this.friend.uid).then(
-      res => {
-        if (res.total >= 1) {
-          this.followAction = 'unfollow'
-        } else {
-          this.followAction = 'follow'
-        }
-      }
-    )
+    this.getFriendInfo()
+    this.checkFollow()
+    this.getReviewList()
   },
   methods: {
+    getFriendInfo () {
+      UserService.friendDetail(this.uid).then(
+        result => {
+          this.friend.uid = result.id
+          this.friend.username = result.username
+          this.friend.sex = result.userInfo.sex
+          this.friend.birthday = result.userInfo.birthday
+        }
+      ).catch(() => {
+      })
+    },
+    checkFollow () {
+      ReviewService.getFollowing(1, 5, this.uid).then(
+        res => {
+          if (res.total >= 1) {
+            this.followAction = 'unfollow'
+          } else {
+            this.followAction = 'follow'
+          }
+        }
+      ).catch(() => {
+      })
+    },
+    getReviewList () {
+      ReviewService.getByUid(this.currentPage, this.pageSize, this.uid).then(
+        res => {
+          this.reviewList = res.result
+          console.log(res)
+        }
+      ).catch(() => {
+      })
+    },
+    pageChange (page) {
+      this.currentPage = page
+      this.getReviewList()
+    },
+    sizeChange (size) {
+      this.pageSize = size
+      this.getReviewList()
+    },
     follow () {
       if (this.followAction === 'follow') {
         ReviewService.createFollowing(this.friend.uid).then(

@@ -58,7 +58,7 @@
         </el-row>
         <el-row v-for="(review,index) in reviewList" v-bind:key="index">
           <el-col :span="3">
-            <user-card :uid="review.uid" username="Tony"></user-card>
+            <user-card :uid="review.uid" :username="review.username"></user-card>
           </el-col>
           <el-col :span="20" :offset="1">
             <p class="title-p">{{review.title}}</p>

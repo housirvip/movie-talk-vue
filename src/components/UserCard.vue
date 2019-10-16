@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     toFriend () {
-      this.$router.push({ path: '/review/friend', query: { id: this.uid.toString() } })
+      this.$router.push({ path: '/review/friend', query: { uid: this.uid.toString() } })
     }
   }
 }

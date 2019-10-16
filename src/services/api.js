@@ -264,4 +264,33 @@ export class ReviewService {
       return Promise.reject(error)
     })
   }
+
+  static getByUid (pageNum, pageSize, uid) {
+    return axios.get(`/review/getByUid`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5,
+        param: {
+          uid: uid || null
+        }
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getByFollowing (pageNum, pageSize) {
+    return axios.get(`/review/getByFollowing`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
 }
