@@ -56,26 +56,20 @@
             </el-button>
           </div>
         </el-row>
-        <el-row>
+        <el-row v-for="(review,index) in reviewList" v-bind:key="index">
           <el-col :span="3">
-            <user-card :uid="3" username="asdasd"></user-card>
+            <user-card :uid="review.uid" username="asdasd"></user-card>
           </el-col>
           <el-col :span="20" :offset="1">
-            <p class="title-p">Good movie</p>
-            <p>After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
-              Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out
-              of themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too
-              much to distract from the fun.
-              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they
-              where going to get the Hulk
-              in there since he’s supposed to be uncontrol.</p>
-            <el-row>
-              <el-col :span="6" :offset="16" style="text-align: right">
-                <el-button type="danger" size="medium">Give a like</el-button>
+            <p class="title-p">{{review.title}}</p>
+            <p>{{review.content}}</p>
+            <el-row type="flex" class="row-bg" justify="end">
+              <el-col :span="2">
+                <el-badge :value="12" class="item">
+                  <el-button type="danger" size="medium">Like</el-button>
+                </el-badge>
               </el-col>
-              <el-col :span="2" style="text-align: center">
+              <el-col :span="2">
                 <el-button type="primary" size="medium" @click="toWriteReply">Reply</el-button>
               </el-col>
             </el-row>
@@ -86,8 +80,9 @@
             @current-change="pageChange"
             @size-change="sizeChange"
             :current-page.sync="currentPage"
+            :page-sizes="[5, 10, 20, 40]"
             :page-size="pageSize"
-            layout="prev, pager, next, jumper"
+            layout="sizes, prev, pager, next, jumper"
             :total="totalCount">
           </el-pagination>
         </el-row>
@@ -181,8 +176,9 @@ export default {
       this.currentPage = page
       this.getReviews()
     },
-    sizeChange (val) {
-      this.pageSize = val
+    sizeChange (size) {
+      this.pageSize = size
+      this.getReviews()
     }
   }
 }
