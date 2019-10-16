@@ -240,4 +240,28 @@ export class ReviewService {
       return Promise.reject(error)
     })
   }
+
+  static createReview (review) {
+    return axios.post(`/review`, review).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getByMid (pageNum, pageSize, mid) {
+    return axios.get(`/review/getByMid`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5,
+        param: {
+          mid: mid || null
+        }
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
 }

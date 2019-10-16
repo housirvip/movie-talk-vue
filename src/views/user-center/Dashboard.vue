@@ -97,7 +97,7 @@
           <el-col :span="4" style="text-align: right">
             Birthday:
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             {{user.birthday}}
           </el-col>
         </el-row>

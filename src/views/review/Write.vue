@@ -1,68 +1,99 @@
 <template>
   <div class="review">
     <el-row>
-      <el-col :span="6">
-        <el-row>
-          <el-image src="https://upload.wikimedia.org/wikipedia/en/f/f9/TheAvengers2012Poster.jpg"></el-image>
-        </el-row>
-        <el-row>
-          The Avenger
-        </el-row>
+      <el-col :span="4" :offset="1">
+        <movie-card :movie-id="movie.id" :title="movie.title" width="300"
+                    :url="movie.poster_path"></movie-card>
       </el-col>
-      <el-col :span="18">
-        <el-row style="font-size: 30px">
+      <el-col :span="17" :offset="1">
+        <h2>
           Write your review
-        </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row style="font-size: 20px">
-          Title:
-        </el-row>
-        <el-row>
-          <el-input v-model="title" placeholder="Input"></el-input>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row style="font-size: 20px">
-          Text:
-        </el-row>
-        <el-row>
-          <el-input
-            type="textarea"
-            :autosize="{ minRows: 8, maxRows: 12}"
-            placeholder="Input"
-            v-model="textInput">
-          </el-input>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
-          <el-col :span="6" offset="16" style="text-align: right">
-            <el-button type="info" size="medium" @click="toMovie">Cancel</el-button>
-          </el-col>
-          <el-col :span="2" style="text-align: center">
-            <el-button type="primary" size="medium" @click="toMovie">Submit</el-button>
-          </el-col>
-        </el-row>
+        </h2>
+        <el-divider></el-divider>
+        <el-form label-position="right" label-width="80px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form-item label="title" required prop="title">
+            <el-input v-model="ruleForm.title"></el-input>
+          </el-form-item>
+          <el-form-item label="content" required prop="content" >
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 8, maxRows: 12}"
+              v-model="ruleForm.content">
+            </el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm">Submit</el-button>
+            <el-button @click="resetForm">Reset</el-button>
+          </el-form-item>
+        </el-form>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import MovieCard from '../../components/MovieCard'
+import { MovieService, ReviewService } from '../../services/api'
+
 export default {
   name: 'Write',
+  components: {
+    MovieCard
+  },
   data () {
     return {
-      title: '',
-      textInput: ''
+      ruleForm: {
+        title: '',
+        content: '',
+        mid: this.$route.query.id
+      },
+      movieId: this.$route.query.id,
+      movie: {},
+      rules: {
+        title: [
+          { required: true, message: 'Enter your title', trigger: 'blur' },
+          { min: 3, max: 64, message: 'length from 3 to 32', trigger: 'blur' }
+        ],
+        content: [
+          { required: true, message: 'Enter your content', trigger: 'blur' },
+          { min: 3, max: 1024, message: 'length from 3 to 32', trigger: 'blur' }
+        ]
+      }
     }
   },
+  mounted () {
+    MovieService.getDetails(this.movieId).then(
+      result => {
+        this.movie = result
+      }
+    ).catch(() => {})
+  },
   methods: {
-    toMovie () {
-      this.$router.push({ path: '/movie' })
+    submitForm () {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          ReviewService.createReview(this.ruleForm).then(() => {
+            this.$message.success('Submitted, redirecting...')
+            // redirect to user center
+            this.$router.push({ path: '/movie/detail', query: { id: this.movieId } })
+          }).catch(() => {})
+        } else {
+          this.$message.error('Form error, please correct it')
+          return false
+        }
+      })
+    },
+    resetForm () {
+      this.$refs['ruleForm'].resetFields()
     }
   }
 }
 </script>
 
 <style scoped>
-
+  .btn-group {
+    margin-top: 20px;
+    margin-right: 20px;
+    float: right;
+  }
 </style>

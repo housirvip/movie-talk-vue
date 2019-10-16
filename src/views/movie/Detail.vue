@@ -51,70 +51,26 @@
             <span class="title-p">
               Reviews:
             </span>
-            <el-button id="write-review-btn" type="warning" @click="toWriteReview" icon="el-icon-edit" round>Write
-              Review
+            <el-button id="write-review-btn" type="warning" @click="toWriteReview" icon="el-icon-edit" round>
+              Write Review
             </el-button>
           </div>
         </el-row>
         <el-row>
           <el-col :span="3">
-            <el-row>
-              <user-card uid="3" username="asdasd"></user-card>
-            </el-row>
-            <el-row>
-              Tom
-            </el-row>
+            <user-card :uid="3" username="asdasd"></user-card>
           </el-col>
-          <el-col :span="21">
-            <el-row>
-              <p class="title-p">Good movie</p>
-            </el-row>
-            <el-row>
-              <p>After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
-                Rider, this was a pleasant experience.
-                The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out
-                of themselves just because the director
-                wanted some “depth” to their characters. Sure there is a little bickering in between them but not too
-                much to distract from the fun.
-                I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they
-                where going to get the Hulk
-                in there since he’s supposed to be uncontrol.</p>
-            </el-row>
-            <el-row>
-              <el-col :span="6" :offset="16" style="text-align: right">
-                <el-button type="danger" size="medium">Give a like</el-button>
-              </el-col>
-              <el-col :span="2" style="text-align: center">
-                <el-button type="primary" size="medium" @click="toWriteReply">Reply</el-button>
-              </el-col>
-            </el-row>
-          </el-col>
-        </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
-          <el-col :span="3">
-            <el-row>
-              <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>
-            </el-row>
-            <el-row>
-              Tom
-            </el-row>
-          </el-col>
-          <el-col :span="21">
-            <el-row>
-              Good movie
-            </el-row>
-            <el-row>
-              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
+          <el-col :span="20" :offset="1">
+            <p class="title-p">Good movie</p>
+            <p>After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
               Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of
-              themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much
-              to distract from the fun.
+              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out
+              of themselves just because the director
+              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too
+              much to distract from the fun.
               I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they
               where going to get the Hulk
-              in there since he’s supposed to be uncontrol.
-            </el-row>
+              in there since he’s supposed to be uncontrol.</p>
             <el-row>
               <el-col :span="6" :offset="16" style="text-align: right">
                 <el-button type="danger" size="medium">Give a like</el-button>
@@ -125,46 +81,16 @@
             </el-row>
           </el-col>
         </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-row>
-          <el-col :span="3">
-            <el-row>
-              <el-avatar shape="square" :size="100" :src="avatar"></el-avatar>
-            </el-row>
-            <el-row>
-              Tom
-            </el-row>
-          </el-col>
-          <el-col :span="21">
-            <el-row>
-              Good movie
-            </el-row>
-            <el-row>
-              After the recent disappointments from Marvel, notably Thor and the abysmal second instalment of Ghost
-              Rider, this was a pleasant experience.
-              The special effects are dazzling, the plot is acceptable and the heroes are not making total idiots out of
-              themselves just because the director
-              wanted some “depth” to their characters. Sure there is a little bickering in between them but not too much
-              to distract from the fun.
-              I’ve always liked Robert Downey Jr’s portrayal of Tony Stark and his sharp tongue. I did wonder how they
-              where going to get the Hulk
-              in there since he’s supposed to be uncontrol.
-            </el-row>
-            <el-row>
-              <el-col :span="6" :offset="16" style="text-align: right">
-                <el-button type="danger" size="medium">Give a like</el-button>
-              </el-col>
-              <el-col :span="2" style="text-align: center">
-                <el-button type="primary" size="medium" @click="toWriteReply">Reply</el-button>
-              </el-col>
-            </el-row>
-          </el-col>
+        <el-row type="flex" justify="center">
+          <el-pagination
+            @current-change="pageChange"
+            @size-change="sizeChange"
+            :current-page.sync="currentPage"
+            :page-size="pageSize"
+            layout="prev, pager, next, jumper"
+            :total="totalCount">
+          </el-pagination>
         </el-row>
-        <div style="margin: 20px 0;"></div>
-        <el-pagination style="text-align: right"
-                       layout="prev, pager, next"
-                       :total="50">
-        </el-pagination>
       </el-main>
     </el-container>
   </div>
@@ -172,7 +98,7 @@
 </template>
 
 <script>
-import { MovieService } from '../../services/api'
+import { MovieService, ReviewService } from '../../services/api'
 import MovieCard from '../../components/MovieCard'
 import UserCard from '../../components/UserCard'
 
@@ -185,48 +111,78 @@ export default {
   data () {
     return {
       tableData: [],
+      currentPage: 1,
+      pageSize: 5,
+      totalCount: 0,
       yourVoting: 6.5,
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       movieId: this.$route.query.id,
-      movie: {}
+      movie: {},
+      reviewList: []
     }
   },
   created () {
-    MovieService.getDetails(this.movieId).then(
-      result => {
-        this.movie = result
-        this.tableData.push({ key: 'Tilte', value: result.title })
-        this.tableData.push({ key: 'Pubdate', value: result.release_date })
-      }
-    ).catch(() => {})
-    MovieService.getCredits(this.movieId).then(
-      result => {
-        for (let item of result.crew) {
-          if (item.job === 'Director') {
-            this.tableData.push({ key: 'Director', value: item.name })
-          }
-        }
-        let casts = ''
-        let len = 1; let max = 8
-        for (let item of result.cast) {
-          len++
-          if (len < max && len < result.cast.length) {
-            casts = casts + item.name + ', '
-          } else {
-            casts = casts + item.name
-            break
-          }
-        }
-        this.tableData.push({ key: 'Casts', value: casts })
-      }
-    ).catch(() => {})
+    this.getMovieDetail()
+    this.getMovieCredits()
+    this.getReviews()
   },
   methods: {
     toWriteReview () {
-      this.$router.push({ path: '/review/write' })
+      this.$router.push({ path: '/review/write', query: { id: this.movie.id.toString() } })
     },
     toWriteReply () {
       this.$router.push({ path: '/review/reply' })
+    },
+    getMovieDetail () {
+      MovieService.getDetails(this.movieId).then(
+        result => {
+          this.movie = result
+          this.tableData.push({ key: 'Tilte', value: result.title })
+          this.tableData.push({ key: 'Pubdate', value: result.release_date })
+        }
+      ).catch(() => {
+      })
+    },
+    getMovieCredits () {
+      MovieService.getCredits(this.movieId).then(
+        result => {
+          for (let item of result.crew) {
+            if (item.job === 'Director') {
+              this.tableData.push({ key: 'Director', value: item.name })
+            }
+          }
+          let casts = ''
+          let len = 1
+          let max = 8
+          for (let item of result.cast) {
+            len++
+            if (len < max && len < result.cast.length) {
+              casts = casts + item.name + ', '
+            } else {
+              casts = casts + item.name
+              break
+            }
+          }
+          this.tableData.push({ key: 'Casts', value: casts })
+        }
+      ).catch(() => {
+      })
+    },
+    getReviews () {
+      ReviewService.getByMid(this.currentPage, this.pageSize, this.movieId).then(
+        res => {
+          this.totalCount = res.total
+          this.reviewList = res.result
+        }
+      ).catch(() => {
+      })
+    },
+    pageChange (page) {
+      this.currentPage = page
+      this.getReviews()
+    },
+    sizeChange (val) {
+      this.pageSize = val
     }
   }
 }
@@ -245,14 +201,16 @@ export default {
     margin-bottom: 20px;
     margin-top: 20px;
   }
+
   .title-p {
     text-align: left;
     font-size: 20px;
   }
-  .cast-p{
+
+  .cast-p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;  //需要显示时文本行数
+    -webkit-line-clamp: 4; //需要显示时文本行数
     overflow: hidden;
   }
 </style>
