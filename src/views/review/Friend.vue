@@ -1,7 +1,7 @@
 <template>
   <div class="friend">
     <el-row style="margin-bottom: 20px" type="flex" justify="center">
-      <el-col :span="3" :offset="1">
+      <el-col :span="2" :offset="1">
         <user-card :uid="friend.uid" :username="friend.username"></user-card>
       </el-col>
       <el-col :span="14" :offset="0">
@@ -40,8 +40,8 @@
       </el-col>
     </el-row>
     <el-row v-for="(review,index) in reviewList" v-bind:key="index" class="follow-row">
-      <el-col :span="4" :offset="1">
-        <movie-card :movie-id="review.mid" width="300" :request="true"></movie-card>
+      <el-col :span="3" :offset="1">
+        <movie-card :movie-id="review.mid" :width="300"></movie-card>
       </el-col>
       <el-col :span="12" :offset="1">
         <h2>

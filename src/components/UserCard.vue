@@ -2,7 +2,7 @@
   <div @click="toFriend" class="div-card">
     <el-card shadow="hover" class="user-card" :body-style="{ padding: '0px' }">
       <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"/>
-      <div style="padding: 5px;">
+      <div>
         <span class="username">{{username}}</span>
       </div>
     </el-card>
@@ -32,6 +32,11 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    & {
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-top: 0;
+    }
   }
   .user-card{
     text-align: center;

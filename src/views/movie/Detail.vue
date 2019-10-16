@@ -4,8 +4,7 @@
       <el-main>
         <el-row>
           <el-col :span="5" :offset="0">
-            <movie-card :movie-id="movie.id" :title="movie.title" width="500"
-                        :url="movie.poster_path"></movie-card>
+            <movie-card :movie-id="movie.id" :title="movie.title" :url="movie.poster_path"></movie-card>
           </el-col>
           <el-col :span="10" :offset="1">
             <el-table :show-header="false" :data="tableData" style="width: 100%">
@@ -57,7 +56,7 @@
           </div>
         </el-row>
         <el-row v-for="(review,index) in reviewList" v-bind:key="index">
-          <el-col :span="3">
+          <el-col :span="2">
             <user-card :uid="review.uid" :username="review.username"></user-card>
           </el-col>
           <el-col :span="20" :offset="1">

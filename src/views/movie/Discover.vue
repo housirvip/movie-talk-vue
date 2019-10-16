@@ -11,8 +11,7 @@
     <discover-filter @change="getDiscoverList"></discover-filter>
     <el-row v-for="(discovers,indexRow) in discoverList" v-bind:key="indexRow">
       <el-col :span="4" v-for="(discover,index) in discovers"  v-bind:key="index" :offset="index%4===0?2:1" >
-        <movie-card :movie-id="discover.id" :title="discover.title" width="300"
-                    :url="discover.poster_path"></movie-card>
+        <movie-card :movie-id="discover.id" :title="discover.title" :url="discover.poster_path"></movie-card>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">

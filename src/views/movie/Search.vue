@@ -12,8 +12,7 @@
         </el-row>
         <el-row v-for="(searches,indexRow) in searchList" v-bind:key="indexRow">
           <el-col :span="4" v-for="(search,index) in searches"  v-bind:key="index" :offset="index%4===0?2:1" >
-            <movie-card :movie-id="search.id" :title="search.title" width="300"
-                        :url="search.poster_path"></movie-card>
+            <movie-card :movie-id="search.id" :title="search.title" :url="search.poster_path"></movie-card>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">

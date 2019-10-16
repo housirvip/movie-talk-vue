@@ -1,12 +1,12 @@
 <template>
   <div class="following-list">
     <el-row v-for="(follow,index) in followingList" v-bind:key="index" class="follow-row">
-      <el-col :span="4" :offset="1">
-        <movie-card :movie-id="follow.mid" width="300" :request="true"></movie-card>
+      <el-col :span="3" :offset="1">
+        <movie-card :movie-id="follow.mid"></movie-card>
       </el-col>
       <el-col :span="16" :offset="1">
         <el-row style="font-size: 20px;text-align: left;">
-          <el-col :span="3">
+          <el-col :span="2">
             <el-row>
               <user-card :uid="follow.uid" :username="follow.username"></user-card>
             </el-row>

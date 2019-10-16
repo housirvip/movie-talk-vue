@@ -22,8 +22,7 @@
         <discover-filter @change="getDiscoverList"></discover-filter>
         <el-row style="margin-top: 20px">
           <el-col :span="4" :offset="1" v-for="(discover,index) in discoverList" v-bind:key="index">
-            <movie-card :movie-id="discover.id" :title="discover.title" width="300"
-                        :url="discover.poster_path"></movie-card>
+            <movie-card :movie-id="discover.id" :title="discover.title" :url="discover.poster_path"></movie-card>
           </el-col>
         </el-row>
         <div class="div-title">
@@ -36,7 +35,7 @@
         </div>
         <el-row>
           <el-col :span="4" :offset="1" v-for="(recommend,index) in recommendList" v-bind:key="index">
-            <movie-card :movie-id="recommend.id" :title="recommend.title" :width="recommend.width" :url="recommend.url"></movie-card>
+            <movie-card :movie-id="recommend.id" :title="recommend.title" :url="recommend.url"></movie-card>
           </el-col>
         </el-row>
       </el-main>

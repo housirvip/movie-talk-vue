@@ -1,8 +1,8 @@
 <template>
   <div @click="toMovie" class="div-card">
     <el-card shadow="hover" class="movie-card" :body-style="{ padding: '0px' }">
-      <el-image v-if="url||movie.poster_path" :src="'https://image.tmdb.org/t/p/w'+width+(url||movie.poster_path)"/>
-      <div style="padding: 5px;">
+      <el-image v-if="url||movie.poster_path" :src="'https://image.tmdb.org/t/p/w'+(width||'400')+(url||movie.poster_path)"/>
+      <div>
         <span class="movie-title">{{title||movie.title}}</span>
       </div>
     </el-card>
@@ -18,8 +18,7 @@ export default {
     title: String,
     movieId: Number,
     url: String,
-    width: String,
-    request: Boolean
+    width: String
   },
   data () {
     return {
@@ -30,7 +29,7 @@ export default {
     }
   },
   mounted () {
-    if (this.request && this.movieId) {
+    if (!this.url && this.movieId) {
       this.getMovieDetail()
     }
   },
@@ -41,7 +40,6 @@ export default {
     getMovieDetail () {
       MovieService.getDetails(this.movieId).then(
         res => {
-          // console.log(res)
           this.movie = res
         }
       ).catch(() => {
@@ -59,6 +57,10 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    & {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
   }
   .movie-card{
     text-align: center;
