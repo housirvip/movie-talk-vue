@@ -4,25 +4,25 @@
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card" shadow="hover">
           <p>Likes</p>
-          <p>123</p>
+          <p>{{userRecord.likeTotal}}</p>
         </el-card>
       </el-col>
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card">
           <p>Followers</p>
-          <p>123</p>
+          <p>{{userRecord.followTotal}}</p>
         </el-card>
       </el-col>
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card">
           <p>Reviews</p>
-          <p>123</p>
+          <p>{{userRecord.reviewTotal}}</p>
         </el-card>
       </el-col>
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card">
           <p>Comments</p>
-          <p>123</p>
+          <p>{{userRecord.replyTotal}}</p>
         </el-card>
       </el-col>
     </el-row>
@@ -30,12 +30,12 @@
       <el-col :span="4" :offset="1">
         <el-card shadow="hover" class="user-card" :body-style="{ padding: '0px' }">
           <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"/>
-            <el-upload
-              class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :limit="1">
-              <el-button type="text">click to change</el-button>
-            </el-upload>
+          <el-upload
+            class="upload-demo"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :limit="1">
+            <el-button type="text">click to change</el-button>
+          </el-upload>
         </el-card>
       </el-col>
       <el-col :span="14" :offset="4">
@@ -129,7 +129,8 @@
         </el-form-item>
         <el-form-item label="Birthday" label-width="5" prop="birthday">
           <el-date-picker type="datetime" placeholder="选择日期" v-model="infoForm.birthday" default-time="12:00:00"
-                          format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></el-date-picker>
+                          format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss"
+                          style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -177,6 +178,7 @@ export default {
       nation: 'US',
       modifyUserInfo: false,
       modifyPassword: false,
+      userRecord: {},
       infoForm: {
         sex: '',
         state: '',
@@ -225,6 +227,9 @@ export default {
       return this.$store.state.global.user
     }
   },
+  mounted () {
+    this.getUserRecord()
+  },
   methods: {
     modifyUserInfoDialog: function () {
       this.modifyUserInfo = true
@@ -242,7 +247,8 @@ export default {
             this.resetInfoForm()
             UserService.detail()
             this.$message.success('User Info Changed')
-          }).catch(() => {})
+          }).catch(() => {
+          })
         } else {
           this.$message.error('Form error, please correct it')
           return false
@@ -259,7 +265,8 @@ export default {
             this.modifyPassword = false
             this.resetPassForm()
             this.$message.success('Password Changed')
-          }).catch(() => {})
+          }).catch(() => {
+          })
         } else {
           this.$message.error('Form error, please correct it')
           return false
@@ -268,6 +275,14 @@ export default {
     },
     resetPassForm () {
       this.$refs['passForm'].resetFields()
+    },
+    getUserRecord () {
+      UserService.userRecord().then(
+        res => {
+          this.userRecord = res
+        }
+      ).catch(() => {
+      })
     }
   }
 }
@@ -278,29 +293,35 @@ export default {
     .tag-card {
       margin: 1em;
       color: #fff;
+
       p {
         margin: 0;
       }
+
       p:last-child {
         font-size: 25px;
       }
     }
   }
+
   .tag-card-wrapper:nth-child(1) {
     .tag-card {
       background-color: #e84c3d;
     }
   }
+
   .tag-card-wrapper:nth-child(2) {
     .tag-card {
       background-color: #1abc9c;
     }
   }
+
   .tag-card-wrapper:nth-child(3) {
     .tag-card {
       background-color: #3598db;
     }
   }
+
   .tag-card-wrapper:nth-child(4) {
     .tag-card {
       background-color: #9a59b5;

@@ -63,9 +63,9 @@
             <p class="title-p">{{review.title}}</p>
             <p>{{review.content}}</p>
             <el-row type="flex" class="row-bg" justify="end">
-              <el-col :span="2">
-                <el-badge :value="12" class="item">
-                  <el-button type="danger" size="medium">Like</el-button>
+              <el-col :span="3">
+                <el-badge :value="review.likeTotal" class="item">
+                  <el-button type="danger" size="medium" @click="doLikeOrNot(review)">{{review.isLike?'Unlike':'Like'}}</el-button>
                 </el-badge>
               </el-col>
               <el-col :span="2">
@@ -170,6 +170,33 @@ export default {
         }
       ).catch(() => {
       })
+    },
+    doLikeOrNot (review) {
+      if (review.isLike) {
+        ReviewService.deleteReviewLike(review.id).then(
+          res => {
+            if (res) {
+              this.$message.success('Success')
+              review.isLike = 0
+              review.likeTotal--
+            }
+            console.log(res)
+          }
+        ).catch(() => {
+        })
+      } else {
+        ReviewService.createReviewLike(review.id).then(
+          res => {
+            if (res) {
+              this.$message.success('Success')
+              review.isLike = 1
+              review.likeTotal++
+            }
+            console.log(res)
+          }
+        ).catch(() => {
+        })
+      }
     },
     pageChange (page) {
       this.currentPage = page

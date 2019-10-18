@@ -6,7 +6,7 @@ import * as types from './types'
 
 export class Urls {
   // captcha的地址不能写死 http 或者 https
-  static captcha = '//captcha.luosimao.com/static/dist/api.js';
+  static captcha = '//captcha.luosimao.com/static/dist/api.js'
 }
 
 let axios = Vue.axios
@@ -110,6 +110,15 @@ export class UserService {
       })
   }
 
+  static userRecord () {
+    return axios.get('user/userRecord')
+      .then(res => {
+        return Promise.resolve(res.result)
+      }).catch(error => {
+        return Promise.reject(error)
+      })
+  }
+
   static infoChange (info) {
     return axios.put('user/info', info)
       .then(res => {
@@ -180,7 +189,8 @@ export class MovieService {
         with_genres: discoverFilter.genre || '10749',
         sort_by: discoverFilter.sort || 'popularity.desc',
         page: page || 1
-      } }).then(res => {
+      }
+    }).then(res => {
       return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)
@@ -192,7 +202,8 @@ export class MovieService {
       params: {
         query: searchCriteria || '',
         page: page || 1
-      } }).then(res => {
+      }
+    }).then(res => {
       return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)
@@ -321,6 +332,28 @@ export class ReviewService {
       }
     }).then(res => {
       return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static createReviewLike (rid) {
+    return axios.post(`/review/like`, {
+      rid: rid
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteReviewLike (rid) {
+    return axios.delete(`/review/like`, {
+      params: {
+        rid: rid
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)
     })

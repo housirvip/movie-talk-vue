@@ -22,12 +22,12 @@
           </el-table-column>
           <el-table-column label="Likes" width="100">
             <template slot-scope="scope">
-              <span><el-link type="danger">❤</el-link> {{scope.row.like||0}}</span>
+              <span><el-link type="danger">❤</el-link> {{scope.row.likeTotal||0}}</span>
             </template>
           </el-table-column>
           <el-table-column label="Comments" width="100">
             <template slot-scope="scope">
-              <span>{{scope.row.comment||0}}</span>
+              <span>{{scope.row.replyTotal||0}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -71,11 +71,6 @@ export default {
   },
   methods: {
     getReviewList () {
-      // TODO api get truly data instead of fake data
-      let tmp = { date: '2019/09/26', review: 'I love you three thousand times', like: '231', comment: '76' }
-      for (let i = 0; i < 10; i++) {
-        this.tableDataReviews.push(tmp)
-      }
       ReviewService.getByUid(this.currentPage, this.pageSize, this.user.uid).then(
         res => {
           this.tableDataReviews = res.result

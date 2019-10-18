@@ -41,7 +41,7 @@
     </el-row>
     <el-row v-for="(review,index) in reviewList" v-bind:key="index" class="follow-row">
       <el-col :span="3" :offset="1">
-        <movie-card :movie-id="review.mid" :width="300"></movie-card>
+        <movie-card :movie-id="review.mid"></movie-card>
       </el-col>
       <el-col :span="12" :offset="1">
         <h2>
@@ -50,6 +50,16 @@
         <p style="font-size: 16px">
           {{review.content}}
         </p>
+        <el-row type="flex" class="row-bg" justify="end">
+          <el-col :span="3">
+            <el-badge :value="review.likeTotal" class="item">
+              <el-button type="danger" size="medium" @click="doLikeOrNot(review)">{{review.isLike?'Unlike':'Like'}}</el-button>
+            </el-badge>
+          </el-col>
+          <el-col :span="2">
+            <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
@@ -105,6 +115,36 @@ export default {
     this.getReviewList()
   },
   methods: {
+    toWriteReply (rid, uid) {
+      this.$router.push({ path: '/review/reply', query: { uid: uid, rid: rid } })
+    },
+    doLikeOrNot (review) {
+      if (review.isLike) {
+        ReviewService.deleteReviewLike(review.id).then(
+          res => {
+            if (res) {
+              this.$message.success('Success')
+              review.isLike = 0
+              review.likeTotal--
+            }
+            console.log(res)
+          }
+        ).catch(() => {
+        })
+      } else {
+        ReviewService.createReviewLike(review.id).then(
+          res => {
+            if (res) {
+              this.$message.success('Success')
+              review.isLike = 1
+              review.likeTotal++
+            }
+            console.log(res)
+          }
+        ).catch(() => {
+        })
+      }
+    },
     getFriendInfo () {
       UserService.friendDetail(this.uid).then(
         result => {
