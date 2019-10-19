@@ -89,16 +89,12 @@ export default {
       )
     },
     getRecommendList () {
-      // TODO api get truly data instead of fake data
-      let tmp = {
-        title: 'L-DK: Two Loves, Under One Roo',
-        id: 578672,
-        width: '300',
-        url: '/8L66hJyXptS9XBt5b4O7WkZuwYj.jpg'
-      }
-      for (let i = 0; i < 4; i++) {
-        this.recommendList.push(tmp)
-      }
+      MovieService.getRecommend().then(
+        res => {
+          this.recommendList = res.results.slice(0, 4)
+        }
+      ).catch(() => {
+      })
     },
     toDiscoverPage () {
       // eslint-disable-next-line standard/object-curly-even-spacing

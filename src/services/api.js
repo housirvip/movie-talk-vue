@@ -166,6 +166,14 @@ export class MovieService {
     })
   }
 
+  static getRecommend () {
+    return axios.get('/movie/recommend').then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static getDetails (movieId) {
     return axios.get(`/movie/details/${movieId}`).then(res => {
       return Promise.resolve(res.result)
