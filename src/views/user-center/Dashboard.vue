@@ -27,7 +27,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="4" :offset="1">
+      <el-col :span="3" :offset="2">
         <el-card shadow="hover" class="user-card" :body-style="{ padding: '0px' }">
           <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"/>
           <el-upload
@@ -38,7 +38,7 @@
           </el-upload>
         </el-card>
       </el-col>
-      <el-col :span="14" :offset="4">
+      <el-col :span="14" :offset="3">
         <el-row :gutter="20">
           <el-col :span="4" style="text-align: right">
             Username:
