@@ -10,6 +10,12 @@
           <span style="margin-left: 10px">{{scope.$index+1+". "+scope.row.title}}</span>
         </template>
       </el-table-column>
+      <el-table-column
+        label="Likes">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px"><el-link type="danger">❤</el-link> {{scope.row.likeTotal}}</span>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
