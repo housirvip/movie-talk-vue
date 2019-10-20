@@ -3,7 +3,7 @@
     <el-table
       :data="tableDataReview"
       class="review-table"
-      @row-click="toReview">
+      @row-click="toWriteReply">
       <el-table-column
         label="Hot Reviews">
         <template slot-scope="scope">
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { ReviewService } from '../services/api'
+
 export default {
   name: 'MovieList',
   data () {
@@ -22,19 +24,25 @@ export default {
       tableDataReview: []
     }
   },
-  created () {
+  mounted () {
     this.getReviewList()
   },
+  computed: {
+    user: function () {
+      return this.$store.state.global.user
+    }
+  },
   methods: {
-    toReview (row, column, event) {
-      this.$router.push({ path: '/review', query: { id: row.id } })
+    toWriteReply (row, column, event) {
+      this.$router.push({ path: '/review/reply', query: { uid: row.uid, rid: row.id } })
     },
     getReviewList () {
-      // TODO api get truly data instead of fake data
-      let tmp = { title: 'I love you three thousand' }
-      for (let i = 0; i < 10; i++) {
-        this.tableDataReview.push(tmp)
-      }
+      ReviewService.getHotReview().then(
+        res => {
+          this.tableDataReview = res
+        }
+      ).catch(() => {
+      })
     }
   }
 }

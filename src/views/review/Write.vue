@@ -42,13 +42,13 @@ export default {
   },
   data () {
     return {
+      movieId: this.$route.query.id,
+      movie: {},
       ruleForm: {
         title: '',
         content: '',
         mid: this.$route.query.id
       },
-      movieId: this.$route.query.id,
-      movie: {},
       rules: {
         title: [
           { required: true, message: 'Enter your title', trigger: 'blur' },

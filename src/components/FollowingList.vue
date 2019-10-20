@@ -87,7 +87,6 @@ export default {
               review.isLike = 0
               review.likeTotal--
             }
-            console.log(res)
           }
         ).catch(() => {
         })
@@ -99,7 +98,6 @@ export default {
               review.isLike = 1
               review.likeTotal++
             }
-            console.log(res)
           }
         ).catch(() => {
         })

@@ -97,7 +97,6 @@ export default {
       })
     },
     toDiscoverPage () {
-      // eslint-disable-next-line standard/object-curly-even-spacing
       this.$router.push({ path: '/movie/discover', query: { year: this.discoverFilter.year, genre: this.discoverFilter.genre, sort: this.discoverFilter.sort } })
     },
     toFollow () {

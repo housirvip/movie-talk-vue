@@ -136,6 +136,46 @@ export class UserService {
         return Promise.reject(error)
       })
   }
+
+  static getFollowing (pageNum, pageSize, toId) {
+    return axios.get(`/user/following`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5,
+        param: {
+          toId: toId || null
+        }
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static createFollowing (toId) {
+    return axios.put(`/user/following`, {}, {
+      params: {
+        toId: toId
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteFollowing (toId) {
+    return axios.delete(`/user/following`, {
+      params: {
+        toId: toId
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
 }
 
 export class SecurityService {
@@ -228,40 +268,8 @@ export class ReviewService {
     })
   }
 
-  static getFollowing (pageNum, pageSize, toId) {
-    return axios.get(`/user/following`, {
-      params: {
-        pageNum: pageNum || 1,
-        pageSize: pageSize || 5,
-        param: {
-          toId: toId || null
-        }
-      }
-    }).then(res => {
-      return Promise.resolve(res)
-    }).catch(error => {
-      return Promise.reject(error)
-    })
-  }
-
-  static createFollowing (toId) {
-    return axios.put(`/user/following`, {}, {
-      params: {
-        toId: toId
-      }
-    }).then(res => {
-      return Promise.resolve(res.result)
-    }).catch(error => {
-      return Promise.reject(error)
-    })
-  }
-
-  static deleteFollowing (toId) {
-    return axios.delete(`/user/following`, {
-      params: {
-        toId: toId
-      }
-    }).then(res => {
+  static getHotReview () {
+    return axios.get(`/review/hot`).then(res => {
       return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)

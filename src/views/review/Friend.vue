@@ -157,7 +157,7 @@ export default {
       })
     },
     checkFollow () {
-      ReviewService.getFollowing(1, 5, this.uid).then(
+      UserService.getFollowing(1, 5, this.uid).then(
         res => {
           if (res.total >= 1) {
             this.followAction = 'unfollow'
@@ -186,13 +186,13 @@ export default {
     },
     follow () {
       if (this.followAction === 'follow') {
-        ReviewService.createFollowing(this.friend.uid).then(
+        UserService.createFollowing(this.friend.uid).then(
           result => {
             this.followAction = 'unfollow'
           }
         )
       } else {
-        ReviewService.deleteFollowing(this.friend.uid).then(
+        UserService.deleteFollowing(this.friend.uid).then(
           result => {
             this.followAction = 'follow'
           }
