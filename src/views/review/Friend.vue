@@ -56,8 +56,11 @@
               <el-button type="danger" size="medium" @click="doLikeOrNot(review)">{{review.isLike?'Unlike':'Like'}}</el-button>
             </el-badge>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="2" :offset="1">
             <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
+          </el-col>
+          <el-col :span="3" :offset="1">
+            <el-button type="warning" size="medium" @click="prepareReport(review.id)">Report</el-button>
           </el-col>
         </el-row>
       </el-col>
@@ -73,6 +76,7 @@
         :total="totalCount">
       </el-pagination>
     </el-row>
+    <report-dialog :show-dialog="showReport" @close="showReport=false" :review-id="reviewId"></report-dialog>
   </div>
 </template>
 
@@ -80,12 +84,14 @@
 import { ReviewService, UserService } from '../../services/api'
 import UserCard from '../../components/UserCard'
 import MovieCard from '../../components/MovieCard'
+import ReportDialog from '../../components/ReportDialog'
 
 export default {
   name: 'Friend',
   components: {
     UserCard,
-    MovieCard
+    MovieCard,
+    ReportDialog
   },
   data () {
     return {
@@ -101,7 +107,9 @@ export default {
       currentPage: 1,
       pageSize: 5,
       totalCount: 0,
-      reviewList: []
+      reviewList: [],
+      showReport: false,
+      reviewId: 0
     }
   },
   computed: {
@@ -117,6 +125,10 @@ export default {
   methods: {
     toWriteReply (rid, uid) {
       this.$router.push({ path: '/review/reply', query: { uid: uid, rid: rid } })
+    },
+    prepareReport (reviewId) {
+      this.reviewId = reviewId
+      this.showReport = true
     },
     doLikeOrNot (review) {
       if (review.isLike) {

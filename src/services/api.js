@@ -95,10 +95,39 @@ export class UserService {
             birthday: i.birthday
           }
           store.commit(types.STORE_USER, user)
+          if (u.role.indexOf('ROLE_ADMIN')) {
+            store.commit(types.STORE_ADMIN, true)
+          }
         }
       }).catch(error => {
         return Promise.reject(error)
       })
+  }
+
+  static listAll (pageNum, pageSize, param) {
+    return axios.get(`/user/all`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5,
+        param: param
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getById (uid) {
+    return axios.get(`/user/getById`, {
+      params: {
+        uid: uid
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
   }
 
   static friendDetail (id) {

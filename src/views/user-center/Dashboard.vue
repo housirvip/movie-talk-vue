@@ -128,14 +128,14 @@
           <el-input v-model="infoForm.job" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Birthday" label-width="5" prop="birthday">
-          <el-date-picker type="datetime" placeholder="选择日期" v-model="infoForm.birthday" default-time="12:00:00"
+          <el-date-picker type="datetime" placeholder="Select Date" v-model="infoForm.birthday" default-time="12:00:00"
                           format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss"
                           style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="modifyUserInfo = false">取 消</el-button>
-        <el-button type="primary" @click="updateUserInfo">确 定</el-button>
+        <el-button @click="modifyUserInfo = false">Cancel</el-button>
+        <el-button type="primary" @click="updateUserInfo">Submit</el-button>
       </div>
     </el-dialog>
     <el-dialog title="Change Password" :visible.sync="modifyPassword" width="30%" top="6vh">
@@ -151,8 +151,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="modifyPassword = false">取 消</el-button>
-        <el-button type="primary" @click="updatePassword">确 定</el-button>
+        <el-button @click="modifyPassword = false">Cancel</el-button>
+        <el-button type="primary" @click="updatePassword">Submit</el-button>
       </div>
     </el-dialog>
   </div>

@@ -16,6 +16,7 @@
             <el-dropdown-item v-if="user.uid"><span @click="logout()">LogOut</span></el-dropdown-item>
             <el-dropdown-item v-if="!user.uid"><span @click="toLogin()">Login</span></el-dropdown-item>
             <el-dropdown-item v-if="!user.uid"><span @click="toSignUp()">SignUp</span></el-dropdown-item>
+            <el-dropdown-item divided v-if="isAdmin"><span @click="toAdminCenter()">AdminCenter</span></el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-menu>
@@ -37,6 +38,9 @@ export default {
   computed: {
     user: function () {
       return this.$store.state.global.user
+    },
+    isAdmin: function () {
+      return this.$store.state.global.isAdmin
     }
   },
   methods: {
@@ -58,6 +62,9 @@ export default {
     },
     refreshMe () {
       UserService.detail()
+    },
+    toAdminCenter () {
+      this.$router.push({ path: '/admin' })
     },
     toUserCenter () {
       this.$router.push({ path: '/user-center' })

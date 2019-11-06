@@ -20,6 +20,7 @@ Vue.use(Vuex)
 const global = {
   // namespaced: true,
   state: {
+    isAdmin: false,
     user: anonymous,
     jwt: null,
     exp: null // 单位是ms
@@ -50,6 +51,10 @@ const global = {
     [types.STORE_USER]: (state, data) => {
       localStorage.setItem('user', JSON.stringify(data))
       state.user = data
+    },
+    [types.STORE_ADMIN]: (state, data) => {
+      localStorage.setItem('isAdmin', data)
+      state.isAdmin = data
     }
   }
 }

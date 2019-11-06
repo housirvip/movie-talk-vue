@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import store from './services/store'
+import { Message } from 'element-ui'
+import * as types from './services/types'
 
 Vue.use(Router)
 
@@ -37,6 +40,37 @@ export default new Router({
           path: 'signup',
           name: 'SignUp',
           component: () => import('./views/authorization/SignUp.vue')
+        }
+      ]
+    },
+    {
+      path: '/admin',
+      component: () => import('./views/Admin.vue'),
+      beforeEnter: (to, from, next) => {
+        if (store.state.global.isAdmin) {
+          next()
+        } else {
+          Message({
+            message: `Error: NO ACCESS`,
+            type: 'error',
+            duration: 2 * 1000
+          })
+        }
+      },
+      children: [
+        {
+          path: '/',
+          redirect: 'dashboard'
+        },
+        {
+          path: 'dashboard',
+          name: 'AdminDashboard',
+          component: () => import('./views/admin/Dashboard.vue')
+        },
+        {
+          path: 'users',
+          name: 'Users',
+          component: () => import('./views/admin/Users.vue')
         }
       ]
     },
@@ -117,3 +151,7 @@ export default new Router({
     }
   ]
 })
+
+if (window.localStorage.getItem('isAdmin')) {
+  store.commit(types.STORE_ADMIN, true)
+}

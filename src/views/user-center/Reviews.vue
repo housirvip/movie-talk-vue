@@ -2,7 +2,7 @@
   <div class="reviews">
     <el-container>
       <el-main>
-        Your reviews has received {{totalLikes}}
+        Your reviews has received {{likeTotal}}
         <el-link type="danger">❤</el-link>
         likes totally.
         <el-table
@@ -48,14 +48,14 @@
 </template>
 
 <script>
-import { ReviewService } from '../../services/api'
+import { ReviewService, UserService } from '../../services/api'
 
 export default {
   name: 'Reviews',
   data () {
     return {
       tableDataReviews: [],
-      totalLikes: 13553,
+      likeTotal: 0,
       currentPage: 1,
       pageSize: 10,
       totalCount: 0
@@ -68,8 +68,17 @@ export default {
   },
   mounted () {
     this.getReviewList()
+    this.getLikeTotal()
   },
   methods: {
+    getLikeTotal () {
+      UserService.userRecord().then(
+        res => {
+          this.likeTotal = res.likeTotal
+        }
+      ).catch(() => {
+      })
+    },
     getReviewList () {
       ReviewService.getByUid(this.currentPage, this.pageSize, this.user.uid).then(
         res => {
@@ -84,11 +93,11 @@ export default {
     },
     sizeChange (size) {
       this.pageSize = size
-      this.getSearchList()
+      this.getReviewList()
     },
     pageChange (page) {
       this.currentPage = page
-      this.getSearchList()
+      this.getReviewList()
     }
   }
 }

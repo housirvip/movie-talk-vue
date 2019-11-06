@@ -31,9 +31,13 @@
           <el-col :span="2">
             <el-button type="primary" size="medium" @click="toWriteReply(follow.id,follow.uid)">Reply</el-button>
           </el-col>
+          <el-col :span="2" :offset="1">
+            <el-button type="warning" size="medium" @click="prepareReport(follow.id)">Report</el-button>
+          </el-col>
         </el-row>
       </el-col>
     </el-row>
+    <report-dialog :show-dialog="showReport" @close="showReport=false" :review-id="reviewId"></report-dialog>
   </div>
 </template>
 
@@ -41,12 +45,14 @@
 import MovieCard from './MovieCard'
 import UserCard from './UserCard'
 import { ReviewService } from '../services/api'
+import ReportDialog from './ReportDialog'
 
 export default {
   name: 'FollowingList',
   components: {
     UserCard,
-    MovieCard
+    MovieCard,
+    ReportDialog
   },
   props: {
     pageNum: Number,
@@ -54,7 +60,9 @@ export default {
   },
   data () {
     return {
-      followingList: []
+      followingList: [],
+      showReport: false,
+      reviewId: 0
     }
   },
   watch: {
@@ -77,6 +85,10 @@ export default {
   methods: {
     toWriteReply (rid, uid) {
       this.$router.push({ path: '/review/reply', query: { uid: uid, rid: rid } })
+    },
+    prepareReport (reviewId) {
+      this.reviewId = reviewId
+      this.showReport = true
     },
     doLikeOrNot (review) {
       if (review.isLike) {

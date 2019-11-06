@@ -62,14 +62,17 @@
           <el-col :span="20" :offset="1">
             <p class="title-p">{{review.title}}</p>
             <p>{{review.content}}</p>
-            <el-row type="flex" class="row-bg" justify="end">
-              <el-col :span="3">
+            <el-row class="row-bg" justify="end">
+              <el-col :span="2" :offset="15">
                 <el-badge :value="review.likeTotal" class="item">
                   <el-button type="danger" size="medium" @click="doLikeOrNot(review)">{{review.isLike?'Unlike':'Like'}}</el-button>
                 </el-badge>
               </el-col>
               <el-col :span="2">
                 <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
+              </el-col>
+              <el-col :span="2">
+                <el-button type="warning" size="medium" @click="prepareReport(review.id)">Report</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -85,6 +88,7 @@
             :total="totalCount">
           </el-pagination>
         </el-row>
+        <report-dialog :show-dialog="showReport" @close="showReport=false" :review-id="reviewId"></report-dialog>
       </el-main>
     </el-container>
   </div>
@@ -95,12 +99,14 @@
 import { MovieService, ReviewService } from '../../services/api'
 import MovieCard from '../../components/MovieCard'
 import UserCard from '../../components/UserCard'
+import ReportDialog from '../../components/ReportDialog'
 
 export default {
   name: 'Detail',
   components: {
     UserCard,
-    MovieCard
+    MovieCard,
+    ReportDialog
   },
   data () {
     return {
@@ -112,7 +118,9 @@ export default {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       movieId: this.$route.query.id,
       movie: {},
-      reviewList: []
+      reviewList: [],
+      showReport: false,
+      reviewId: 0
     }
   },
   mounted () {
@@ -126,6 +134,10 @@ export default {
     },
     toWriteReply (rid, uid) {
       this.$router.push({ path: '/review/reply', query: { uid: uid, rid: rid } })
+    },
+    prepareReport (reviewId) {
+      this.reviewId = reviewId
+      this.showReport = true
     },
     getMovieDetail () {
       MovieService.getDetails(this.movieId).then(
@@ -180,7 +192,6 @@ export default {
               review.isLike = 0
               review.likeTotal--
             }
-            console.log(res)
           }
         ).catch(() => {
         })
@@ -192,7 +203,6 @@ export default {
               review.isLike = 1
               review.likeTotal++
             }
-            console.log(res)
           }
         ).catch(() => {
         })

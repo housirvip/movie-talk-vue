@@ -42,6 +42,9 @@
           {{reply.content}}
         </el-row>
       </el-col>
+      <el-col :span="2" :offset="18">
+        <el-button type="warning" size="medium" @click="prepareReport(reply.id)">Report</el-button>
+      </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-pagination
@@ -54,17 +57,20 @@
         :total="totalCount">
       </el-pagination>
     </el-row>
+    <report-dialog :show-dialog="showReport" @close="showReport=false" :reply-id="replyId"></report-dialog>
   </div>
 </template>
 
 <script>
 import UserCard from '../../components/UserCard'
 import { ReviewService } from '../../services/api'
+import ReportDialog from '../../components/ReportDialog'
 
 export default {
   name: 'Reply',
   components: {
-    UserCard
+    UserCard,
+    ReportDialog
   },
   data () {
     return {
@@ -83,7 +89,9 @@ export default {
       reply: {
         rid: this.$route.query.rid,
         content: ''
-      }
+      },
+      showReport: false,
+      replyId: 0
     }
   },
   mounted () {
@@ -91,6 +99,10 @@ export default {
     this.getReview()
   },
   methods: {
+    prepareReport (replyId) {
+      this.replyId = replyId
+      this.showReport = true
+    },
     submitReply () {
       ReviewService.createReply(this.reply).then(
         res => {
