@@ -32,7 +32,7 @@
             <el-button type="primary" size="medium" @click="toWriteReply(follow.id,follow.uid)">Reply</el-button>
           </el-col>
           <el-col :span="2" :offset="1">
-            <el-button type="warning" size="medium" @click="prepareReport(follow.id)">Report</el-button>
+            <el-button type="info" size="medium" @click="prepareReport(follow.id)">Report</el-button>
           </el-col>
         </el-row>
       </el-col>

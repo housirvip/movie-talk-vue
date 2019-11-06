@@ -60,7 +60,7 @@
             <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
           </el-col>
           <el-col :span="3" :offset="1">
-            <el-button type="warning" size="medium" @click="prepareReport(review.id)">Report</el-button>
+            <el-button type="info" size="medium" @click="prepareReport(review.id)">Report</el-button>
           </el-col>
         </el-row>
       </el-col>
