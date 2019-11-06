@@ -23,16 +23,18 @@
           </p>
         </el-row>
         <el-row type="flex" class="row-bg" justify="end">
-          <el-col :span="3">
+          <el-col :span="2">
+            <p>
+              <el-link icon="el-icon-warning" type="primary" @click="prepareReport(follow.id)">Report</el-link>
+            </p>
+          </el-col>
+          <el-col :span="2">
             <el-badge :value="follow.likeTotal" class="item">
               <el-button type="danger" size="medium" @click="doLikeOrNot(follow)">{{follow.isLike?'Unlike':'Like'}}</el-button>
             </el-badge>
           </el-col>
           <el-col :span="2">
             <el-button type="primary" size="medium" @click="toWriteReply(follow.id,follow.uid)">Reply</el-button>
-          </el-col>
-          <el-col :span="2" :offset="1">
-            <el-button type="info" size="medium" @click="prepareReport(follow.id)">Report</el-button>
           </el-col>
         </el-row>
       </el-col>

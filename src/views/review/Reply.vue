@@ -43,7 +43,9 @@
         </el-row>
       </el-col>
       <el-col :span="2" :offset="18">
-        <el-button type="info" size="medium" @click="prepareReport(reply.id)">Report</el-button>
+        <p>
+          <el-link icon="el-icon-warning" type="primary" @click="prepareReport(reply.id)">Report</el-link>
+        </p>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">

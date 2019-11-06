@@ -64,15 +64,17 @@
             <p>{{review.content}}</p>
             <el-row class="row-bg" justify="end">
               <el-col :span="2" :offset="15">
+                <p>
+                  <el-link icon="el-icon-warning" type="primary" @click="prepareReport(review.id)">Report</el-link>
+                </p>
+              </el-col>
+              <el-col :span="2">
                 <el-badge :value="review.likeTotal" class="item">
                   <el-button type="danger" size="medium" @click="doLikeOrNot(review)">{{review.isLike?'Unlike':'Like'}}</el-button>
                 </el-badge>
               </el-col>
               <el-col :span="2">
                 <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
-              </el-col>
-              <el-col :span="2">
-                <el-button type="info" size="medium" @click="prepareReport(review.id)">Report</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -244,5 +246,13 @@ export default {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4; //需要显示时文本行数
     overflow: hidden;
+  }
+
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
   }
 </style>

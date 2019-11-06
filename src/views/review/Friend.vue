@@ -52,15 +52,17 @@
         </p>
         <el-row type="flex" class="row-bg" justify="end">
           <el-col :span="3">
+            <p>
+              <el-link icon="el-icon-warning" type="primary" @click="prepareReport(review.id)">Report</el-link>
+            </p>
+          </el-col>
+          <el-col :span="3">
             <el-badge :value="review.likeTotal" class="item">
               <el-button type="danger" size="medium" @click="doLikeOrNot(review)">{{review.isLike?'Unlike':'Like'}}</el-button>
             </el-badge>
           </el-col>
-          <el-col :span="2" :offset="1">
+          <el-col :span="3">
             <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
-          </el-col>
-          <el-col :span="3" :offset="1">
-            <el-button type="info" size="medium" @click="prepareReport(review.id)">Report</el-button>
           </el-col>
         </el-row>
       </el-col>
