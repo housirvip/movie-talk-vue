@@ -305,6 +305,32 @@ export class ReviewService {
     })
   }
 
+  static listAll (pageNum, pageSize) {
+    return axios.get(`/review/all`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static listAllReply (pageNum, pageSize) {
+    return axios.get(`/review/reply/all`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static createReview (review) {
     return axios.post(`/review`, review).then(res => {
       return Promise.resolve(res.result)
@@ -399,6 +425,21 @@ export class ReviewService {
       }
     }).then(res => {
       return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+}
+
+export class ReportService {
+  static listAll (pageNum, pageSize) {
+    return axios.get(`/report/all`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5
+      }
+    }).then(res => {
+      return Promise.resolve(res)
     }).catch(error => {
       return Promise.reject(error)
     })

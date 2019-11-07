@@ -64,13 +64,28 @@ export default new Router({
         },
         {
           path: 'dashboard',
-          name: 'AdminDashboard',
+          name: 'Dashboard',
           component: () => import('./views/admin/Dashboard.vue')
         },
         {
           path: 'users',
           name: 'Users',
           component: () => import('./views/admin/Users.vue')
+        },
+        {
+          path: 'reviews',
+          name: 'Reviews',
+          component: () => import('./views/admin/Reviews.vue')
+        },
+        {
+          path: 'replies',
+          name: 'Replies',
+          component: () => import('./views/admin/Replies.vue')
+        },
+        {
+          path: 'reports',
+          name: 'Reports',
+          component: () => import('./views/admin/Reports.vue')
         }
       ]
     },

@@ -11,7 +11,7 @@
               <span>{{scope.row.id}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="UserName" min-width="160">
+          <el-table-column label="User" min-width="160">
             <template slot-scope="scope">
               <span>{{scope.row.username}}</span>
             </template>
