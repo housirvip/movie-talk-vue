@@ -4,8 +4,7 @@
       <el-main>
         <el-table
           :data="tableDataReviews"
-          class="review-table"
-          @row-click="toWriteReply">
+          class="review-table">
           <el-table-column label="ID" width="80">
             <template slot-scope="scope">
               <span>{{scope.row.id}}</span>
@@ -13,7 +12,9 @@
           </el-table-column>
           <el-table-column label="Review" min-width="160">
             <template slot-scope="scope">
-              <span>{{scope.row.title}}</span>
+              <el-tooltip class="item" effect="light" :content="scope.row.content" placement="top-start">
+                <span>{{scope.row.title}}</span>
+              </el-tooltip>
             </template>
           </el-table-column>
           <el-table-column label="User" width="120">
@@ -35,6 +36,25 @@
           <el-table-column label="Comments" width="100">
             <template slot-scope="scope">
               <span>{{scope.row.replyTotal||0}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="Operation"
+            width="120">
+            <template slot-scope="scope">
+              <el-button
+                @click.native.prevent="toWriteReply(scope.row)"
+                type="text"
+                size="small">
+                view
+              </el-button>
+              <el-button
+                @click.native.prevent="deleteThis(scope.row)"
+                type="text"
+                size="small">
+                delete
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -88,6 +108,15 @@ export default {
     },
     toWriteReply (row) {
       this.$router.push({ path: '/review/reply', query: { uid: row.uid, rid: row.id } })
+    },
+    deleteThis (row) {
+      ReviewService.deleteByAdmin(row.id).then(
+        res => {
+          if (res) {
+            this.$message.success('delete successfully')
+            this.getReviewList()
+          }
+        }).catch(() => {})
     },
     sizeChange (size) {
       this.pageSize = size

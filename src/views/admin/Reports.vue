@@ -4,14 +4,13 @@
       <el-main>
         <el-table
           :data="tableDataReports"
-          class="report-table"
-          @row-click="showReport">
+          class="report-table">
           <el-table-column label="ID" width="80">
             <template slot-scope="scope">
               <span>{{scope.row.id}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="Report" min-width="160">
+          <el-table-column label="Report" min-width="160" :show-overflow-tooltip="true">
             <template slot-scope="scope">
               <span>{{scope.row.content}}</span>
             </template>
@@ -38,13 +37,32 @@
           </el-table-column>
           <el-table-column label="Solved" width="90">
             <template slot-scope="scope">
-              <span>{{scope.row.solve}}</span>
+              <span><i :class="!scope.row.solve|bool2icon"></i></span>
             </template>
           </el-table-column>
           <el-table-column label="Date" width="200">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
               <span>{{scope.row.createTime}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="Operation"
+            width="120">
+            <template slot-scope="scope">
+              <el-button
+                @click.native.prevent="solveReport(scope.row)"
+                type="text"
+                size="small">
+                {{scope.row.solve?'solve':'revert'}}
+              </el-button>
+              <el-button
+                @click.native.prevent="deleteThis(scope.row)"
+                type="text"
+                size="small">
+                delete
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -87,9 +105,6 @@ export default {
     this.getReportList()
   },
   methods: {
-    showReport () {
-
-    },
     getReportList () {
       ReportService.listAll(this.currentPage, this.pageSize).then(
         res => {
@@ -98,6 +113,29 @@ export default {
         }
       ).catch(() => {
       })
+    },
+    solveReport (row) {
+      row.solve = 1 - row.solve
+      ReportService.updateByAdmin(row).then(
+        res => {
+          if (res) {
+            this.$message.success('update successfully')
+          } else {
+            row.solve = 1 - row.solve
+          }
+        }
+      ).catch(() => {
+        row.solve = 1 - row.solve
+      })
+    },
+    deleteThis (row) {
+      ReportService.deleteByAdmin(row.id).then(
+        res => {
+          if (res) {
+            this.$message.success('delete successfully')
+            this.getReportList()
+          }
+        }).catch(() => {})
     },
     sizeChange (size) {
       this.pageSize = size

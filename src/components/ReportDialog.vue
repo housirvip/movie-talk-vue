@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { ReportService } from '../services/api'
+
 export default {
   name: 'ReportDialog',
   props: {
@@ -62,7 +64,13 @@ export default {
       if (this.replyId) {
         this.reportForm.replyId = this.replyId
       }
-      console.log(this.reportForm)
+      ReportService.create(this.reportForm).then(
+        res => {
+          if (res) {
+            this.$message.success('report successfully')
+            this.closeDialog()
+          }
+        }).catch(() => {})
     }
   }
 }

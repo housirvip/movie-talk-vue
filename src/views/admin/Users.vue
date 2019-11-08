@@ -27,9 +27,9 @@
               <span>{{scope.row.createTime}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="Enable" min-width="90">
+          <el-table-column label="Enable" width="90">
             <template slot-scope="scope">
-              <span>{{scope.row.enable}}</span>
+              <span><i :class="scope.row.enable|bool2icon"></i></span>
             </template>
           </el-table-column>
         </el-table>
@@ -44,23 +44,33 @@
             :total="totalCount">
           </el-pagination>
         </el-row>
-        <el-dialog title="Change Password" :visible.sync="showUserDialog" width="30%" top="6vh">
-          {{currentUser}}
-<!--          <el-form :model="passForm" :rules="passRules" ref="passForm">-->
-<!--            <el-form-item label="Origin Password" label-width="5" prop="password">-->
-<!--              <el-input v-model="passForm.password" autocomplete="off" type="password"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="New Password" label-width="5" prop="newPass">-->
-<!--              <el-input v-model="passForm.newPass" autocomplete="off" type="password"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="Confirm Password" label-width="5" prop="confirmPass">-->
-<!--              <el-input v-model="passForm.confirmPass" autocomplete="off" type="password"></el-input>-->
-<!--            </el-form-item>-->
-<!--          </el-form>-->
-<!--          <div slot="footer" class="dialog-footer">-->
-<!--            <el-button @click="modifyPassword = false">Cancel</el-button>-->
-<!--            <el-button type="primary" @click="updatePassword">Submit</el-button>-->
-<!--          </div>-->
+        <el-dialog title="User Details" :visible.sync="showUserDialog" width="30%" top="6vh">
+          <el-form :model="currentUser" ref="userForm">
+            <el-form-item label="User Name" label-width="5">
+              <el-input v-model="currentUser.username" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="Email" label-width="5">
+              <el-input v-model="currentUser.email" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="Phone" label-width="5">
+              <el-input v-model="currentUser.phone" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="Enable" label-width="5">
+              <el-tooltip content="Set user account to enable | disable" placement="top">
+                <el-switch
+                  v-model="currentUser.enable"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                  :active-value="true"
+                  :inactive-value="false">
+                </el-switch>
+              </el-tooltip>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="showUserDialog = false">Cancel</el-button>
+            <el-button type="primary" @click="updateUser">Submit</el-button>
+          </div>
         </el-dialog>
       </el-main>
     </el-container>
@@ -80,7 +90,8 @@ export default {
       pageSize: 10,
       totalCount: 0,
       currentUser: {},
-      showUserDialog: false
+      showUserDialog: false,
+      userForm: {}
     }
   },
   computed: {
@@ -109,6 +120,16 @@ export default {
         res => {
           this.currentUser = res.result
           this.showUserDialog = true
+        }).catch(() => {})
+    },
+    updateUser () {
+      UserService.updateByAdmin(this.currentUser).then(
+        res => {
+          if (res) {
+            this.getUserList()
+            this.showUserDialog = false
+            this.$message.success('update successfully')
+          }
         }).catch(() => {})
     },
     sizeChange (size) {

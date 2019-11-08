@@ -205,6 +205,14 @@ export class UserService {
       return Promise.reject(error)
     })
   }
+
+  static updateByAdmin (user) {
+    return axios.put(`/user/update`, user).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
 }
 
 export class SecurityService {
@@ -429,9 +437,41 @@ export class ReviewService {
       return Promise.reject(error)
     })
   }
+
+  static deleteByAdmin (id) {
+    return axios.delete(`/review/deleteByAdmin`, {
+      params: {
+        id: id
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteReplyByAdmin (id) {
+    return axios.delete(`/review/reply/deleteByAdmin`, {
+      params: {
+        id: id
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
 }
 
 export class ReportService {
+  static create (report) {
+    return axios.post(`/report`, report).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static listAll (pageNum, pageSize) {
     return axios.get(`/report/all`, {
       params: {
@@ -440,6 +480,26 @@ export class ReportService {
       }
     }).then(res => {
       return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteByAdmin (id) {
+    return axios.delete(`/report`, {
+      params: {
+        id: id
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static updateByAdmin (report) {
+    return axios.put(`/report`, report).then(res => {
+      return Promise.resolve(res.result)
     }).catch(error => {
       return Promise.reject(error)
     })

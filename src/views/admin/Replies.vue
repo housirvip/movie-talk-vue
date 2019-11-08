@@ -11,9 +11,14 @@
               <span>{{scope.row.id}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="Reply" min-width="160">
+          <el-table-column label="Reply" min-width="200" :show-overflow-tooltip="true">
             <template slot-scope="scope">
               <span>{{scope.row.content}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="ReviewID" width="90">
+            <template slot-scope="scope">
+              <span>{{scope.row.rid}}</span>
             </template>
           </el-table-column>
           <el-table-column label="User" width="120">
@@ -25,6 +30,19 @@
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
               <span>{{scope.row.createTime}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="Operation"
+            width="100">
+            <template slot-scope="scope">
+              <el-button
+                @click.native.prevent="deleteThis(scope.row)"
+                type="text"
+                size="small">
+                delete
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -69,6 +87,15 @@ export default {
   methods: {
     showReply () {
 
+    },
+    deleteThis (row) {
+      ReviewService.deleteReplyByAdmin(row.id).then(
+        res => {
+          if (res) {
+            this.$message.success('delete successfully')
+            this.getReplyList()
+          }
+        }).catch(() => {})
     },
     getReplyList () {
       ReviewService.listAllReply(this.currentPage, this.pageSize).then(
