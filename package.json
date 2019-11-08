@@ -1,6 +1,6 @@
 {
   "name": "movie-talk-vue",
-  "version": "0.1.1",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "echarts": "^4.4.0",
     "element-ui": "^2.12.0",
+    "v-charts": "^1.19.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"

@@ -115,6 +115,7 @@ export default {
       })
     },
     solveReport (row) {
+      // solve is int 1 or 0
       row.solve = 1 - row.solve
       ReportService.updateByAdmin(row).then(
         res => {
