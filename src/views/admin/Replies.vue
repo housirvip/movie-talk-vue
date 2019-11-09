@@ -2,6 +2,18 @@
   <div class="replies">
     <el-container>
       <el-main>
+        <el-row>
+          <el-col :span="4" :offset="1">
+            <el-input v-model="searchCriteria.content" placeholder="content"></el-input>
+          </el-col>
+          <el-col :span="4" :offset="1">
+            <el-input v-model="searchCriteria.username" placeholder="username"></el-input>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <el-button type="primary" size="medium" @click="getReplyList">Search</el-button>
+            <el-button type="danger" size="medium" @click="searchCriteria={}">Reset</el-button>
+          </el-col>
+        </el-row>
         <el-table
           :data="tableDataReplies"
           class="reply-table"
@@ -73,7 +85,8 @@ export default {
       likeTotal: 0,
       currentPage: 1,
       pageSize: 10,
-      totalCount: 0
+      totalCount: 0,
+      searchCriteria: {}
     }
   },
   computed: {
@@ -98,7 +111,7 @@ export default {
         }).catch(() => {})
     },
     getReplyList () {
-      ReviewService.listAllReply(this.currentPage, this.pageSize).then(
+      ReviewService.listAllReply(this.currentPage, this.pageSize, this.searchCriteria).then(
         res => {
           this.tableDataReplies = res.result
           this.totalCount = res.total

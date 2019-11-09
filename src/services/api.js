@@ -313,11 +313,12 @@ export class ReviewService {
     })
   }
 
-  static listAll (pageNum, pageSize) {
+  static listAll (pageNum, pageSize, param) {
     return axios.get(`/review/all`, {
       params: {
         pageNum: pageNum || 1,
-        pageSize: pageSize || 5
+        pageSize: pageSize || 5,
+        param: param
       }
     }).then(res => {
       return Promise.resolve(res)
@@ -326,11 +327,12 @@ export class ReviewService {
     })
   }
 
-  static listAllReply (pageNum, pageSize) {
+  static listAllReply (pageNum, pageSize, param) {
     return axios.get(`/review/reply/all`, {
       params: {
         pageNum: pageNum || 1,
-        pageSize: pageSize || 5
+        pageSize: pageSize || 5,
+        param: param
       }
     }).then(res => {
       return Promise.resolve(res)

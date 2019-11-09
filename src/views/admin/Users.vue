@@ -2,6 +2,18 @@
   <div class="users">
     <el-container>
       <el-main>
+        <el-row>
+          <el-col :span="4" :offset="1">
+            <el-input v-model="searchCriteria.username" placeholder="username"></el-input>
+          </el-col>
+          <el-col :span="4" :offset="1">
+            <el-input v-model="searchCriteria.email" placeholder="email"></el-input>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <el-button type="primary" size="medium" @click="getUserList">Search</el-button>
+            <el-button type="danger" size="medium" @click="searchCriteria={}">Reset</el-button>
+          </el-col>
+        </el-row>
         <el-table
           :data="tableDataUsers"
           class="user-table"
@@ -91,7 +103,8 @@ export default {
       totalCount: 0,
       currentUser: {},
       showUserDialog: false,
-      userForm: {}
+      userForm: {},
+      searchCriteria: {}
     }
   },
   computed: {
@@ -107,7 +120,7 @@ export default {
   },
   methods: {
     getUserList () {
-      UserService.listAll(this.currentPage, this.pageSize).then(
+      UserService.listAll(this.currentPage, this.pageSize, this.searchCriteria).then(
         res => {
           this.tableDataUsers = res.result
           this.totalCount = res.total
@@ -120,7 +133,8 @@ export default {
         res => {
           this.currentUser = res.result
           this.showUserDialog = true
-        }).catch(() => {})
+        }).catch(() => {
+      })
     },
     updateUser () {
       UserService.updateByAdmin(this.currentUser).then(
@@ -130,7 +144,8 @@ export default {
             this.showUserDialog = false
             this.$message.success('update successfully')
           }
-        }).catch(() => {})
+        }).catch(() => {
+      })
     },
     sizeChange (size) {
       this.pageSize = size

@@ -2,6 +2,18 @@
   <div class="reviews">
     <el-container>
       <el-main>
+        <el-row>
+          <el-col :span="4" :offset="1">
+            <el-input v-model="searchCriteria.title" placeholder="title"></el-input>
+          </el-col>
+          <el-col :span="4" :offset="1">
+            <el-input v-model="searchCriteria.username" placeholder="username"></el-input>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <el-button type="primary" size="medium" @click="getReviewList">Search</el-button>
+            <el-button type="danger" size="medium" @click="searchCriteria={}">Reset</el-button>
+          </el-col>
+        </el-row>
         <el-table
           :data="tableDataReviews"
           class="review-table">
@@ -85,7 +97,8 @@ export default {
       likeTotal: 0,
       currentPage: 1,
       pageSize: 10,
-      totalCount: 0
+      totalCount: 0,
+      searchCriteria: {}
     }
   },
   computed: {
@@ -98,7 +111,7 @@ export default {
   },
   methods: {
     getReviewList () {
-      ReviewService.listAll(this.currentPage, this.pageSize).then(
+      ReviewService.listAll(this.currentPage, this.pageSize, this.searchCriteria).then(
         res => {
           this.tableDataReviews = res.result
           this.totalCount = res.total
