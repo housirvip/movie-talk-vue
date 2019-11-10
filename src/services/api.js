@@ -95,7 +95,7 @@ export class UserService {
             birthday: i.birthday
           }
           store.commit(types.STORE_USER, user)
-          if (u.role.indexOf('ROLE_ADMIN')) {
+          if (u.role.indexOf('ROLE_ADMIN') > 0) {
             store.commit(types.STORE_ADMIN, true)
           }
         }
