@@ -4,6 +4,9 @@
       <el-main>
         <el-row>
           <el-col :span="4" :offset="1">
+            <el-input v-model="searchCriteria.id" placeholder="id"></el-input>
+          </el-col>
+          <el-col :span="4" :offset="1">
             <el-input v-model="searchCriteria.title" placeholder="title"></el-input>
           </el-col>
           <el-col :span="4" :offset="1">
