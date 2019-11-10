@@ -2,7 +2,7 @@
   <el-dialog title="Report" :visible.sync="showDialog" width="30%" top="6vh">
     <el-form :model="reportForm" ref="reportForm">
       <el-form-item label="Type">
-        <el-select v-model="reportForm.type" placeholder="请选择" value="">
+        <el-select v-model="reportForm.type" placeholder="please select" value="">
           <el-option
             v-for="item in reportTypes"
             :key="item.value"

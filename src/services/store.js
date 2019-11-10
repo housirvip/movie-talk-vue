@@ -36,8 +36,10 @@ const global = {
       localStorage.removeItem('jwt')
       localStorage.removeItem('exp')
       localStorage.removeItem('user')
+      localStorage.removeItem('isAdmin')
       state.jwt = null
       state.exp = null
+      state.isAdmin = false
       state.user = anonymous
     },
     [types.STORE_EXP]: (state, data) => {
