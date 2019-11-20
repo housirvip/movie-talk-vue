@@ -13,6 +13,10 @@
             <i class="el-icon-menu"></i>
             <span slot="title">Reviews</span>
           </el-menu-item>
+          <el-menu-item index="collects">
+            <i class="el-icon-menu"></i>
+            <span slot="title">Collects</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
@@ -36,6 +40,8 @@ export default {
         this.defaultActive = 'dashboard'
       } else if (this.$route.path.endsWith('/reviews')) {
         this.defaultActive = 'reviews'
+      } else if (this.$route.path.endsWith('/collects')) {
+        this.defaultActive = 'collects'
       } else {
         this.defaultActive = 'dashboard'
       }

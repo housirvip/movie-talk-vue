@@ -7,17 +7,25 @@
             <movie-card :movie-id="movie.id" :title="movie.title" :url="movie.poster_path"></movie-card>
           </el-col>
           <el-col :span="10" :offset="1">
-            <el-table :show-header="false" :data="tableData" style="width: 100%">
-              <el-table-column
-                width="120"
-                prop="key"
-                label="Key">
-              </el-table-column>
-              <el-table-column
-                prop="value"
-                label="Value">
-              </el-table-column>
-            </el-table>
+            <el-row>
+              <el-table :show-header="false" :data="tableData" style="width: 100%">
+                <el-table-column
+                  width="120"
+                  prop="key"
+                  label="Key">
+                </el-table-column>
+                <el-table-column
+                  prop="value"
+                  label="Value">
+                </el-table-column>
+              </el-table>
+            </el-row>
+            <el-row>
+              <p>
+                <el-button type="warning" v-show="isCollect===1" icon="el-icon-star-on" @click="doCollectOrNot()">UnCollect movie</el-button>
+                <el-button type="warning" v-show="isCollect===0" icon="el-icon-star-off" @click="doCollectOrNot()">Collect movie</el-button>
+              </p>
+            </el-row>
           </el-col>
           <el-col :span="7" :offset="1" style="font-size: 70px;text-align: center;">
             <p>
@@ -122,13 +130,16 @@ export default {
       movie: {},
       reviewList: [],
       showReport: false,
-      reviewId: 0
+      reviewId: 0,
+      isCollect: 0,
+      collect: {}
     }
   },
   mounted () {
     this.getMovieDetail()
     this.getMovieCredits()
     this.getReviews()
+    this.getIsCollect()
   },
   methods: {
     toWriteReview () {
@@ -204,6 +215,43 @@ export default {
               this.$message.success('Success')
               review.isLike = 1
               review.likeTotal++
+            }
+          }
+        ).catch(() => {
+        })
+      }
+    },
+    getIsCollect () {
+      MovieService.isCollect(this.movieId).then(
+        res => {
+          if (res) {
+            this.isCollect = 1
+          } else {
+            this.isCollect = 0
+          }
+        }
+      ).catch(() => {
+      })
+    },
+    doCollectOrNot () {
+      if (this.isCollect) {
+        MovieService.deleteCollect(this.movieId).then(
+          res => {
+            if (res) {
+              this.$message.success('Success')
+              this.isCollect = 0
+            }
+          }
+        ).catch(() => {
+        })
+      } else {
+        this.collect.mid = this.movieId
+        this.collect.title = this.movie.title
+        MovieService.createCollect(this.collect).then(
+          res => {
+            if (res) {
+              this.$message.success('Success')
+              this.isCollect = 1
             }
           }
         ).catch(() => {

@@ -235,6 +235,49 @@ export class SecurityService {
 }
 
 export class MovieService {
+  static isCollect (mid) {
+    return axios.get('/movie/isCollect', {
+      params: {
+        mid: mid
+      } }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static createCollect (collect) {
+    return axios.post('/movie/collect', collect).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteCollect (mid) {
+    return axios.delete('/movie/collect', {
+      params: {
+        mid: mid
+      } }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getCollectByUid (pageNum, pageSize) {
+    return axios.get('/movie/collect/getByUid', {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static getNowPlaying () {
     return axios.get('/movie/now_playing').then(res => {
       return Promise.resolve(res.result)

@@ -106,6 +106,11 @@ export default new Router({
           path: 'reviews',
           name: 'Reviews',
           component: () => import('./views/user-center/Reviews.vue')
+        },
+        {
+          path: 'collects',
+          name: 'Collects',
+          component: () => import('./views/user-center/Collects.vue')
         }
       ]
     },
