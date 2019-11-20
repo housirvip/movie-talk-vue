@@ -1,16 +1,19 @@
 <template>
-  <div class="reviews">
+  <div class="replies">
     <el-container>
       <el-main>
-        Your reviews have received {{likeTotal}}
-        <el-link type="danger">❤</el-link>
-        likes totally.
+        You have replied {{totalCount}} movies totally.
         <el-table
-          :data="tableDataReviews"
-          class="review-table">
-          <el-table-column label="Review" min-width="160">
+          :data="tableDataReplies"
+          class="reply-table">
+          <el-table-column label="Reply" width="1000">
             <template slot-scope="scope">
-              <el-link :underline="false" @click="toWriteReply(scope.row)">{{scope.row.title}}</el-link>
+              <el-link :underline="false" @click="toWriteReply(scope.row)">{{scope.row.content}}</el-link>
+            </template>
+          </el-table-column>
+          <el-table-column label="User" width="160">
+            <template slot-scope="scope">
+              <span>{{scope.row.username}}</span>
             </template>
           </el-table-column>
           <el-table-column label="Date" width="200">
@@ -19,20 +22,10 @@
               <span>{{scope.row.createTime}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="Likes" width="100">
-            <template slot-scope="scope">
-              <span><el-link type="danger">❤</el-link> {{scope.row.likeTotal||0}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="Comments" width="100">
-            <template slot-scope="scope">
-              <span>{{scope.row.replyTotal||0}}</span>
-            </template>
-          </el-table-column>
           <el-table-column label="Operate" width="200">
             <template slot-scope="scope">
-              <el-button type="success" v-show="scope.row.uid===user.uid" size="medium" @click="updateReview(scope.row)">Update</el-button>
-              <el-button type="info" v-show="scope.row.uid===user.uid" size="medium" @click="deleteReview(scope.row)">Delete</el-button>
+              <el-button type="success" size="medium" @click="prepareReply(scope.row.id, scope.row.content)">Update</el-button>
+              <el-button type="info" size="medium" @click="deleteReply(scope.row.id)">Delete</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -56,11 +49,10 @@
 import { ReviewService, UserService } from '../../services/api'
 
 export default {
-  name: 'Reviews',
+  name: 'Replies',
   data () {
     return {
-      tableDataReviews: [],
-      likeTotal: 0,
+      tableDataReplies: [],
       currentPage: 1,
       pageSize: 10,
       totalCount: 0
@@ -72,36 +64,48 @@ export default {
     }
   },
   mounted () {
-    this.getReviewList()
-    this.getLikeTotal()
+    this.getReplyList()
   },
   methods: {
-    getLikeTotal () {
-      UserService.userRecord().then(
+    getReplyList () {
+      ReviewService.getReplyByUid(this.currentPage, this.pageSize).then(
         res => {
-          this.likeTotal = res.likeTotal
-        }
-      ).catch(() => {
-      })
-    },
-    getReviewList () {
-      ReviewService.getByUid(this.currentPage, this.pageSize, this.user.uid).then(
-        res => {
-          this.tableDataReviews = res.result
+          this.tableDataReplies = res.result
           this.totalCount = res.total
         }
       ).catch(() => {
       })
     },
-    updateReview (row) {
-      this.$router.push({ path: '/review/update', query: { mid: row.mid, rid: row.id } })
+    prepareReply (replyId, content) {
+      this.$prompt('Update your reply', 'Update', {
+        confirmButtonText: 'Sure',
+        cancelButtonText: 'Cancel',
+        inputValue: content
+      }).then(({ value }) => {
+        this.updateReply.id = replyId
+        this.updateReply.content = value
+        ReviewService.updateReply(this.updateReply).then(
+          res => {
+            if (res) {
+              this.$message.success('Update submitted')
+              this.getReplyList()
+            }
+          }
+        ).catch(() => {
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'cancel update'
+        })
+      })
     },
-    deleteReview (row) {
-      ReviewService.deleteReview(row.id).then(
+    deleteReply (id) {
+      ReviewService.deleteReply(id).then(
         res => {
           if (res) {
             this.$message.success('Success')
-            this.getReviewList()
+            this.getReplyList()
           }
         }
       ).catch(() => {
@@ -112,11 +116,11 @@ export default {
     },
     sizeChange (size) {
       this.pageSize = size
-      this.getReviewList()
+      this.getReplyList()
     },
     pageChange (page) {
       this.currentPage = page
-      this.getReviewList()
+      this.getReplyList()
     }
   }
 }
@@ -124,7 +128,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .review-table {
+  .reply-table {
     span {
       margin-left: 5px;
     }

@@ -182,6 +182,19 @@ export class UserService {
     })
   }
 
+  static getFollower (pageNum, pageSize) {
+    return axios.get(`/user/follower`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static createFollowing (toId) {
     return axios.put(`/user/following`, {}, {
       params: {
@@ -348,6 +361,26 @@ export class ReviewService {
     })
   }
 
+  static updateReview (review) {
+    return axios.put(`/review`, review).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteReview (id) {
+    return axios.delete(`/review`, {
+      params: {
+        id: id
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static getHotReview () {
     return axios.get(`/review/hot`).then(res => {
       return Promise.resolve(res.result)
@@ -445,6 +478,26 @@ export class ReviewService {
     })
   }
 
+  static updateReply (reply) {
+    return axios.put(`/review/reply`, reply).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static deleteReply (id) {
+    return axios.delete(`/review/reply`, {
+      params: {
+        id: id
+      }
+    }).then(res => {
+      return Promise.resolve(res.result)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static getReplyByRid (pageNum, pageSize, rid) {
     return axios.get(`/review/reply/getByRid`, {
       params: {
@@ -453,6 +506,19 @@ export class ReviewService {
         param: {
           rid: rid || null
         }
+      }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
+  static getReplyByUid (pageNum, pageSize) {
+    return axios.get(`/review/reply/getByUid`, {
+      params: {
+        pageNum: pageNum || 1,
+        pageSize: pageSize || 5
       }
     }).then(res => {
       return Promise.resolve(res)

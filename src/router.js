@@ -108,9 +108,24 @@ export default new Router({
           component: () => import('./views/user-center/Reviews.vue')
         },
         {
+          path: 'replies',
+          name: 'Replies',
+          component: () => import('./views/user-center/Replies.vue')
+        },
+        {
           path: 'collects',
           name: 'Collects',
           component: () => import('./views/user-center/Collects.vue')
+        },
+        {
+          path: 'followings',
+          name: 'Followings',
+          component: () => import('./views/user-center/Followings.vue')
+        },
+        {
+          path: 'followers',
+          name: 'Followers',
+          component: () => import('./views/user-center/Followers.vue')
         }
       ]
     },
@@ -166,6 +181,11 @@ export default new Router({
           path: 'following',
           name: 'following',
           component: () => import('./views/review/Following.vue')
+        },
+        {
+          path: 'update',
+          name: 'update',
+          component: () => import('./views/review/Update.vue')
         }
       ]
     }

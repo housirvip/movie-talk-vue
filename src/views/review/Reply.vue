@@ -42,10 +42,16 @@
           {{reply.content}}
         </el-row>
       </el-col>
-      <el-col :span="2" :offset="18">
+      <el-col :span="2" :offset="15">
         <p>
           <el-link icon="el-icon-warning" type="primary" @click="prepareReport(reply.id)">Report</el-link>
         </p>
+      </el-col>
+      <el-col :span="2">
+        <el-button type="success" v-show="reply.uid===uid" size="medium" @click="prepareReply(reply.id, reply.content)">Update</el-button>
+      </el-col>
+      <el-col :span="2">
+        <el-button type="info" v-show="reply.uid===uid" size="medium" @click="deleteReply(reply.id)">Delete</el-button>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
@@ -92,8 +98,14 @@ export default {
         rid: this.$route.query.rid,
         content: ''
       },
+      updateReply: {},
       showReport: false,
       replyId: 0
+    }
+  },
+  computed: {
+    uid: function () {
+      return this.$store.state.global.user.uid
     }
   },
   mounted () {
@@ -104,6 +116,30 @@ export default {
     prepareReport (replyId) {
       this.replyId = replyId
       this.showReport = true
+    },
+    prepareReply (replyId, content) {
+      this.$prompt('Update your reply', 'Update', {
+        confirmButtonText: 'Sure',
+        cancelButtonText: 'Cancel',
+        inputValue: content
+      }).then(({ value }) => {
+        this.updateReply.id = replyId
+        this.updateReply.content = value
+        ReviewService.updateReply(this.updateReply).then(
+          res => {
+            if (res) {
+              this.$message.success('Update submitted')
+              this.getReplyList()
+            }
+          }
+        ).catch(() => {
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'cancel update'
+        })
+      })
     },
     submitReply () {
       ReviewService.createReply(this.reply).then(
@@ -129,6 +165,17 @@ export default {
         res => {
           this.replyList = res.result
           this.totalCount = res.total
+        }
+      ).catch(() => {
+      })
+    },
+    deleteReply (id) {
+      ReviewService.deleteReply(id).then(
+        res => {
+          if (res) {
+            this.$message.success('Success')
+            this.getReplyList()
+          }
         }
       ).catch(() => {
       })

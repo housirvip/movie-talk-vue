@@ -1,24 +1,19 @@
 <template>
-  <div class="collects">
+  <div class="followings">
     <el-container>
       <el-main>
-        You has collected {{totalCount}} movies totally.
+        You have follow {{totalCount}} users totally.
         <el-table
-          :data="tableDataCollects"
-          class="movie-table">
-          <el-table-column label="Mid">
+          :data="tableDataFollowings"
+          class="following-table">
+          <el-table-column label="User" width="1000">
             <template slot-scope="scope">
-              <el-link :underline="false" @click="toMovieDetail(scope.row)">{{scope.row.mid}}</el-link>
+              <el-link :underline="false" @click="toFriend(scope.row)">{{scope.row.toName}}</el-link>
             </template>
           </el-table-column>
-          <el-table-column label="Title">
+          <el-table-column label="Operate" width="200">
             <template slot-scope="scope">
-              <span>{{scope.row.title}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="Operation">
-            <template slot-scope="scope">
-              <el-button type="primary" @click="deleteCollect(scope.row)">UnCollect</el-button>
+              <el-button type="primary" size="medium" @click="unFollow(scope.row.uid)">UnFollow</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -39,13 +34,13 @@
 </template>
 
 <script>
-import { MovieService } from '../../services/api'
+import { UserService } from '../../services/api'
 
 export default {
-  name: 'Collects',
+  name: 'Followings',
   data () {
     return {
-      tableDataCollects: [],
+      tableDataFollowings: [],
       currentPage: 1,
       pageSize: 10,
       totalCount: 0
@@ -57,39 +52,39 @@ export default {
     }
   },
   mounted () {
-    this.getCollectTotal()
+    this.getFollowingList()
   },
   methods: {
-    getCollectTotal () {
-      MovieService.getCollectByUid(this.currentPage, this.pageSize).then(
+    getFollowingList () {
+      UserService.getFollowing(this.currentPage, this.pageSize).then(
         res => {
-          this.tableDataCollects = res.result
+          this.tableDataFollowings = res.result
           this.totalCount = res.total
         }
       ).catch(() => {
       })
     },
-    toMovieDetail (row) {
-      this.$router.push({ path: '/movie/detail', query: { id: row.mid } })
-    },
-    deleteCollect (row) {
-      MovieService.deleteCollect(row.mid).then(
+    unFollow (id) {
+      UserService.deleteFollowing(id).then(
         res => {
           if (res) {
             this.$message.success('Success')
-            this.getCollectTotal()
+            this.getFollowingList()
           }
         }
       ).catch(() => {
       })
     },
+    toFriend (row) {
+      this.$router.push({ path: '/review/friend', query: { uid: row.toId } })
+    },
     sizeChange (size) {
       this.pageSize = size
-      this.getCollectTotal()
+      this.getFollowingList()
     },
     pageChange (page) {
       this.currentPage = page
-      this.getCollectTotal()
+      this.getFollowingList()
     }
   }
 }
@@ -97,7 +92,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .movie-table {
+  .following-table {
     span {
       margin-left: 5px;
     }

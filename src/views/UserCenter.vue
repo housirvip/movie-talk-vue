@@ -13,9 +13,21 @@
             <i class="el-icon-menu"></i>
             <span slot="title">Reviews</span>
           </el-menu-item>
+          <el-menu-item index="replies">
+            <i class="el-icon-menu"></i>
+            <span slot="title">Replies</span>
+          </el-menu-item>
           <el-menu-item index="collects">
             <i class="el-icon-menu"></i>
             <span slot="title">Collects</span>
+          </el-menu-item>
+          <el-menu-item index="followings">
+            <i class="el-icon-menu"></i>
+            <span slot="title">Followings</span>
+          </el-menu-item>
+          <el-menu-item index="followers">
+            <i class="el-icon-menu"></i>
+            <span slot="title">Followers</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -42,6 +54,12 @@ export default {
         this.defaultActive = 'reviews'
       } else if (this.$route.path.endsWith('/collects')) {
         this.defaultActive = 'collects'
+      } else if (this.$route.path.endsWith('/replies')) {
+        this.defaultActive = 'replies'
+      } else if (this.$route.path.endsWith('/followings')) {
+        this.defaultActive = 'followings'
+      } else if (this.$route.path.endsWith('/followers')) {
+        this.defaultActive = 'followers'
       } else {
         this.defaultActive = 'dashboard'
       }

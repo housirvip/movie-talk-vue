@@ -71,7 +71,7 @@
             <p class="title-p">{{review.title}}</p>
             <p>{{review.content}}</p>
             <el-row class="row-bg" justify="end">
-              <el-col :span="2" :offset="15">
+              <el-col :span="2" :offset="14">
                 <p>
                   <el-link icon="el-icon-warning" type="primary" @click="prepareReport(review.id)">Report</el-link>
                 </p>
@@ -83,6 +83,12 @@
               </el-col>
               <el-col :span="2">
                 <el-button type="primary" size="medium" @click="toWriteReply(review.id,review.uid)">Reply</el-button>
+              </el-col>
+              <el-col :span="2">
+                <el-button type="success" v-show="review.uid===user.uid" size="medium" @click="updateReview(review.id)">Update</el-button>
+              </el-col>
+              <el-col :span="2">
+                <el-button type="info" v-show="review.uid===user.uid" size="medium" @click="deleteReview(review.id)">Delete</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -133,6 +139,11 @@ export default {
       reviewId: 0,
       isCollect: 0,
       collect: {}
+    }
+  },
+  computed: {
+    user: function () {
+      return this.$store.state.global.user
     }
   },
   mounted () {
@@ -192,6 +203,20 @@ export default {
         res => {
           this.totalCount = res.total
           this.reviewList = res.result
+        }
+      ).catch(() => {
+      })
+    },
+    updateReview (rid) {
+      this.$router.push({ path: '/review/update', query: { mid: this.movie.id.toString(), rid: rid } })
+    },
+    deleteReview (id) {
+      ReviewService.deleteReview(id).then(
+        res => {
+          if (res) {
+            this.$message.success('Success')
+            this.getReviews()
+          }
         }
       ).catch(() => {
       })
