@@ -148,6 +148,15 @@ export class UserService {
       })
   }
 
+  static adminRecord () {
+    return axios.get('user/adminRecord')
+      .then(res => {
+        return Promise.resolve(res.result)
+      }).catch(error => {
+        return Promise.reject(error)
+      })
+  }
+
   static infoChange (info) {
     return axios.put('user/info', info)
       .then(res => {

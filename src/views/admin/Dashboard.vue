@@ -16,13 +16,13 @@
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card">
           <p>Replies</p>
-          <p>{{systemRecord.repliesTotal}}</p>
+          <p>{{systemRecord.replyTotal}}</p>
         </el-card>
       </el-col>
       <el-col class="tag-card-wrapper">
         <el-card class="tag-card">
           <p>Reports / Unsolved</p>
-          <p>{{systemRecord.reportsTotal}} / 4</p>
+          <p>{{systemRecord.reportTotal}} / {{systemRecord.reportUnsolveTotal}}</p>
         </el-card>
       </el-col>
     </el-row>
@@ -44,6 +44,7 @@
 import VeLine from 'v-charts/lib/line.common'
 import VePie from 'v-charts/lib/pie.common'
 import VeRadar from 'v-charts/lib/radar.common'
+import { UserService } from '../../services/api'
 
 export default {
   name: 'AdminDashboard',
@@ -56,15 +57,8 @@ export default {
     return {
       systemRecord: {},
       chartData: {
-        columns: ['Date', 'Visitor', 'Liker', 'Ratio'],
-        rows: [
-          { 'Date': '11/1', 'Visitor': 1393, 'Liker': 1093, 'Ratio': 0.32 },
-          { 'Date': '11/2', 'Visitor': 3530, 'Liker': 3230, 'Ratio': 0.26 },
-          { 'Date': '11/3', 'Visitor': 2923, 'Liker': 2623, 'Ratio': 0.76 },
-          { 'Date': '11/4', 'Visitor': 1723, 'Liker': 1423, 'Ratio': 0.49 },
-          { 'Date': '11/5', 'Visitor': 3792, 'Liker': 3492, 'Ratio': 0.323 },
-          { 'Date': '11/6', 'Visitor': 4593, 'Liker': 4293, 'Ratio': 0.78 }
-        ]
+        columns: ['date', 'visitor', 'liker', 'ratio'],
+        rows: []
       }
     }
   },
@@ -78,18 +72,13 @@ export default {
   },
   methods: {
     getUserRecord () {
-      this.systemRecord = {
-        userTotal: 6,
-        reviewTotal: 15,
-        repliesTotal: 12,
-        reportsTotal: 8
-      }
-      // UserService.systemRecord().then(
-      //   res => {
-      //     this.systemRecord = res
-      //   }
-      // ).catch(() => {
-      // })
+      UserService.adminRecord().then(
+        res => {
+          this.systemRecord = res
+          this.chartData.rows = res.webDataRecordList
+        }
+      ).catch(() => {
+      })
     }
   }
 }
