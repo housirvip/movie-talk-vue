@@ -31,9 +31,14 @@
         <el-card shadow="hover" class="user-card" :body-style="{ padding: '0px' }">
           <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"/>
           <el-upload
+            ref="upload"
             class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :limit="1">
+            action=""
+            name="upFile"
+            :http-request="uploadAvatar"
+            :limit="1"
+            :before-upload="beforeAvatarUpload"
+            :show-file-list="false">
             <el-button type="text">click to change</el-button>
           </el-upload>
         </el-card>
@@ -231,6 +236,26 @@ export default {
     this.getUserRecord()
   },
   methods: {
+    beforeAvatarUpload (file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isJPG) {
+        this.$message.error('The file type must be JPG!')
+      }
+      if (!isLt2M) {
+        this.$message.error('The file size must less than 2MB!')
+      }
+      return isJPG && isLt2M
+    },
+    uploadAvatar (file) {
+      UserService.uploadAvatar(file.file).then(res => {
+        this.$message.success('User avatar Changed')
+      }).catch(() => {
+      })
+
+      this.$refs.upload.clearFiles()
+    },
     modifyUserInfoDialog: function () {
       this.modifyUserInfo = true
       let user = this.user

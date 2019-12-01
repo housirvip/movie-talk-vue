@@ -130,6 +130,18 @@ export class UserService {
     })
   }
 
+  static uploadAvatar (file) {
+    const formData = new FormData()
+    formData.append('upFile', file)
+    return axios.post(`/user/avatar`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(res => {
+      return Promise.resolve(res)
+    }).catch(error => {
+      return Promise.reject(error)
+    })
+  }
+
   static friendDetail (id) {
     return axios.get('user/friend', { params: { id: id } })
       .then(res => {
