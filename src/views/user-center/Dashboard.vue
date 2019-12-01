@@ -236,11 +236,15 @@ export default {
   },
   mounted () {
     this.getUserRecord()
-    if (this.user.avatar) {
-      this.avatar = 'http://35.193.61.114/avatar/' + this.user.uid + '/' + this.user.avatar
-    }
+    this.getAvatar()
   },
   methods: {
+    getAvatar () {
+      UserService.friendDetail(this.user.uid).then(res => {
+        this.avatar = 'http://35.193.61.114/avatar/' + this.user.uid + '/' + res.userInfo.avatar
+      }).catch(() => {
+      })
+    },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2

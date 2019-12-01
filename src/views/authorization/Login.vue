@@ -63,7 +63,7 @@ export default {
             // if logged in, get detail from server
             UserService.detail()
             // redirect to user center
-            this.$router.push({ path: '/user-center' })
+            this.$router.push({ path: '/' })
           }).catch(() => {})
         } else {
           this.$message.error('Form error, please correct it')
