@@ -243,11 +243,11 @@ export default {
   },
   methods: {
     beforeAvatarUpload (file) {
-      const isJPG = file.type === 'image/jpeg'
+      const isJPG = file.type === 'image/jpeg' || 'image/png'
       const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isJPG) {
-        this.$message.error('The file type must be JPG!')
+        this.$message.error('The file type must be JPG/PNG!')
       }
       if (!isLt2M) {
         this.$message.error('The file size must less than 2MB!')
