@@ -8,7 +8,7 @@ import * as types from './services/types'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   // set scroll position to 0,0 for every router jump, same as go to top
   scrollBehavior (to, from, savedPosition) {

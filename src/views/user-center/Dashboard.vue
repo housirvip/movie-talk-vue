@@ -29,7 +29,8 @@
     <el-row>
       <el-col :span="3" :offset="2">
         <el-card shadow="hover" class="user-card" :body-style="{ padding: '0px' }">
-          <el-image :src="user.avatar?'http://35.193.61.114/avatar/'+user.avatar:'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'"/>
+          <el-image
+            :src="avatar"/>
           <el-upload
             ref="upload"
             class="upload-demo"
@@ -184,6 +185,7 @@ export default {
       modifyUserInfo: false,
       modifyPassword: false,
       userRecord: {},
+      avatar: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
       infoForm: {
         sex: '',
         state: '',
@@ -234,6 +236,9 @@ export default {
   },
   mounted () {
     this.getUserRecord()
+    if (this.user.avatar) {
+      this.avatar = 'http://35.193.61.114/avatar/' + this.user.avatar
+    }
   },
   methods: {
     beforeAvatarUpload (file) {
@@ -250,10 +255,12 @@ export default {
     },
     uploadAvatar (file) {
       UserService.uploadAvatar(file.file).then(res => {
+        UserService.detail().then(res => {
+          this.avatar = 'http://35.193.61.114/avatar/' + this.user.avatar
+        })
         this.$message.success('User avatar Changed')
       }).catch(() => {
       })
-
       this.$refs.upload.clearFiles()
     },
     modifyUserInfoDialog: function () {
