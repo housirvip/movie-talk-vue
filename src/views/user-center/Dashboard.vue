@@ -237,7 +237,7 @@ export default {
   mounted () {
     this.getUserRecord()
     if (this.user.avatar) {
-      this.avatar = 'http://35.193.61.114/avatar/' + this.user.avatar
+      this.avatar = 'http://35.193.61.114/avatar/' + this.user.uid + '/' + this.user.avatar
     }
   },
   methods: {
@@ -255,7 +255,7 @@ export default {
     },
     uploadAvatar (file) {
       UserService.uploadAvatar(file.file).then(res => {
-        this.avatar = 'http://35.193.61.114/avatar/' + this.user.uid + '.jpg'
+        this.avatar = 'http://35.193.61.114/avatar/' + this.user.uid + '/' + res.result
         this.$message.success('User avatar Changed')
       }).catch(() => {
       })

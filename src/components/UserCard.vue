@@ -27,7 +27,7 @@ export default {
     UserService.friendDetail(this.uid).then(res => {
       let info = res.userInfo
       if (info.avatar) {
-        this.avatar = 'http://35.193.61.114/avatar/' + info.avatar
+        this.avatar = 'http://35.193.61.114/avatar/' + this.uid + '/' + info.avatar
       }
     })
   },
