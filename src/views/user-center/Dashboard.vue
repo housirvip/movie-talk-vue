@@ -29,7 +29,7 @@
     <el-row>
       <el-col :span="3" :offset="2">
         <el-card shadow="hover" class="user-card" :body-style="{ padding: '0px' }">
-          <el-image src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"/>
+          <el-image :src="'http://35.193.61.114/avatar/{{user.uid}}/avatar.jpg' || 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'"/>
           <el-upload
             ref="upload"
             class="upload-demo"
