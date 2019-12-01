@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { ReviewService, UserService } from '../../services/api'
+import { ReviewService } from '../../services/api'
 
 export default {
   name: 'Replies',
