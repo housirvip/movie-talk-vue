@@ -2,7 +2,7 @@
   <div class="followings">
     <el-container>
       <el-main>
-        You have follow {{totalCount}} users totally.
+        You have followed {{totalCount}} users totally.
         <el-table
           :data="tableDataFollowings"
           class="following-table">
