@@ -99,7 +99,7 @@ export default {
     return {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       friend: {
-        uid: 3,
+        uid: this.$route.query.uid,
         username: '',
         sex: '',
         birthday: ''
@@ -141,7 +141,6 @@ export default {
               review.isLike = 0
               review.likeTotal--
             }
-            console.log(res)
           }
         ).catch(() => {
         })
@@ -153,7 +152,6 @@ export default {
               review.isLike = 1
               review.likeTotal++
             }
-            console.log(res)
           }
         ).catch(() => {
         })

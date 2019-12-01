@@ -25,7 +25,6 @@ export default {
   },
   mounted () {
     UserService.friendDetail(this.uid).then(res => {
-      console.log(res)
       let info = res.userInfo
       if (info.avatar) {
         this.avatar = 'http://35.193.61.114/avatar/' + info.avatar

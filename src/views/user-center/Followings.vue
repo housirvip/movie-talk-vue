@@ -13,7 +13,7 @@
           </el-table-column>
           <el-table-column label="Operate" width="200">
             <template slot-scope="scope">
-              <el-button type="primary" size="medium" @click="unFollow(scope.row.uid)">UnFollow</el-button>
+              <el-button type="primary" size="medium" @click="unFollow(scope.row.toId)">UnFollow</el-button>
             </template>
           </el-table-column>
         </el-table>

@@ -55,7 +55,8 @@ export default {
       tableDataReplies: [],
       currentPage: 1,
       pageSize: 10,
-      totalCount: 0
+      totalCount: 0,
+      updateReply: {}
     }
   },
   computed: {
@@ -112,7 +113,7 @@ export default {
       })
     },
     toWriteReply (row) {
-      this.$router.push({ path: '/review/reply', query: { uid: row.uid, rid: row.id } })
+      this.$router.push({ path: '/review/reply', query: { uid: row.uid, rid: row.rid } })
     },
     sizeChange (size) {
       this.pageSize = size

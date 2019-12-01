@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="3">
-        <user-card :uid="review.uid" :username="review.username"></user-card>
+        <user-card :uid=this.$route.query.uid :username="review.username"></user-card>
       </el-col>
       <el-col :span="19" :offset="1">
         <h2>
