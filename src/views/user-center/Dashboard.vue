@@ -256,7 +256,7 @@ export default {
     uploadAvatar (file) {
       UserService.uploadAvatar(file.file).then(res => {
         UserService.detail().then(res => {
-          this.avatar = 'http://35.193.61.114/avatar/' + this.user.avatar
+          this.avatar = 'http://35.193.61.114/avatar/' + res.userInfo.avatar
         })
         this.$message.success('User avatar Changed')
       }).catch(() => {
